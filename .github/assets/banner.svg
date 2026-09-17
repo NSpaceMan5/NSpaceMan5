@@ -1,492 +1,499 @@
-<svg xmlns="http://www.w3.org/2000/svg"
-     viewBox="0 0 1600 800" width="1600" height="800"
-     shape-rendering="crispEdges"
-     role="img"
-     aria-labelledby="bannerTitle bannerDesc">
-  <title id="bannerTitle">VynJustHumant — Retro-Futuristik Y2K × Prasejarah Purba</title>
-  <desc id="bannerDesc">Banner pixel art yang membelah rawa purba dan laut purba lewat irisan diagonal 30 derajat, dengan nama menyala neon cyan di tengah.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 800" width="1600" height="800"
+     role="img" aria-labelledby="vynTitle vynDesc" preserveAspectRatio="xMidYMid meet">
+  <title id="vynTitle">VynJustHumant — banner pixel art retro-futuristik Y2K × prasejarah purba</title>
+  <desc id="vynDesc">Banner 1600×800. Rawa purba berkabut di kiri-atas dan laut purba gelap di kanan-bawah, dipisahkan garis diagonal. Nama VynJustHumant menyala neon cyan-magenta di tengah atas. Ammonite bercahaya berenang lambat di laut, tumbuhan karnivora purba berdiri di latar depan, gelembung dan plankton bergerak halus, dengan overlay scanline CRT.</desc>
 
-  <!-- ═══════════════════════════════════════════════════════════
-       DEFS — filters, gradients, patterns, clips
-       ═══════════════════════════════════════════════════════════ -->
   <defs>
-    <!-- ── Gradients ── -->
-    <linearGradient id="swampBg" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0"   stop-color="#0a1410"/>
-      <stop offset="0.6" stop-color="#12241a"/>
-      <stop offset="1"   stop-color="#0e1a14"/>
-    </linearGradient>
-    <linearGradient id="oceanBg" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0"   stop-color="#0a1a2e"/>
-      <stop offset="0.5" stop-color="#071523"/>
-      <stop offset="1"   stop-color="#02060b"/>
-    </linearGradient>
-    <linearGradient id="swampWater" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0"   stop-color="#1a3a2a" stop-opacity="0.9"/>
-      <stop offset="1"   stop-color="#08160f" stop-opacity="1"/>
-    </linearGradient>
-    <linearGradient id="lightRay" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0"   stop-color="#7fe9ff" stop-opacity="0.35"/>
-      <stop offset="1"   stop-color="#7fe9ff" stop-opacity="0"/>
+    <!-- ============ PALET (32 warna) ============
+         Rawa   : #08130d #0c1c13 #11251a #162e1f #1b3724 #2f4a2c #486b34 #6b8f3e
+         Laut   : #12718a #0e4a5e #0b2f42 #082434 #061b28 #04121c #030b12 #01060a
+         Fosil  : #6d5f47 #8a7a5c #b3a37e #d6c9a3
+         Neon   : #22e6ff #ff3fd0 #6bff8f #ffe94d
+         Netral : #02050a #14181f #eaf6ff
+    ============================================ -->
+
+    <linearGradient id="gSwamp" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="660">
+      <stop offset="0" stop-color="#08130d"/><stop offset=".22" stop-color="#08130d"/>
+      <stop offset=".22" stop-color="#0c1c13"/><stop offset=".44" stop-color="#0c1c13"/>
+      <stop offset=".44" stop-color="#11251a"/><stop offset=".66" stop-color="#11251a"/>
+      <stop offset=".66" stop-color="#162e1f"/><stop offset=".86" stop-color="#162e1f"/>
+      <stop offset=".86" stop-color="#1b3724"/><stop offset="1" stop-color="#1b3724"/>
     </linearGradient>
 
-    <!-- ── Neon glows ── -->
-    <filter id="glowCyan" x="-40%" y="-40%" width="180%" height="180%">
-      <feGaussianBlur stdDeviation="4" result="b"/>
-      <feMerge>
-        <feMergeNode in="b"/><feMergeNode in="b"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
-    <filter id="glowMagenta" x="-40%" y="-40%" width="180%" height="180%">
-      <feGaussianBlur stdDeviation="3" result="b"/>
-      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
+    <linearGradient id="gOcean" gradientUnits="userSpaceOnUse" x1="0" y1="80" x2="0" y2="800">
+      <stop offset="0" stop-color="#12718a"/><stop offset=".08" stop-color="#12718a"/>
+      <stop offset=".08" stop-color="#0e4a5e"/><stop offset=".22" stop-color="#0e4a5e"/>
+      <stop offset=".22" stop-color="#0b2f42"/><stop offset=".42" stop-color="#0b2f42"/>
+      <stop offset=".42" stop-color="#082434"/><stop offset=".62" stop-color="#082434"/>
+      <stop offset=".62" stop-color="#061b28"/><stop offset=".82" stop-color="#061b28"/>
+      <stop offset=".82" stop-color="#04121c"/><stop offset="1" stop-color="#030b12"/>
+    </linearGradient>
 
-    <!-- ── Chromatic aberration for title ── -->
-    <filter id="chroma" x="-10%" y="-10%" width="120%" height="120%">
-      <feOffset in="SourceGraphic" dx="-1.2" dy="0" result="r"/>
-      <feOffset in="SourceGraphic" dx="1.2"  dy="0" result="b"/>
-      <feColorMatrix in="r" type="matrix"
-        values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="rC"/>
-      <feColorMatrix in="b" type="matrix"
-        values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" result="bC"/>
-      <feBlend in="SourceGraphic" in2="rC" mode="screen" result="rg"/>
-      <feBlend in="rg" in2="bC" mode="screen"/>
-    </filter>
+    <linearGradient id="gBand" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1600" y2="0">
+      <stop offset="0" stop-color="#02050a" stop-opacity="0"/>
+      <stop offset=".16" stop-color="#02050a" stop-opacity=".80"/>
+      <stop offset=".84" stop-color="#02050a" stop-opacity=".80"/>
+      <stop offset="1" stop-color="#02050a" stop-opacity="0"/>
+    </linearGradient>
 
-    <!-- ── Scanline pattern ── -->
-    <pattern id="scanlines" width="4" height="4" patternUnits="userSpaceOnUse">
-      <rect width="4" height="1" fill="#000" opacity="0.35"/>
-      <rect y="2" width="4" height="1" fill="#000" opacity="0.15"/>
+    <linearGradient id="gRay" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="760">
+      <stop offset="0" stop-color="#22e6ff" stop-opacity=".20"/>
+      <stop offset="1" stop-color="#22e6ff" stop-opacity="0"/>
+    </linearGradient>
+
+    <linearGradient id="gNeonRefl" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#22e6ff" stop-opacity="0"/>
+      <stop offset=".3" stop-color="#22e6ff" stop-opacity=".55"/>
+      <stop offset=".7" stop-color="#6bff8f" stop-opacity=".45"/>
+      <stop offset="1" stop-color="#22e6ff" stop-opacity="0"/>
+    </linearGradient>
+
+    <pattern id="pScan" width="3" height="3" patternUnits="userSpaceOnUse">
+      <rect width="3" height="1" fill="#000000"/>
     </pattern>
 
-    <!-- ── Dither pattern (checker 2px) ── -->
-    <pattern id="dither" width="2" height="2" patternUnits="userSpaceOnUse">
-      <rect width="1" height="1" fill="#fff" opacity="0.06"/>
-      <rect x="1" y="1" width="1" height="1" fill="#fff" opacity="0.06"/>
+    <pattern id="pDither" width="4" height="4" patternUnits="userSpaceOnUse">
+      <rect width="2" height="2" fill="#eaf6ff" opacity=".045"/>
+      <rect x="2" y="2" width="2" height="2" fill="#eaf6ff" opacity=".045"/>
     </pattern>
 
-    <!-- ── Diagonal clips (30° through center) ── -->
-    <clipPath id="swampClip">
-      <polygon points="0,0 1493,0 107,800 0,800"/>
-    </clipPath>
-    <clipPath id="oceanClip">
-      <polygon points="1493,0 1600,0 1600,800 107,800"/>
-    </clipPath>
+    <clipPath id="clipSwamp"><polygon points="0,0 1600,0 1600,90 0,640"/></clipPath>
+    <clipPath id="clipOcean"><polygon points="0,640 1600,90 1600,800 0,800"/></clipPath>
+
+    <!-- ==== Simbol reusable ==== -->
+    <g id="paleoTree">
+      <rect x="-5" y="-200" width="10" height="200" fill="#0a1710"/>
+      <path d="M0,-200 L-40,-170 L-14,-176 L-52,-138 L-18,-148 L-58,-104 L-20,-118 L-30,-72
+               L-8,-96 L0,-60 L8,-96 L30,-72 L20,-118 L58,-104 L18,-148 L52,-138 L14,-176 L40,-170 Z"
+            fill="#0d2117"/>
+    </g>
+
+    <g id="horse">
+      <rect x="-2" y="-140" width="4" height="140" fill="#2f4a2c"/>
+      <g stroke="#486b34" stroke-width="2" stroke-linecap="round">
+        <path d="M0,-30 L-24,-44 M0,-30 L24,-44 M0,-30 L-14,-50 M0,-30 L14,-50"/>
+        <path d="M0,-60 L-22,-72 M0,-60 L22,-72 M0,-60 L-12,-78 M0,-60 L12,-78"/>
+        <path d="M0,-90 L-18,-100 M0,-90 L18,-100 M0,-90 L-10,-106 M0,-90 L10,-106"/>
+        <path d="M0,-116 L-14,-124 M0,-116 L14,-124"/>
+      </g>
+      <path d="M-4,-140 L0,-154 L4,-140 Z" fill="#486b34"/>
+    </g>
+
+    <g id="fern">
+      <path d="M0,0 C -5,-34 -3,-68 0,-100" stroke="#2f4a2c" stroke-width="3" fill="none"/>
+      <g fill="#486b34">
+        <path d="M-2,-28 L-26,-40 L-6,-34 Z"/><path d="M2,-28 L26,-40 L6,-34 Z"/>
+        <path d="M-2,-52 L-24,-64 L-6,-58 Z"/><path d="M2,-52 L24,-64 L6,-58 Z"/>
+        <path d="M-1,-74 L-20,-86 L-4,-80 Z"/><path d="M1,-74 L20,-86 L4,-80 Z"/>
+        <path d="M0,-94 L-14,-104 L-2,-100 Z"/><path d="M0,-94 L14,-104 L2,-100 Z"/>
+      </g>
+    </g>
+
+    <g id="bubble">
+      <circle r="4" fill="none" stroke="#6bff8f" stroke-width="1.5" opacity=".8"/>
+      <circle cx="-1" cy="-1" r="1" fill="#eaf6ff" opacity=".6"/>
+    </g>
+
+    <!-- Ammonite: spiral shell (busur bersambung) -->
+    <g id="ammonite">
+      <path d="M 40,0
+               A 35,35 0 0 0 -30,0
+               A 27,27 0 0 0 24,0
+               A 21,21 0 0 0 -18,0
+               A 15.5,15.5 0 0 0 13,0
+               A 11,11 0 0 0 -9,0
+               A 7.75,7.75 0 0 0 6.5,0
+               A 5.5,5.5 0 0 0 -4.5,0
+               A 3.75,3.75 0 0 0 3,0
+               A 2.5,2.5 0 0 0 -2,0"
+            fill="none" stroke="#b3a37e" stroke-width="4" stroke-linecap="round"/>
+      <g stroke="#8a7a5c" stroke-width="1.6" opacity=".75">
+        <path d="M30,-18 L24,-14 M14,-30 L11,-25 M-8,-30 L-6,-25 M-26,-16 L-21,-13
+                 M-26,16 L-21,13 M-8,30 L-6,25 M14,30 L11,25 M30,18 L24,14"/>
+      </g>
+      <circle r="3" fill="#d6c9a3"/>
+      <!-- tentakel -->
+      <g stroke="#6bff8f" stroke-width="3" stroke-linecap="round" fill="none" opacity=".9">
+        <path d="M40,-6 C 56,-10 66,-2 78,4">
+          <animate attributeName="d"
+            values="M40,-6 C 56,-10 66,-2 78,4;M40,-6 C 58,-2 70,-10 82,-4;M40,-6 C 56,-10 66,-2 78,4"
+            dur="4s" repeatCount="indefinite"/>
+        </path>
+        <path d="M40,0 C 58,2 70,10 82,8">
+          <animate attributeName="d"
+            values="M40,0 C 58,2 70,10 82,8;M40,0 C 58,10 72,2 84,10;M40,0 C 58,2 70,10 82,8"
+            dur="4s" begin="0.25s" repeatCount="indefinite"/>
+        </path>
+        <path d="M40,6 C 56,10 66,18 74,26">
+          <animate attributeName="d"
+            values="M40,6 C 56,10 66,18 74,26;M40,6 C 58,16 70,12 80,22;M40,6 C 56,10 66,18 74,26"
+            dur="4s" begin="0.5s" repeatCount="indefinite"/>
+        </path>
+      </g>
+    </g>
   </defs>
 
-  <!-- ═══════════════════════════════════════════════════════════
-       LAYER 0 — Backdrop
-       ═══════════════════════════════════════════════════════════ -->
-  <rect width="1600" height="800" fill="#05070a"/>
+  <!-- ================================================================
+       LAYER 0 — LATAR DASAR
+  ================================================================= -->
+  <rect width="1600" height="800" fill="#02050a"/>
 
-  <!-- ═══════════════════════════════════════════════════════════
-       LAYER 1 — SWAMP (upper-left, clipped)
-       ═══════════════════════════════════════════════════════════ -->
-  <g clip-path="url(#swampClip)">
-    <rect width="1600" height="800" fill="url(#swampBg)"/>
+  <!-- ================================================================
+       LAYER 1 — RAWA PURBA (kiri-atas)
+  ================================================================= -->
+  <g clip-path="url(#clipSwamp)">
+    <rect width="1600" height="800" fill="url(#gSwamp)"/>
+    <rect width="1600" height="800" fill="url(#pDither)"/>
 
-    <!-- Distant fog layer A (12s drift) -->
-    <g opacity="0.35">
-      <g>
-        <ellipse cx="300" cy="180" rx="420" ry="60" fill="#3a5a48"/>
-        <ellipse cx="900" cy="140" rx="380" ry="50" fill="#2f4a3c"/>
-        <ellipse cx="1400" cy="200" rx="440" ry="55" fill="#3a5a48"/>
+    <!-- kabut jauh (parallax 3 lapis, fase berbeda) -->
+    <g fill="#6bff8f">
+      <ellipse cx="360" cy="120" rx="520" ry="58" opacity=".07">
         <animateTransform attributeName="transform" type="translate"
-          values="0,0; 60,0; 0,0" dur="12s" repeatCount="indefinite"/>
-      </g>
-    </g>
-
-    <!-- Mid fog layer B (8s, opposite phase) -->
-    <g opacity="0.28">
-      <g>
-        <ellipse cx="500" cy="260" rx="380" ry="55" fill="#4a6a55"/>
-        <ellipse cx="1200" cy="300" rx="420" ry="60" fill="#3d5a48"/>
+          values="-140,0;150,0;-140,0" dur="26s" repeatCount="indefinite"/>
+      </ellipse>
+      <ellipse cx="900" cy="300" rx="620" ry="46" opacity=".055">
         <animateTransform attributeName="transform" type="translate"
-          values="0,0; -50,0; 0,0" dur="8s" repeatCount="indefinite"/>
-      </g>
+          values="160,6;-120,-6;160,6" dur="19s" repeatCount="indefinite"/>
+      </ellipse>
+      <ellipse cx="240" cy="480" rx="560" ry="70" opacity=".05">
+        <animateTransform attributeName="transform" type="translate"
+          values="-90,0;110,0;-90,0" dur="13s" repeatCount="indefinite"/>
+      </ellipse>
     </g>
 
-    <!-- Giant mangrove silhouettes (back) -->
-    <g fill="#0a1a12">
-      <path d="M120,800 L120,420 Q100,380 140,340 Q160,300 130,270 Q150,240 180,260 Q200,220 230,250 Q260,230 270,270 Q300,260 300,300 Q330,290 340,330 Q360,320 360,360 L360,800 Z"/>
-      <path d="M480,800 L480,380 Q460,340 500,310 Q520,270 490,240 Q520,210 550,240 Q580,220 590,260 Q620,250 620,290 Q650,280 660,320 L660,800 Z"/>
+    <!-- pohon purba jauh -->
+    <g opacity=".55">
+      <use href="#paleoTree" x="120" y="330" transform="scale(1)"/>
+      <use href="#paleoTree" x="300" y="300" transform="scale(.78)"/>
+      <use href="#paleoTree" x="470" y="270" transform="scale(.6)"/>
+      <use href="#paleoTree" x="640" y="240" transform="scale(.45)"/>
+      <use href="#paleoTree" x="800" y="215" transform="scale(.34)"/>
     </g>
 
-    <!-- Moss detail on mangroves (dither) -->
-    <g opacity="0.5" fill="#2a4a2c">
-      <rect x="118" y="340" width="4" height="60"/>
-      <rect x="126" y="380" width="4" height="40"/>
-      <rect x="356" y="330" width="4" height="80"/>
-      <rect x="478" y="330" width="4" height="70"/>
-      <rect x="656" y="320" width="4" height="90"/>
+    <!-- akar menjuntai -->
+    <g stroke="#0a1710" stroke-width="3" fill="none" opacity=".8">
+      <path d="M120,330 C 118,370 126,400 120,430"/>
+      <path d="M132,330 C 138,365 130,395 138,420"/>
+      <path d="M300,300 C 296,335 306,360 300,390"/>
+      <path d="M470,270 C 466,300 476,325 470,350"/>
     </g>
 
-    <!-- Hanging roots -->
-    <g stroke="#1a2a1c" stroke-width="2" fill="none" stroke-linecap="square">
-      <path d="M140,340 Q150,380 145,420"/>
-      <path d="M180,270 Q185,320 175,360"/>
-      <path d="M230,260 Q240,310 235,350"/>
-      <path d="M500,320 Q510,360 505,400"/>
-      <path d="M550,250 Q560,300 555,340"/>
-    </g>
-
-    <!-- Ferns + Equisetum (mid-ground) -->
-    <g fill="#1e3a20">
-      <!-- left fern cluster -->
-      <g transform="translate(60,700)">
-        <path d="M0,0 L-8,-40 L-4,-42 L0,-30 L4,-42 L8,-40 Z"/>
-        <path d="M0,0 L-20,-30 L-16,-34 L-6,-24 L-4,-34 L0,-24 L4,-34 L8,-30 Z"/>
-      </g>
-      <g transform="translate(220,740)">
-        <path d="M0,0 L-8,-40 L-4,-42 L0,-30 L4,-42 L8,-40 Z"/>
-        <path d="M0,0 L-16,-28 L-12,-32 L-4,-22 Z"/>
-      </g>
-      <!-- Equisetum stalks -->
-      <g stroke="#2a4a2a" stroke-width="2" fill="none">
-        <path d="M340,800 L340,600"/>
-        <path d="M360,800 L360,620"/>
-        <path d="M380,800 L380,640"/>
-      </g>
-      <g fill="#2a4a2a">
-        <rect x="334" y="640" width="12" height="3"/>
-        <rect x="354" y="660" width="12" height="3"/>
-        <rect x="374" y="680" width="12" height="3"/>
-      </g>
-    </g>
-
-    <!-- Swamp water surface -->
+    <!-- ekor kuda & pakis (sway) -->
     <g>
-      <rect x="0" y="600" width="900" height="200" fill="url(#swampWater)"/>
-      <!-- surface waves, 3 phases -->
-      <path d="M0,600 Q100,595 200,600 T400,600 T600,600 T800,600 T1000,600 L1000,605 L0,605 Z"
-            fill="#2a5a3a" opacity="0.7">
-        <animate attributeName="d"
-          values="M0,600 Q100,595 200,600 T400,600 T600,600 T800,600 T1000,600 L1000,605 L0,605 Z;
-                  M0,600 Q100,605 200,600 T400,600 T600,600 T800,600 T1000,600 L1000,605 L0,605 Z;
-                  M0,600 Q100,595 200,600 T400,600 T600,600 T800,600 T1000,600 L1000,605 L0,605 Z"
-          dur="4s" repeatCount="indefinite"/>
-      </path>
-      <!-- cyan reflection streak -->
-      <rect x="0" y="606" width="900" height="2" fill="#3aa8a8" opacity="0.35">
-        <animate attributeName="opacity" values="0.25;0.5;0.25" dur="6s" repeatCount="indefinite"/>
+      <animateTransform attributeName="transform" type="rotate"
+        values="-1.5 180 460;1.5 180 460;-1.5 180 460" dur="9s" repeatCount="indefinite"/>
+      <use href="#horse" x="180" y="460"/>
+      <use href="#horse" x="215" y="470" transform="scale(.85) translate(38,83)"/>
+      <use href="#horse" x="150" y="472" transform="scale(.7) translate(64,202)"/>
+    </g>
+    <g>
+      <animateTransform attributeName="transform" type="rotate"
+        values="1.2 320 450;-1.2 320 450;1.2 320 450" dur="7.5s" repeatCount="indefinite"/>
+      <use href="#fern" x="320" y="450"/>
+      <use href="#fern" x="360" y="455" transform="scale(.8) translate(90,114)"/>
+    </g>
+    <g>
+      <animateTransform attributeName="transform" type="rotate"
+        values="-1 520 400;1 520 400;-1 520 400" dur="11s" repeatCount="indefinite"/>
+      <use href="#fern" x="520" y="400" transform="scale(.62) translate(318,245)"/>
+    </g>
+
+    <!-- permukaan air rawa + pantulan neon -->
+    <g opacity=".9">
+      <path d="M0,560 C 120,552 260,566 400,558 C 540,550 660,566 800,556 L800,600 L0,600 Z"
+            fill="#162e1f" opacity=".55"/>
+      <rect x="0" y="558" width="820" height="3" fill="url(#gNeonRefl)" opacity=".65">
+        <animate attributeName="opacity" values=".4;.85;.4" dur="6s" repeatCount="indefinite"/>
       </rect>
     </g>
 
-    <!-- Methane bubbles rising -->
-    <g fill="#6fd8a8" opacity="0.55">
-      <circle cx="180" cy="780" r="3">
-        <animate attributeName="cy" values="780;560" dur="5s" repeatCount="indefinite"/>
-        <animate attributeName="opacity" values="0;0.7;0" dur="5s" repeatCount="indefinite"/>
-      </circle>
-      <circle cx="320" cy="770" r="2">
-        <animate attributeName="cy" values="770;540" dur="6.5s" begin="1.2s" repeatCount="indefinite"/>
-        <animate attributeName="opacity" values="0;0.6;0" dur="6.5s" begin="1.2s" repeatCount="indefinite"/>
-      </circle>
-      <circle cx="240" cy="790" r="4">
-        <animate attributeName="cy" values="790;580" dur="7s" begin="3s" repeatCount="indefinite"/>
-        <animate attributeName="opacity" values="0;0.5;0" dur="7s" begin="3s" repeatCount="indefinite"/>
-      </circle>
-      <circle cx="120" cy="760" r="2">
-        <animate attributeName="cy" values="760;520" dur="8s" begin="2s" repeatCount="indefinite"/>
-        <animate attributeName="opacity" values="0;0.6;0" dur="8s" begin="2s" repeatCount="indefinite"/>
-      </circle>
+    <!-- gelembung metana -->
+    <g>
+      <use href="#bubble" x="180" y="590">
+        <animateTransform attributeName="transform" type="translate" values="0,0;0,-170" dur="6s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;.9;.9;0" dur="6s" repeatCount="indefinite"/>
+      </use>
+      <use href="#bubble" x="300" y="575">
+        <animateTransform attributeName="transform" type="translate" values="0,0;-6,-200" dur="7.5s" begin="1.2s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;.8;.8;0" dur="7.5s" begin="1.2s" repeatCount="indefinite"/>
+      </use>
+      <use href="#bubble" x="430" y="545">
+        <animateTransform attributeName="transform" type="translate" values="0,0;4,-150" dur="5.2s" begin="2.4s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;.85;.85;0" dur="5.2s" begin="2.4s" repeatCount="indefinite"/>
+      </use>
+      <use href="#bubble" x="540" y="520">
+        <animateTransform attributeName="transform" type="translate" values="0,0;-5,-185" dur="6.8s" begin="3.6s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;.7;.7;0" dur="6.8s" begin="3.6s" repeatCount="indefinite"/>
+      </use>
     </g>
 
-    <!-- Fireflies / data motes -->
-    <g filter="url(#glowCyan)">
-      <circle cx="200" cy="500" r="2" fill="#9df0ff">
-        <animate attributeName="opacity" values="0;1;0" dur="3s" repeatCount="indefinite"/>
+    <!-- kunang-kunang data -->
+    <g fill="#6bff8f">
+      <circle cx="200" cy="380" r="2.5">
+        <animate attributeName="opacity" values="0;1;.2;1;0" dur="6s" repeatCount="indefinite"/>
+        <animateTransform attributeName="transform" type="translate" values="0,0;18,-22;0,0" dur="6s" repeatCount="indefinite"/>
       </circle>
-      <circle cx="380" cy="440" r="2" fill="#b8ff8a">
-        <animate attributeName="opacity" values="0;1;0" dur="4s" begin="1s" repeatCount="indefinite"/>
+      <circle cx="360" cy="300" r="2">
+        <animate attributeName="opacity" values=".1;1;0;1;.1" dur="7.4s" begin="1s" repeatCount="indefinite"/>
+        <animateTransform attributeName="transform" type="translate" values="0,0;-14,-18;0,0" dur="7.4s" begin="1s" repeatCount="indefinite"/>
       </circle>
-      <circle cx="560" cy="520" r="2" fill="#9df0ff">
-        <animate attributeName="opacity" values="0;1;0" dur="5s" begin="2.5s" repeatCount="indefinite"/>
+      <circle cx="500" cy="420" r="2.2">
+        <animate attributeName="opacity" values="0;.9;.15;.9;0" dur="8.2s" begin="2.2s" repeatCount="indefinite"/>
+        <animateTransform attributeName="transform" type="translate" values="0,0;22,-14;0,0" dur="8.2s" begin="2.2s" repeatCount="indefinite"/>
       </circle>
-      <circle cx="680" cy="470" r="2" fill="#b8ff8a">
-        <animate attributeName="opacity" values="0;1;0" dur="3.5s" begin="1.8s" repeatCount="indefinite"/>
+      <circle cx="120" cy="200" r="1.8">
+        <animate attributeName="opacity" values="0;1;0" dur="5.5s" begin="3s" repeatCount="indefinite"/>
+        <animateTransform attributeName="transform" type="translate" values="0,0;12,16;0,0" dur="5.5s" begin="3s" repeatCount="indefinite"/>
       </circle>
     </g>
   </g>
 
-  <!-- ═══════════════════════════════════════════════════════════
-       LAYER 2 — OCEAN (lower-right, clipped)
-       ═══════════════════════════════════════════════════════════ -->
-  <g clip-path="url(#oceanClip)">
-    <rect width="1600" height="800" fill="url(#oceanBg)"/>
+  <!-- ================================================================
+       LAYER 2 — LAUT PURBA (kanan-bawah)
+  ================================================================= -->
+  <g clip-path="url(#clipOcean)">
+    <rect width="1600" height="800" fill="url(#gOcean)"/>
+    <rect width="1600" height="800" fill="url(#pDither)"/>
 
-    <!-- Light rays from surface -->
-    <g opacity="0.7">
-      <polygon points="1100,0 1160,0 1380,800 1240,800" fill="url(#lightRay)">
-        <animate attributeName="opacity" values="0.4;0.8;0.4" dur="8s" repeatCount="indefinite"/>
+    <!-- berkas cahaya dari permukaan -->
+    <g>
+      <polygon points="940,140 1010,120 1180,800 1020,800" fill="url(#gRay)">
+        <animate attributeName="opacity" values=".5;1;.5" dur="9s" repeatCount="indefinite"/>
       </polygon>
-      <polygon points="1300,0 1340,0 1520,800 1440,800" fill="url(#lightRay)">
-        <animate attributeName="opacity" values="0.5;0.9;0.5" dur="6s" begin="1s" repeatCount="indefinite"/>
+      <polygon points="1180,90 1250,80 1480,800 1330,800" fill="url(#gRay)">
+        <animate attributeName="opacity" values="1;.45;1" dur="7s" begin="1.5s" repeatCount="indefinite"/>
       </polygon>
-      <polygon points="1450,0 1500,0 1600,700 1560,800" fill="url(#lightRay)" opacity="0.6"/>
+      <polygon points="1420,60 1470,55 1620,800 1520,800" fill="url(#gRay)">
+        <animate attributeName="opacity" values=".6;1;.6" dur="11s" begin="3s" repeatCount="indefinite"/>
+      </polygon>
     </g>
 
-    <!-- Distant coral silhouettes -->
-    <g fill="#0e2430" opacity="0.9">
-      <path d="M900,800 L900,720 Q880,700 870,720 Q860,700 880,690 L880,700 Q900,680 920,700 L920,690 Q940,700 930,720 Q920,700 900,720 Z"/>
-      <path d="M1050,800 L1050,700 Q1020,690 1000,710 Q1010,680 1040,690 L1040,700 Q1070,680 1100,700 L1100,690 Q1130,710 1110,720 Q1090,700 1060,720 L1060,800 Z"/>
+    <!-- plankton bercahaya -->
+    <g fill="#22e6ff">
+      <circle cx="1100" cy="200" r="1.6" opacity=".7">
+        <animateTransform attributeName="transform" type="translate" values="0,0;-40,60;0,0" dur="14s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values=".2;.9;.2" dur="6s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="1280" cy="320" r="1.4" opacity=".6">
+        <animateTransform attributeName="transform" type="translate" values="0,0;30,70;0,0" dur="17s" begin="2s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values=".7;.15;.7" dur="8s" begin="1s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="1420" cy="480" r="1.8" opacity=".55">
+        <animateTransform attributeName="transform" type="translate" values="0,0;-50,40;0,0" dur="21s" begin="4s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="980" cy="520" r="1.3" opacity=".5">
+        <animateTransform attributeName="transform" type="translate" values="0,0;24,-36;0,0" dur="13s" begin="1s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values=".5;.1;.5" dur="7s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="1200" cy="620" r="1.5" opacity=".45">
+        <animateTransform attributeName="transform" type="translate" values="0,0;-30,-50;0,0" dur="19s" begin="5s" repeatCount="indefinite"/>
+      </circle>
     </g>
 
-    <!-- Mid coral (color hint) -->
-    <g fill="#1a3a3a">
-      <path d="M1150,800 L1150,740 Q1130,720 1120,740 Q1110,720 1130,710 L1130,720 Q1150,700 1170,720 L1170,710 Q1190,720 1180,740 Q1160,720 1150,740 Z"/>
-    </g>
-
-    <!-- Plankton field (drift diagonal, 12s) -->
-    <g fill="#b8f0ff">
-      <animateTransform attributeName="transform" type="translate"
-        values="0,0; -30,-20; 0,0" dur="12s" repeatCount="indefinite"/>
-      <circle cx="980" cy="180" r="1.2" opacity="0.7"/>
-      <circle cx="1080" cy="240" r="1" opacity="0.5"/>
-      <circle cx="1220" cy="200" r="1.4" opacity="0.6"/>
-      <circle cx="1350" cy="320" r="1" opacity="0.4"/>
-      <circle cx="1150" cy="420" r="1.2" opacity="0.55"/>
-      <circle cx="1280" cy="500" r="1" opacity="0.5"/>
-      <circle cx="1420" cy="380" r="1.3" opacity="0.6"/>
-      <circle cx="1520" cy="560" r="1" opacity="0.4"/>
-    </g>
-
-    <!-- Trilobite fossil in sediment -->
-    <g transform="translate(1300,720)" fill="#3a3226">
-      <ellipse cx="0" cy="0" rx="42" ry="20"/>
-      <ellipse cx="-28" cy="0" rx="14" ry="18"/>
-      <g fill="#1a1610">
-        <rect x="-38" y="-6" width="76" height="2"/>
-        <rect x="-38" y="0" width="76" height="2"/>
-        <rect x="-38" y="6" width="76" height="2"/>
-      </g>
-      <!-- legs -->
-      <g stroke="#3a3226" stroke-width="2" fill="none">
-        <path d="M-20,-18 L-26,-28"/>
-        <path d="M-8,-20 L-12,-30"/>
-        <path d="M4,-20 L6,-30"/>
-        <path d="M16,-18 L22,-28"/>
-        <path d="M-20,18 L-26,28"/>
-        <path d="M-8,20 L-12,30"/>
-        <path d="M4,20 L6,30"/>
-        <path d="M16,18 L22,28"/>
+    <!-- terumbu & spons purba -->
+    <g>
+      <path d="M1240,800 L1240,700 C 1230,690 1230,672 1242,664 C 1254,672 1254,690 1244,700 Z" fill="#0e4a5e" opacity=".85"/>
+      <path d="M1290,800 L1290,690 C 1278,678 1278,656 1292,646 C 1306,656 1306,678 1294,690 Z" fill="#0b2f42" opacity=".9"/>
+      <path d="M1340,800 L1340,720 C 1332,712 1332,698 1342,692 C 1352,698 1352,712 1344,720 Z" fill="#0e4a5e" opacity=".7"/>
+      <g fill="#12718a" opacity=".5">
+        <circle cx="1252" cy="640" r="6"/><circle cx="1240" cy="626" r="4"/>
+        <circle cx="1300" cy="628" r="7"/><circle cx="1312" cy="612" r="4.5"/>
+        <circle cx="1350" cy="676" r="5"/>
       </g>
     </g>
 
-    <!-- Belemnite fossil -->
-    <g transform="translate(1480,680) rotate(-15)" fill="#4a4234">
-      <polygon points="0,0 60,-4 60,4 0,0"/>
-      <rect x="0" y="-3" width="6" height="6" fill="#2a2418"/>
+    <!-- siluet fosil trilobit -->
+    <g fill="#6d5f47" opacity=".75" transform="translate(1080,760)">
+      <ellipse cx="0" cy="0" rx="34" ry="15"/>
+      <ellipse cx="0" cy="-2" rx="16" ry="10" fill="#8a7a5c"/>
+      <g stroke="#4d4233" stroke-width="1.5">
+        <path d="M-24,-13 L-24,13 M-16,-14 L-16,14 M-8,-14 L-8,14
+                 M0,-14 L0,14 M8,-14 L8,14 M16,-14 L16,14 M24,-13 L24,13"/>
+      </g>
+      <path d="M34,-8 L46,-16 M34,8 L46,16" stroke="#6d5f47" stroke-width="3" stroke-linecap="round"/>
     </g>
 
-    <!-- ════ AMMONITE — protagonist ════ -->
-    <g filter="url(#glowCyan)">
-      <!-- Trail (behind) -->
-      <g fill="#9df0ff" opacity="0.7">
-        <circle cx="1180" cy="360" r="2"/>
-        <circle cx="1220" cy="370" r="1.5" opacity="0.7"/>
-        <circle cx="1260" cy="380" r="2.2" opacity="0.55"/>
-        <circle cx="1300" cy="390" r="1.6" opacity="0.4"/>
-        <animateTransform attributeName="transform" type="translate"
-          values="0,0; 40,10; 0,0" dur="8s" repeatCount="indefinite"/>
-      </g>
+    <!-- siluet belemnite -->
+    <g fill="#6d5f47" opacity=".6" transform="translate(1470,740) rotate(-16)">
+      <path d="M0,0 L74,-9 L74,9 Z"/>
+      <path d="M0,-4 L-12,-16 M0,4 L-12,16" stroke="#6d5f47" stroke-width="2.5" stroke-linecap="round"/>
+    </g>
 
-      <g>
-        <animateTransform attributeName="transform" type="translate"
-          values="0,0; 20,-15; 40,0; 20,15; 0,0; -30,10; 0,0"
-          dur="8s" repeatCount="indefinite"/>
+    <!-- AMMONITE BERENANG (protagonis) -->
+    <g>
+      <animateMotion dur="8s" repeatCount="indefinite" rotate="auto"
+        path="M 1250,320 C 1420,260 1500,450 1340,560 C 1180,660 1040,520 1120,400 C 1170,320 1230,330 1250,320"/>
+      <!-- trail bioluminesen -->
+      <g opacity=".5">
+        <circle cx="-46" cy="0" r="5" fill="#22e6ff" opacity=".5">
+          <animate attributeName="opacity" values=".6;0;.6" dur="4s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="-70" cy="4" r="3.5" fill="#22e6ff" opacity=".32">
+          <animate attributeName="opacity" values="0;.5;0" dur="4s" begin=".6s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="-92" cy="-3" r="2.5" fill="#6bff8f" opacity=".22">
+          <animate attributeName="opacity" values=".4;0;.4" dur="4s" begin="1.2s" repeatCount="indefinite"/>
+        </circle>
+      </g>
+      <!-- aksen putaran 360° tiap ~6 detik -->
+      <g transform="scale(0.95)">
+        <animateTransform attributeName="transform" type="rotate"
+          values="0;0;0;360;360" keyTimes="0;0.6;0.72;0.95;1"
+          dur="8s" repeatCount="indefinite" additive="sum"/>
+        <use href="#ammonite"/>
+      </g>
+    </g>
+
+    <!-- AMMONITE FOSIL statis (foreground kanan) -->
+    <g transform="translate(1360,742) scale(1.15)" opacity=".9">
+      <use href="#ammonite"/>
+      <circle cx="0" cy="0" r="60" fill="none" stroke="#b3a37e" stroke-width="1" opacity=".12">
+        <animate attributeName="r" values="52;72;52" dur="12s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values=".18;0;.18" dur="12s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+  </g>
+
+  <!-- ================================================================
+       LAYER 3 — GARIS IRIS DIAGONAL (pemisah dua dunia)
+  ================================================================= -->
+  <line x1="0" y1="640" x2="1600" y2="90" stroke="#22e6ff" stroke-width="2" opacity=".28">
+    <animate attributeName="opacity" values=".16;.42;.16" dur="6s" repeatCount="indefinite"/>
+  </line>
+  <line x1="0" y1="643" x2="1600" y2="93" stroke="#6bff8f" stroke-width="1" opacity=".14"/>
+
+  <!-- ================================================================
+       LAYER 4 — FOREGROUND ANCHOR: tumbuhan karnivora + rumput
+  ================================================================= -->
+  <g transform="translate(430,790)">
+    <!-- batang -->
+    <g>
+      <animateTransform attributeName="transform" type="rotate"
+        values="-1.6 0 0;1.6 0 0;-1.6 0 0" dur="8s" repeatCount="indefinite"/>
+      <path d="M0,0 C -10,-90 -6,-190 6,-290" stroke="#2f4a2c" stroke-width="11"
+            fill="none" stroke-linecap="round"/>
+      <path d="M0,0 C -10,-90 -6,-190 6,-290" stroke="#486b34" stroke-width="4"
+            fill="none" stroke-linecap="round" opacity=".8"/>
+
+      <!-- kepala perangkap -->
+      <g transform="translate(6,-290) rotate(-24)">
         <g>
           <animateTransform attributeName="transform" type="rotate"
-            values="0; 5; 0; -5; 0; 180; 360"
-            keyTimes="0; 0.15; 0.3; 0.45; 0.6; 0.8; 1"
+            values="0 0 0;-4 0 0;2 0 0;-1 0 0;0 0 0;0 0 0;0 0 0"
+            keyTimes="0;0.12;0.2;0.28;0.36;0.7;1"
             dur="8s" repeatCount="indefinite"/>
 
-          <!-- Shell (spiral) -->
-          <g transform="translate(1420,400)">
-            <circle r="38" fill="#1a3a4a"/>
-            <path d="M0,0 m-30,0 a30,30 0 1,1 30,30 a22,22 0 1,1 -22,-22 a14,14 0 1,1 14,14 a6,6 0 1,1 -6,-6"
-                  fill="none" stroke="#7fe9ff" stroke-width="2.5"/>
-            <circle r="4" fill="#b8f0ff"/>
-            <!-- Ridges -->
-            <g stroke="#5ac8d8" stroke-width="1" opacity="0.7">
-              <line x1="0" y1="-30" x2="0" y2="-36"/>
-              <line x1="21" y1="-21" x2="25" y2="-26"/>
-              <line x1="30" y1="0" x2="36" y2="0"/>
-              <line x1="21" y1="21" x2="25" y2="26"/>
-              <line x1="0" y1="30" x2="0" y2="36"/>
-              <line x1="-21" y1="21" x2="-25" y2="26"/>
-              <line x1="-30" y1="0" x2="-36" y2="0"/>
-              <line x1="-21" y1="-21" x2="-25" y2="-26"/>
-            </g>
-
-            <!-- Tentacles (with stagger) -->
-            <g stroke="#9df0ff" stroke-width="2" fill="none" stroke-linecap="round">
-              <path d="M-30,0 Q-50,10 -60,30">
-                <animate attributeName="d"
-                  values="M-30,0 Q-50,10 -60,30; M-30,0 Q-55,0 -65,15; M-30,0 Q-50,10 -60,30"
-                  dur="2.5s" repeatCount="indefinite"/>
-              </path>
-              <path d="M-21,21 Q-40,32 -48,55">
-                <animate attributeName="d"
-                  values="M-21,21 Q-40,32 -48,55; M-21,21 Q-45,25 -55,42; M-21,21 Q-40,32 -48,55"
-                  dur="2.5s" begin="0.3s" repeatCount="indefinite"/>
-              </path>
-              <path d="M0,30 Q-10,50 -15,72">
-                <animate attributeName="d"
-                  values="M0,30 Q-10,50 -15,72; M0,30 Q-15,45 -22,62; M0,30 Q-10,50 -15,72"
-                  dur="2.5s" begin="0.6s" repeatCount="indefinite"/>
-              </path>
-            </g>
+          <!-- lobe atas -->
+          <g>
+            <animateTransform attributeName="transform" type="rotate"
+              values="0 0 0;-26 0 0;-24 0 0;0 0 0;0 0 0"
+              keyTimes="0;0.18;0.42;0.58;1"
+              dur="3s" repeatCount="indefinite"/>
+            <path d="M0,0 A 34,38 0 0 0 68,0 Z" fill="#3d5c2e"/>
+            <path d="M0,0 A 34,38 0 0 0 68,0" fill="none" stroke="#5f8a3a" stroke-width="2"/>
+            <path d="M2,0 L8,11 L14,0 L20,11 L26,0 L32,11 L38,0 L44,11 L50,0 L56,11 L62,0 L66,6 L66,-2 Z"
+                  fill="#8fbf4a"/>
           </g>
+
+          <!-- lobe bawah -->
+          <g>
+            <animateTransform attributeName="transform" type="rotate"
+              values="0 0 0;24 0 0;22 0 0;0 0 0;0 0 0"
+              keyTimes="0;0.18;0.42;0.58;1"
+              dur="3s" repeatCount="indefinite"/>
+            <path d="M0,0 A 34,38 0 0 1 68,0 Z" fill="#2f4a2c"/>
+            <path d="M0,0 A 34,38 0 0 1 68,0" fill="none" stroke="#5f8a3a" stroke-width="2"/>
+            <path d="M2,0 L8,-11 L14,0 L20,-11 L26,0 L32,-11 L38,0 L44,-11 L50,0 L56,-11 L62,0 L66,-6 L66,2 Z"
+                  fill="#7aa93e"/>
+          </g>
+
+          <!-- inti bercahaya -->
+          <circle cx="30" cy="0" r="7" fill="#6bff8f" opacity=".5">
+            <animate attributeName="opacity" values=".15;.7;.15" dur="3s" repeatCount="indefinite"/>
+            <animate attributeName="r" values="5;10;5" dur="3s" repeatCount="indefinite"/>
+          </circle>
         </g>
       </g>
     </g>
+
+    <!-- rumput/semak rendah penyatu -->
+    <g fill="#1b3724">
+      <path d="M-140,10 L-128,-34 L-118,-6 L-104,-46 L-96,-4 L-84,-30 L-74,10 Z"/>
+      <path d="M-60,10 L-50,-40 L-40,-10 L-28,-52 L-18,-8 L-6,-36 L4,10 Z"/>
+      <path d="M60,10 L68,-32 L78,-6 L90,-44 L100,-4 L110,-28 L122,10 Z"/>
+    </g>
   </g>
 
-  <!-- ═══════════════════════════════════════════════════════════
-       LAYER 3 — FOREGROUND ANCHOR (on top of both biomes)
-       ═══════════════════════════════════════════════════════════ -->
+  <!-- ================================================================
+       LAYER 5 — TIPOGRAFI NAMA
+  ================================================================= -->
+  <g id="nameLayer">
+    <rect x="0" y="140" width="1600" height="200" fill="url(#gBand)"/>
 
-    <!-- Grass / shrub strip uniting both sides -->
-    <g fill="#0e1f14">
-      <path d="M0,780 Q400,760 800,775 Q1200,790 1600,770 L1600,800 L0,800 Z"/>
-    </g>
-    <g fill="#1a3a24" opacity="0.85">
-      <path d="M60,780 L64,758 L68,780 Z"/>
-      <path d="M120,778 L124,754 L128,778 Z"/>
-      <path d="M180,776 L184,752 L188,776 Z"/>
-      <path d="M240,780 L244,756 L248,780 Z"/>
-      <path d="M720,778 L724,754 L728,778 Z"/>
-      <path d="M780,776 L784,752 L788,776 Z"/>
-      <path d="M1500,772 L1504,748 L1508,772 Z"/>
-      <path d="M1560,770 L1564,746 L1568,770 Z"/>
-    </g>
+    <g font-family="'Orbitron','Michroma','Rajdhani','Eurostile','Bank Gothic','Segoe UI',system-ui,sans-serif"
+       font-size="132" font-weight="700" text-anchor="middle" letter-spacing="6">
 
-    <!-- ── Fossil ammonite (static, center-left) ── -->
-    <g transform="translate(340,640)">
-      <ellipse cx="0" cy="30" rx="70" ry="10" fill="#0a1510" opacity="0.7"/>
-      <circle r="52" fill="#3a3226"/>
-      <circle r="52" fill="url(#dither)" opacity="0.8"/>
-      <path d="M0,0 m-46,0 a46,46 0 1,1 46,46 a36,36 0 1,1 -36,-36 a26,26 0 1,1 26,26 a16,16 0 1,1 -16,-16 a6,6 0 1,1 6,6"
-            fill="none" stroke="#5a5040" stroke-width="3"/>
-      <path d="M0,0 m-46,0 a46,46 0 1,1 46,46 a36,36 0 1,1 -36,-36 a26,26 0 1,1 26,26 a16,16 0 1,1 -16,-16 a6,6 0 1,1 6,6"
-            fill="none" stroke="#8a7a5a" stroke-width="1"/>
-      <!-- dust particles -->
-      <g fill="#c8b88a">
-        <circle cx="-60" cy="-40" r="1" opacity="0.6">
-          <animate attributeName="cy" values="-40;-55" dur="6s" repeatCount="indefinite"/>
-          <animate attributeName="opacity" values="0;0.8;0" dur="6s" repeatCount="indefinite"/>
-        </circle>
-        <circle cx="58" cy="-30" r="1" opacity="0.5">
-          <animate attributeName="cy" values="-30;-48" dur="7s" begin="2s" repeatCount="indefinite"/>
-          <animate attributeName="opacity" values="0;0.7;0" dur="7s" begin="2s" repeatCount="indefinite"/>
-        </circle>
-      </g>
-    </g>
-
-    <!-- ── Venus flytrap (static anchor, center-right) ── -->
-    <g transform="translate(1180,660)">
-      <ellipse cx="0" cy="90" rx="90" ry="12" fill="#0a1510" opacity="0.6"/>
-
-      <!-- Stem (sway 4s) -->
+      <!-- chromatic aberration: magenta -->
       <g>
-        <animateTransform attributeName="transform" type="rotate"
-          values="-2 0 90; 2 0 90; -2 0 90" dur="4s" repeatCount="indefinite"/>
-        <path d="M0,90 Q-10,20 0,-40" stroke="#2a4a2a" stroke-width="8" fill="none" stroke-linecap="square"/>
-
-        <!-- Traps (breathing 3s + occasional snap) -->
-        <g transform="translate(0,-40)">
-          <animateTransform attributeName="transform" type="rotate"
-            values="0; -15; 0" keyTimes="0; 0.75; 1"
-            dur="8s" repeatCount="indefinite"/>
-
-          <!-- Left jaw -->
-          <g>
-            <animateTransform attributeName="transform" type="rotate"
-              values="0; -25; -25; 0; 0" keyTimes="0; 0.02; 0.06; 0.14; 1"
-              dur="3s" repeatCount="indefinite"/>
-            <path d="M0,0 Q-35,-20 -55,-10 Q-60,5 -40,18 Q-20,25 0,20 Z"
-                  fill="#3a1a2a" stroke="#6a2a3a" stroke-width="2"/>
-            <!-- teeth -->
-            <g fill="#e8d8b8">
-              <polygon points="-50,-8 -52,-22 -46,-10"/>
-              <polygon points="-38,-14 -38,-28 -32,-16"/>
-              <polygon points="-24,-18 -22,-30 -18,-18"/>
-            </g>
-            <!-- magenta inner glow -->
-            <path d="M-45,-5 Q-30,-12 -18,-8 Q-20,5 -35,10 Q-45,5 -45,-5 Z"
-                  fill="#8a1a3a" opacity="0.6" filter="url(#glowMagenta)"/>
-          </g>
-
-          <!-- Right jaw -->
-          <g>
-            <animateTransform attributeName="transform" type="rotate"
-              values="0; 25; 25; 0; 0" keyTimes="0; 0.02; 0.06; 0.14; 1"
-              dur="3s" repeatCount="indefinite"/>
-            <path d="M0,0 Q35,-20 55,-10 Q60,5 40,18 Q20,25 0,20 Z"
-                  fill="#3a1a2a" stroke="#6a2a3a" stroke-width="2"/>
-            <g fill="#e8d8b8">
-              <polygon points="50,-8 52,-22 46,-10"/>
-              <polygon points="38,-14 38,-28 32,-16"/>
-              <polygon points="24,-18 22,-30 18,-18"/>
-            </g>
-            <path d="M45,-5 Q30,-12 18,-8 Q20,5 35,10 Q45,5 45,-5 Z"
-                  fill="#8a1a3a" opacity="0.6" filter="url(#glowMagenta)"/>
-          </g>
-        </g>
+        <animateTransform attributeName="transform" type="translate"
+          values="-3,0;-5,0;-3,0" dur="8s" repeatCount="indefinite"/>
+        <text x="800" y="252" fill="#ff3fd0" opacity=".55">
+          VynJustHumant
+          <animate attributeName="opacity" values=".35;.6;.35" dur="4s" repeatCount="indefinite"/>
+        </text>
       </g>
+
+      <!-- chromatic aberration: cyan -->
+      <g>
+        <animateTransform attributeName="transform" type="translate"
+          values="3,0;5,0;3,0" dur="8s" repeatCount="indefinite"/>
+        <text x="800" y="252" fill="#22e6ff" opacity=".55">
+          VynJustHumant
+          <animate attributeName="opacity" values=".6;.35;.6" dur="4s" repeatCount="indefinite"/>
+        </text>
+      </g>
+
+      <!-- inti putih dingin -->
+      <text x="800" y="250" fill="#eaf6ff" stroke="#22e6ff" stroke-width="1.1"
+            paint-order="stroke">
+        VynJustHumant
+        <animate attributeName="opacity" values="1;.94;1;.98;1" dur="8s" repeatCount="indefinite"/>
+      </text>
     </g>
 
-  <!-- ═══════════════════════════════════════════════════════════
-       LAYER 4 — TYPOGRAPHY
-       ═══════════════════════════════════════════════════════════ -->
-  <g transform="translate(800,220)" text-anchor="middle"
-     font-family="Orbitron, Michroma, Rajdhani, ui-monospace, monospace"
-     font-weight="700" letter-spacing="6">
-
-    <!-- soft underglow -->
-    <text y="0" font-size="96" fill="#7fe9ff" opacity="0.35"
-          filter="url(#glowCyan)" style="user-select:none">VynJustHumant</text>
-
-    <!-- chromatic aberration main pass -->
-    <text y="0" font-size="96" fill="#eafcff" filter="url(#chroma)"
-          style="user-select:none">VynJustHumant</text>
-
-    <!-- scanline overlay on letters -->
-    <text y="0" font-size="96" fill="url(#scanlines)" opacity="0.35"
-          style="user-select:none">VynJustHumant</text>
-
-    <!-- flicker (subtil, 8s) -->
-    <text y="0" font-size="96" fill="#ffffff" opacity="0">
-      <animate attributeName="opacity"
-        values="0;0;0.08;0;0;0;0.05;0;0;0;0;0" dur="8s" repeatCount="indefinite"/>
-      VynJustHumant
+    <!-- sub-teks monospace -->
+    <text x="800" y="318" text-anchor="middle"
+          font-family="'IBM Plex Mono','JetBrains Mono','Courier New',monospace"
+          font-size="22" letter-spacing="11" fill="#6bff8f" opacity=".9">
+      PALEO-DATA ARCHAEOLOGIST // Y2K DRIFTER
+      <animate attributeName="opacity" values=".9;.5;.9" dur="6s" repeatCount="indefinite"/>
     </text>
+
+    <!-- sapuan scanline neon -->
+    <rect x="0" y="150" width="1600" height="2" fill="#22e6ff" opacity=".25">
+      <animateTransform attributeName="transform" type="translate"
+        values="0,0;0,170;0,0" dur="8s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;.35;0" dur="8s" repeatCount="indefinite"/>
+    </rect>
   </g>
 
-  <!-- Sub-tagline (monospace) -->
-  <g transform="translate(800,290)" text-anchor="middle"
-     font-family="ui-monospace, JetBrains Mono, monospace"
-     font-size="14" fill="#7fe9ff" letter-spacing="4" opacity="0.8">
-    <text>DISTORTION · LIBRARY</text>
-    <animate attributeName="opacity" values="0.6;0.9;0.6" dur="6s" repeatCount="indefinite"/>
-  </g>
+  <!-- ================================================================
+       LAYER 6 — OVERLAY CRT / RETRO
+  ================================================================= -->
+  <g pointer-events="none">
+    <rect width="1600" height="800" fill="url(#pScan)" opacity=".08">
+      <animate attributeName="opacity" values=".05;.12;.06;.10;.05" dur="5s" repeatCount="indefinite"/>
+    </rect>
 
-  <!-- ═══════════════════════════════════════════════════════════
-       LAYER 5 — CRT OVERLAY
-       ═══════════════════════════════════════════════════════════ -->
-  <!-- global scanlines -->
-  <rect width="1600" height="800" fill="url(#scanlines)" opacity="0.08">
-    <animate attributeName="opacity" values="0.05;0.12;0.05" dur="3s" repeatCount="indefinite"/>
-  </rect>
-  <!-- global dither grain -->
-  <rect width="1600" height="800" fill="url(#dither)" opacity="0.5"/>
-  <!-- vignette -->
-  <radialGradient id="vig" cx="50%" cy="50%" r="75%">
-    <stop offset="0.6" stop-color="#000" stop-opacity="0"/>
-    <stop offset="1"   stop-color="#000" stop-opacity="0.7"/>
-  </radialGradient>
-  <rect width="1600" height="800" fill="url(#vig)" pointer-events="none"/>
+    <!-- flicker CRT sporadis -->
+    <rect width="1600" height="800" fill="#eaf6ff" opacity="0">
+      <animate attributeName="opacity"
+        values="0;0;0;0;0.035;0;0;0;0;0;0.02;0;0;0;0;0;0;0;0;0.03;0;0;0;0"
+        dur="9s" repeatCount="indefinite"/>
+    </rect>
+
+    <!-- vignette -->
+    <rect width="1600" height="800" fill="none" stroke="#02050a" stroke-width="120" opacity=".55"/>
+  </g>
 </svg>
+         
