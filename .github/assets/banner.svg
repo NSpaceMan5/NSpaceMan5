@@ -1,377 +1,492 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="100%" shape-rendering="crispEdges" font-family="'Courier New', monospace">
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 1600 800" width="1600" height="800"
+     shape-rendering="crispEdges"
+     role="img"
+     aria-labelledby="bannerTitle bannerDesc">
+  <title id="bannerTitle">VynJustHumant — Retro-Futuristik Y2K × Prasejarah Purba</title>
+  <desc id="bannerDesc">Banner pixel art yang membelah rawa purba dan laut purba lewat irisan diagonal 30 derajat, dengan nama menyala neon cyan di tengah.</desc>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       DEFS — filters, gradients, patterns, clips
+       ═══════════════════════════════════════════════════════════ -->
   <defs>
-    <linearGradient id="swampGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#0a1410"/>
-      <stop offset="0.6" stop-color="#0f2418"/>
-      <stop offset="1" stop-color="#08120c"/>
+    <!-- ── Gradients ── -->
+    <linearGradient id="swampBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0"   stop-color="#0a1410"/>
+      <stop offset="0.6" stop-color="#12241a"/>
+      <stop offset="1"   stop-color="#0e1a14"/>
     </linearGradient>
-    <linearGradient id="oceanGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#0a1a2e"/>
-      <stop offset="0.5" stop-color="#0c2440"/>
-      <stop offset="1" stop-color="#040a14"/>
+    <linearGradient id="oceanBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0"   stop-color="#0a1a2e"/>
+      <stop offset="0.5" stop-color="#071523"/>
+      <stop offset="1"   stop-color="#02060b"/>
     </linearGradient>
-    <radialGradient id="nameGlowGrad" cx="50%" cy="50%" r="50%">
-      <stop offset="0" stop-color="#22d3ee" stop-opacity="0.5"/>
-      <stop offset="0.5" stop-color="#22d3ee" stop-opacity="0.15"/>
-      <stop offset="1" stop-color="#22d3ee" stop-opacity="0"/>
-    </radialGradient>
+    <linearGradient id="swampWater" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0"   stop-color="#1a3a2a" stop-opacity="0.9"/>
+      <stop offset="1"   stop-color="#08160f" stop-opacity="1"/>
+    </linearGradient>
+    <linearGradient id="lightRay" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0"   stop-color="#7fe9ff" stop-opacity="0.35"/>
+      <stop offset="1"   stop-color="#7fe9ff" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- ── Neon glows ── -->
+    <filter id="glowCyan" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="4" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/><feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="glowMagenta" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
+    <!-- ── Chromatic aberration for title ── -->
+    <filter id="chroma" x="-10%" y="-10%" width="120%" height="120%">
+      <feOffset in="SourceGraphic" dx="-1.2" dy="0" result="r"/>
+      <feOffset in="SourceGraphic" dx="1.2"  dy="0" result="b"/>
+      <feColorMatrix in="r" type="matrix"
+        values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="rC"/>
+      <feColorMatrix in="b" type="matrix"
+        values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" result="bC"/>
+      <feBlend in="SourceGraphic" in2="rC" mode="screen" result="rg"/>
+      <feBlend in="rg" in2="bC" mode="screen"/>
+    </filter>
+
+    <!-- ── Scanline pattern ── -->
+    <pattern id="scanlines" width="4" height="4" patternUnits="userSpaceOnUse">
+      <rect width="4" height="1" fill="#000" opacity="0.35"/>
+      <rect y="2" width="4" height="1" fill="#000" opacity="0.15"/>
+    </pattern>
+
+    <!-- ── Dither pattern (checker 2px) ── -->
+    <pattern id="dither" width="2" height="2" patternUnits="userSpaceOnUse">
+      <rect width="1" height="1" fill="#fff" opacity="0.06"/>
+      <rect x="1" y="1" width="1" height="1" fill="#fff" opacity="0.06"/>
+    </pattern>
+
+    <!-- ── Diagonal clips (30° through center) ── -->
+    <clipPath id="swampClip">
+      <polygon points="0,0 1493,0 107,800 0,800"/>
+    </clipPath>
+    <clipPath id="oceanClip">
+      <polygon points="1493,0 1600,0 1600,800 107,800"/>
+    </clipPath>
   </defs>
 
-  <style>
-    /* === 4 phases: 4s / 6s / 8s / 12s — non-uniform loop === */
-    .ammonite { animation: swim 8s cubic-bezier(0.5, 0, 0.5, 1) infinite; transform-origin: 600px 260px; }
-    @keyframes swim {
-      0%   { transform: translate(0, 0) rotate(0deg); }
-      20%  { transform: translate(-8px, -4px) rotate(-3deg); }
-      45%  { transform: translate(18px, 0) rotate(6deg); }
-      65%  { transform: translate(28px, 3px) rotate(3deg); }
-      85%  { transform: translate(10px, -2px) rotate(-2deg); }
-      100% { transform: translate(0, 0) rotate(0deg); }
-    }
-    .tentacle { animation: wave 2s ease-in-out infinite; transform-origin: center top; }
-    .tentacle.t2 { animation-delay: -0.4s; }
-    .tentacle.t3 { animation-delay: -0.8s; }
-    .tentacle.t4 { animation-delay: -1.2s; }
-    @keyframes wave {
-      0%,100% { transform: scaleY(1) skewX(0deg); }
-      50%     { transform: scaleY(0.85) skewX(3deg); }
-    }
-    .trail { animation: fadeTrail 8s linear infinite; }
-    @keyframes fadeTrail {
-      0%,100% { opacity: 0; }
-      10%     { opacity: 0.8; }
-      80%     { opacity: 0.4; }
-    }
+  <!-- ═══════════════════════════════════════════════════════════
+       LAYER 0 — Backdrop
+       ═══════════════════════════════════════════════════════════ -->
+  <rect width="1600" height="800" fill="#05070a"/>
 
-    .flytrap-body { animation: sway 4s ease-in-out infinite; transform-origin: 100px 320px; }
-    @keyframes sway {
-      0%,100% { transform: rotate(-1.5deg); }
-      50%     { transform: rotate(1.5deg); }
-    }
-    .upper-lobe { animation: snap 6s cubic-bezier(0.6, 0, 0.4, 1) infinite; transform-origin: 100px 300px; }
-    @keyframes snap {
-      0%, 55%, 100% { transform: rotate(0deg); }
-      62%           { transform: rotate(-18deg); }
-      70%           { transform: rotate(2deg); }
-      78%           { transform: rotate(0deg); }
-    }
-    .trap-inner { animation: breathe 3s ease-in-out infinite; }
-    @keyframes breathe {
-      0%,100% { fill: #dc2626; }
-      50%     { fill: #991b1b; }
-    }
+  <!-- ═══════════════════════════════════════════════════════════
+       LAYER 1 — SWAMP (upper-left, clipped)
+       ═══════════════════════════════════════════════════════════ -->
+  <g clip-path="url(#swampClip)">
+    <rect width="1600" height="800" fill="url(#swampBg)"/>
 
-    .bubble { animation: rise 6s linear infinite; }
-    .bubble.b2 { animation-delay: -1.5s; }
-    .bubble.b3 { animation-delay: -3s; }
-    .bubble.b4 { animation-delay: -4.5s; }
-    @keyframes rise {
-      0%   { transform: translateY(0); opacity: 0; }
-      10%  { opacity: 0.85; }
-      90%  { opacity: 0.85; }
-      100% { transform: translateY(-120px); opacity: 0; }
-    }
-
-    .fog { animation: drift 12s linear infinite; }
-    @keyframes drift {
-      0%   { transform: translateX(-30px); opacity: 0.08; }
-      50%  { opacity: 0.18; }
-      100% { transform: translateX(30px); opacity: 0.08; }
-    }
-
-    .plankton { animation: pdrift 10s ease-in-out infinite; }
-    .plankton.p2 { animation-delay: -3s; }
-    .plankton.p3 { animation-delay: -6s; }
-    @keyframes pdrift {
-      0%,100% { transform: translate(0, 0); opacity: 0.6; }
-      50%     { transform: translate(12px, -8px); opacity: 1; }
-    }
-
-    .name-glow { animation: npulse 4s ease-in-out infinite; }
-    @keyframes npulse {
-      0%,100% { filter: drop-shadow(0 0 2px #22d3ee); }
-      50%     { filter: drop-shadow(0 0 6px #22d3ee) drop-shadow(0 0 12px #e879f9); }
-    }
-
-    .scanline { animation: scanmove 8s linear infinite; opacity: 0.06; }
-    @keyframes scanmove {
-      0%   { transform: translateY(0); }
-      100% { transform: translateY(4px); }
-    }
-
-    .crt-flick { animation: flick 4s steps(20) infinite; }
-    @keyframes flick {
-      0%,92%,100% { opacity: 1; }
-      94%         { opacity: 0.85; }
-      96%         { opacity: 1; }
-      98%         { opacity: 0.92; }
-    }
-
-    .firefly { animation: ffly 5s ease-in-out infinite; }
-    .firefly.f2 { animation-delay: -1.5s; }
-    .firefly.f3 { animation-delay: -3s; }
-    @keyframes ffly {
-      0%,100% { opacity: 0.3; transform: translate(0,0); }
-      30%     { opacity: 1; transform: translate(4px,-6px); }
-      60%     { opacity: 0.7; transform: translate(-3px,-2px); }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      * { animation: none !important; }
-    }
-  </style>
-
-  <!-- ================= BACKGROUND ================= -->
-  <rect width="800" height="400" fill="#050a08"/>
-  <rect width="800" height="400" fill="url(#swampGrad)"/>
-  <polygon points="520,0 800,0 800,400 240,400" fill="url(#oceanGrad)"/>
-  <line x1="520" y1="0" x2="240" y2="400" stroke="#22d3ee" stroke-width="1" opacity="0.25"/>
-  <line x1="521" y1="0" x2="241" y2="400" stroke="#e879f9" stroke-width="1" opacity="0.12"/>
-
-  <!-- ================= SWAMP (left/top) ================= -->
-  <!-- Giant tree silhouette -->
-  <g fill="#0a1a10">
-    <rect x="30" y="40" width="18" height="240"/>
-    <rect x="18" y="80" width="12" height="20"/>
-    <rect x="48" y="100" width="14" height="16"/>
-    <rect x="24" y="60" width="60" height="6"/>
-    <rect x="10" y="90" width="70" height="4"/>
-  </g>
-  <!-- Ancient ferns -->
-  <g fill="#12261a">
-    <rect x="180" y="180" width="3" height="120"/>
-    <rect x="168" y="200" width="14" height="3"/>
-    <rect x="184" y="220" width="16" height="3"/>
-    <rect x="166" y="240" width="14" height="3"/>
-    <rect x="184" y="260" width="16" height="3"/>
-
-    <rect x="220" y="220" width="2" height="80"/>
-    <rect x="212" y="235" width="10" height="2"/>
-    <rect x="224" y="255" width="10" height="2"/>
-  </g>
-  <!-- Swamp water -->
-  <rect x="0" y="320" width="500" height="80" fill="#071610" opacity="0.9"/>
-  <g fill="#22d3ee" opacity="0.15">
-    <rect x="60" y="330" width="80" height="1"/>
-    <rect x="200" y="345" width="100" height="1"/>
-    <rect x="340" y="335" width="70" height="1"/>
-    <rect x="120" y="360" width="90" height="1"/>
-  </g>
-  <!-- Fog -->
-  <g class="fog" fill="#22d3ee">
-    <rect x="20" y="240" width="200" height="40" opacity="0.15"/>
-    <rect x="180" y="270" width="180" height="30" opacity="0.1"/>
-  </g>
-  <!-- Fireflies -->
-  <g fill="#4ade80">
-    <rect class="firefly" x="140" y="200" width="2" height="2"/>
-    <rect class="firefly f2" x="260" y="170" width="2" height="2"/>
-    <rect class="firefly f3" x="90" y="250" width="2" height="2"/>
-  </g>
-  <!-- Bubbles -->
-  <g fill="#4ade80">
-    <rect class="bubble"    x="80"  y="350" width="4" height="4"/>
-    <rect class="bubble b2" x="180" y="355" width="3" height="3"/>
-    <rect class="bubble b3" x="280" y="348" width="5" height="5"/>
-    <rect class="bubble b4" x="380" y="360" width="3" height="3"/>
-  </g>
-
-  <!-- ================= OCEAN (right/bottom) ================= -->
-  <!-- Light rays from top -->
-  <g fill="#22d3ee" opacity="0.06">
-    <polygon points="560,0 590,0 620,400 570,400"/>
-    <polygon points="640,0 660,0 700,400 660,400"/>
-    <polygon points="720,0 735,0 770,400 740,400"/>
-  </g>
-  <!-- Coral / sponges -->
-  <g fill="#166534" opacity="0.75">
-    <rect x="540" y="320" width="3" height="60"/>
-    <rect x="535" y="330" width="12" height="3"/>
-    <rect x="540" y="348" width="10" height="3"/>
-    <rect x="540" y="368" width="12" height="3"/>
-
-    <rect x="700" y="300" width="3" height="80"/>
-    <rect x="693" y="315" width="14" height="3"/>
-    <rect x="700" y="340" width="14" height="3"/>
-    <rect x="693" y="365" width="14" height="3"/>
-  </g>
-  <g fill="#0891b2" opacity="0.5">
-    <rect x="620" y="360" width="2" height="30"/>
-    <rect x="616" y="368" width="10" height="2"/>
-  </g>
-  <!-- Plankton -->
-  <g fill="#22d3ee">
-    <rect class="plankton"    x="580" y="200" width="2" height="2"/>
-    <rect class="plankton p2" x="660" y="240" width="2" height="2"/>
-    <rect class="plankton p3" x="720" y="180" width="2" height="2"/>
-    <rect class="plankton"    x="700" y="290" width="2" height="2"/>
-    <rect class="plankton p2" x="550" y="270" width="2" height="2"/>
-  </g>
-
-  <!-- ================= AMMONITE (right, protagonist) ================= -->
-  <g class="ammonite">
-    <!-- Trail -->
-    <g class="trail" fill="#22d3ee">
-      <rect x="605" y="270" width="2" height="2" opacity="0.7"/>
-      <rect x="595" y="265" width="2" height="2" opacity="0.5"/>
-      <rect x="582" y="262" width="2" height="2" opacity="0.3"/>
-    </g>
-    <!-- Tentacles -->
-    <g fill="#d4a373">
-      <rect class="tentacle"    x="570" y="250" width="2" height="14"/>
-      <rect class="tentacle t2" x="576" y="248" width="2" height="16"/>
-      <rect class="tentacle t3" x="582" y="250" width="2" height="14"/>
-      <rect class="tentacle t4" x="588" y="252" width="2" height="12"/>
-    </g>
-    <!-- Shell -->
-    <g fill="#4a4032">
-      <rect x="596" y="240" width="44" height="44"/>
-      <rect x="602" y="234" width="32" height="56"/>
-      <rect x="588" y="250" width="60" height="24"/>
-    </g>
-    <!-- Shell spiral (bone) -->
-    <g fill="#e8e0d5">
-      <rect x="602" y="258" width="36" height="2"/>
-      <rect x="608" y="248" width="24" height="2"/>
-      <rect x="612" y="240" width="18" height="2"/>
-      <rect x="618" y="270" width="16" height="2"/>
-      <rect x="612" y="278" width="24" height="2"/>
-      <rect x="606" y="266" width="4" height="4"/>
-      <rect x="624" y="256" width="4" height="4"/>
-    </g>
-    <!-- Amber center -->
-    <rect x="624" y="264" width="6" height="6" fill="#d4a373"/>
-    <rect x="626" y="266" width="2" height="2" fill="#fbbf24"/>
-  </g>
-
-  <!-- ================= VENUS FLYTRAP (left, anchor) ================= -->
-  <g class="flytrap-body">
-    <!-- Stem -->
-    <rect x="98" y="320" width="4" height="60" fill="#2d4623"/>
-    <rect x="92" y="378" width="16" height="3" fill="#2d4623"/>
-
-    <!-- Lower lobe -->
-    <rect x="70" y="296" width="60" height="26" fill="#166534"/>
-    <rect x="74" y="292" width="52" height="30" fill="#22c55e"/>
-    <rect x="82" y="302" width="36" height="5" fill="#dc2626"/>
-    <rect class="trap-inner" x="84" y="304" width="32" height="3"/>
-    <!-- Lower teeth -->
-    <g fill="#e8e0d5">
-      <rect x="72" y="290" width="4" height="4"/>
-      <rect x="84" y="290" width="4" height="4"/>
-      <rect x="96" y="290" width="4" height="4"/>
-      <rect x="108" y="290" width="4" height="4"/>
-      <rect x="120" y="290" width="4" height="4"/>
+    <!-- Distant fog layer A (12s drift) -->
+    <g opacity="0.35">
+      <g>
+        <ellipse cx="300" cy="180" rx="420" ry="60" fill="#3a5a48"/>
+        <ellipse cx="900" cy="140" rx="380" ry="50" fill="#2f4a3c"/>
+        <ellipse cx="1400" cy="200" rx="440" ry="55" fill="#3a5a48"/>
+        <animateTransform attributeName="transform" type="translate"
+          values="0,0; 60,0; 0,0" dur="12s" repeatCount="indefinite"/>
+      </g>
     </g>
 
-    <!-- Upper lobe (animated) -->
-    <g class="upper-lobe">
-      <rect x="70" y="266" width="60" height="24" fill="#166534"/>
-      <rect x="74" y="262" width="52" height="28" fill="#22c55e"/>
-      <rect x="82" y="272" width="36" height="5" fill="#dc2626"/>
-      <rect class="trap-inner" x="84" y="274" width="32" height="3"/>
-      <g fill="#e8e0d5">
-        <rect x="72" y="288" width="4" height="4"/>
-        <rect x="84" y="288" width="4" height="4"/>
-        <rect x="96" y="288" width="4" height="4"/>
-        <rect x="108" y="288" width="4" height="4"/>
-        <rect x="120" y="288" width="4" height="4"/>
+    <!-- Mid fog layer B (8s, opposite phase) -->
+    <g opacity="0.28">
+      <g>
+        <ellipse cx="500" cy="260" rx="380" ry="55" fill="#4a6a55"/>
+        <ellipse cx="1200" cy="300" rx="420" ry="60" fill="#3d5a48"/>
+        <animateTransform attributeName="transform" type="translate"
+          values="0,0; -50,0; 0,0" dur="8s" repeatCount="indefinite"/>
+      </g>
+    </g>
+
+    <!-- Giant mangrove silhouettes (back) -->
+    <g fill="#0a1a12">
+      <path d="M120,800 L120,420 Q100,380 140,340 Q160,300 130,270 Q150,240 180,260 Q200,220 230,250 Q260,230 270,270 Q300,260 300,300 Q330,290 340,330 Q360,320 360,360 L360,800 Z"/>
+      <path d="M480,800 L480,380 Q460,340 500,310 Q520,270 490,240 Q520,210 550,240 Q580,220 590,260 Q620,250 620,290 Q650,280 660,320 L660,800 Z"/>
+    </g>
+
+    <!-- Moss detail on mangroves (dither) -->
+    <g opacity="0.5" fill="#2a4a2c">
+      <rect x="118" y="340" width="4" height="60"/>
+      <rect x="126" y="380" width="4" height="40"/>
+      <rect x="356" y="330" width="4" height="80"/>
+      <rect x="478" y="330" width="4" height="70"/>
+      <rect x="656" y="320" width="4" height="90"/>
+    </g>
+
+    <!-- Hanging roots -->
+    <g stroke="#1a2a1c" stroke-width="2" fill="none" stroke-linecap="square">
+      <path d="M140,340 Q150,380 145,420"/>
+      <path d="M180,270 Q185,320 175,360"/>
+      <path d="M230,260 Q240,310 235,350"/>
+      <path d="M500,320 Q510,360 505,400"/>
+      <path d="M550,250 Q560,300 555,340"/>
+    </g>
+
+    <!-- Ferns + Equisetum (mid-ground) -->
+    <g fill="#1e3a20">
+      <!-- left fern cluster -->
+      <g transform="translate(60,700)">
+        <path d="M0,0 L-8,-40 L-4,-42 L0,-30 L4,-42 L8,-40 Z"/>
+        <path d="M0,0 L-20,-30 L-16,-34 L-6,-24 L-4,-34 L0,-24 L4,-34 L8,-30 Z"/>
+      </g>
+      <g transform="translate(220,740)">
+        <path d="M0,0 L-8,-40 L-4,-42 L0,-30 L4,-42 L8,-40 Z"/>
+        <path d="M0,0 L-16,-28 L-12,-32 L-4,-22 Z"/>
+      </g>
+      <!-- Equisetum stalks -->
+      <g stroke="#2a4a2a" stroke-width="2" fill="none">
+        <path d="M340,800 L340,600"/>
+        <path d="M360,800 L360,620"/>
+        <path d="M380,800 L380,640"/>
+      </g>
+      <g fill="#2a4a2a">
+        <rect x="334" y="640" width="12" height="3"/>
+        <rect x="354" y="660" width="12" height="3"/>
+        <rect x="374" y="680" width="12" height="3"/>
+      </g>
+    </g>
+
+    <!-- Swamp water surface -->
+    <g>
+      <rect x="0" y="600" width="900" height="200" fill="url(#swampWater)"/>
+      <!-- surface waves, 3 phases -->
+      <path d="M0,600 Q100,595 200,600 T400,600 T600,600 T800,600 T1000,600 L1000,605 L0,605 Z"
+            fill="#2a5a3a" opacity="0.7">
+        <animate attributeName="d"
+          values="M0,600 Q100,595 200,600 T400,600 T600,600 T800,600 T1000,600 L1000,605 L0,605 Z;
+                  M0,600 Q100,605 200,600 T400,600 T600,600 T800,600 T1000,600 L1000,605 L0,605 Z;
+                  M0,600 Q100,595 200,600 T400,600 T600,600 T800,600 T1000,600 L1000,605 L0,605 Z"
+          dur="4s" repeatCount="indefinite"/>
+      </path>
+      <!-- cyan reflection streak -->
+      <rect x="0" y="606" width="900" height="2" fill="#3aa8a8" opacity="0.35">
+        <animate attributeName="opacity" values="0.25;0.5;0.25" dur="6s" repeatCount="indefinite"/>
+      </rect>
+    </g>
+
+    <!-- Methane bubbles rising -->
+    <g fill="#6fd8a8" opacity="0.55">
+      <circle cx="180" cy="780" r="3">
+        <animate attributeName="cy" values="780;560" dur="5s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;0.7;0" dur="5s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="320" cy="770" r="2">
+        <animate attributeName="cy" values="770;540" dur="6.5s" begin="1.2s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;0.6;0" dur="6.5s" begin="1.2s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="240" cy="790" r="4">
+        <animate attributeName="cy" values="790;580" dur="7s" begin="3s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;0.5;0" dur="7s" begin="3s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="120" cy="760" r="2">
+        <animate attributeName="cy" values="760;520" dur="8s" begin="2s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;0.6;0" dur="8s" begin="2s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+
+    <!-- Fireflies / data motes -->
+    <g filter="url(#glowCyan)">
+      <circle cx="200" cy="500" r="2" fill="#9df0ff">
+        <animate attributeName="opacity" values="0;1;0" dur="3s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="380" cy="440" r="2" fill="#b8ff8a">
+        <animate attributeName="opacity" values="0;1;0" dur="4s" begin="1s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="560" cy="520" r="2" fill="#9df0ff">
+        <animate attributeName="opacity" values="0;1;0" dur="5s" begin="2.5s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="680" cy="470" r="2" fill="#b8ff8a">
+        <animate attributeName="opacity" values="0;1;0" dur="3.5s" begin="1.8s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+  </g>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       LAYER 2 — OCEAN (lower-right, clipped)
+       ═══════════════════════════════════════════════════════════ -->
+  <g clip-path="url(#oceanClip)">
+    <rect width="1600" height="800" fill="url(#oceanBg)"/>
+
+    <!-- Light rays from surface -->
+    <g opacity="0.7">
+      <polygon points="1100,0 1160,0 1380,800 1240,800" fill="url(#lightRay)">
+        <animate attributeName="opacity" values="0.4;0.8;0.4" dur="8s" repeatCount="indefinite"/>
+      </polygon>
+      <polygon points="1300,0 1340,0 1520,800 1440,800" fill="url(#lightRay)">
+        <animate attributeName="opacity" values="0.5;0.9;0.5" dur="6s" begin="1s" repeatCount="indefinite"/>
+      </polygon>
+      <polygon points="1450,0 1500,0 1600,700 1560,800" fill="url(#lightRay)" opacity="0.6"/>
+    </g>
+
+    <!-- Distant coral silhouettes -->
+    <g fill="#0e2430" opacity="0.9">
+      <path d="M900,800 L900,720 Q880,700 870,720 Q860,700 880,690 L880,700 Q900,680 920,700 L920,690 Q940,700 930,720 Q920,700 900,720 Z"/>
+      <path d="M1050,800 L1050,700 Q1020,690 1000,710 Q1010,680 1040,690 L1040,700 Q1070,680 1100,700 L1100,690 Q1130,710 1110,720 Q1090,700 1060,720 L1060,800 Z"/>
+    </g>
+
+    <!-- Mid coral (color hint) -->
+    <g fill="#1a3a3a">
+      <path d="M1150,800 L1150,740 Q1130,720 1120,740 Q1110,720 1130,710 L1130,720 Q1150,700 1170,720 L1170,710 Q1190,720 1180,740 Q1160,720 1150,740 Z"/>
+    </g>
+
+    <!-- Plankton field (drift diagonal, 12s) -->
+    <g fill="#b8f0ff">
+      <animateTransform attributeName="transform" type="translate"
+        values="0,0; -30,-20; 0,0" dur="12s" repeatCount="indefinite"/>
+      <circle cx="980" cy="180" r="1.2" opacity="0.7"/>
+      <circle cx="1080" cy="240" r="1" opacity="0.5"/>
+      <circle cx="1220" cy="200" r="1.4" opacity="0.6"/>
+      <circle cx="1350" cy="320" r="1" opacity="0.4"/>
+      <circle cx="1150" cy="420" r="1.2" opacity="0.55"/>
+      <circle cx="1280" cy="500" r="1" opacity="0.5"/>
+      <circle cx="1420" cy="380" r="1.3" opacity="0.6"/>
+      <circle cx="1520" cy="560" r="1" opacity="0.4"/>
+    </g>
+
+    <!-- Trilobite fossil in sediment -->
+    <g transform="translate(1300,720)" fill="#3a3226">
+      <ellipse cx="0" cy="0" rx="42" ry="20"/>
+      <ellipse cx="-28" cy="0" rx="14" ry="18"/>
+      <g fill="#1a1610">
+        <rect x="-38" y="-6" width="76" height="2"/>
+        <rect x="-38" y="0" width="76" height="2"/>
+        <rect x="-38" y="6" width="76" height="2"/>
+      </g>
+      <!-- legs -->
+      <g stroke="#3a3226" stroke-width="2" fill="none">
+        <path d="M-20,-18 L-26,-28"/>
+        <path d="M-8,-20 L-12,-30"/>
+        <path d="M4,-20 L6,-30"/>
+        <path d="M16,-18 L22,-28"/>
+        <path d="M-20,18 L-26,28"/>
+        <path d="M-8,20 L-12,30"/>
+        <path d="M4,20 L6,30"/>
+        <path d="M16,18 L22,28"/>
+      </g>
+    </g>
+
+    <!-- Belemnite fossil -->
+    <g transform="translate(1480,680) rotate(-15)" fill="#4a4234">
+      <polygon points="0,0 60,-4 60,4 0,0"/>
+      <rect x="0" y="-3" width="6" height="6" fill="#2a2418"/>
+    </g>
+
+    <!-- ════ AMMONITE — protagonist ════ -->
+    <g filter="url(#glowCyan)">
+      <!-- Trail (behind) -->
+      <g fill="#9df0ff" opacity="0.7">
+        <circle cx="1180" cy="360" r="2"/>
+        <circle cx="1220" cy="370" r="1.5" opacity="0.7"/>
+        <circle cx="1260" cy="380" r="2.2" opacity="0.55"/>
+        <circle cx="1300" cy="390" r="1.6" opacity="0.4"/>
+        <animateTransform attributeName="transform" type="translate"
+          values="0,0; 40,10; 0,0" dur="8s" repeatCount="indefinite"/>
+      </g>
+
+      <g>
+        <animateTransform attributeName="transform" type="translate"
+          values="0,0; 20,-15; 40,0; 20,15; 0,0; -30,10; 0,0"
+          dur="8s" repeatCount="indefinite"/>
+        <g>
+          <animateTransform attributeName="transform" type="rotate"
+            values="0; 5; 0; -5; 0; 180; 360"
+            keyTimes="0; 0.15; 0.3; 0.45; 0.6; 0.8; 1"
+            dur="8s" repeatCount="indefinite"/>
+
+          <!-- Shell (spiral) -->
+          <g transform="translate(1420,400)">
+            <circle r="38" fill="#1a3a4a"/>
+            <path d="M0,0 m-30,0 a30,30 0 1,1 30,30 a22,22 0 1,1 -22,-22 a14,14 0 1,1 14,14 a6,6 0 1,1 -6,-6"
+                  fill="none" stroke="#7fe9ff" stroke-width="2.5"/>
+            <circle r="4" fill="#b8f0ff"/>
+            <!-- Ridges -->
+            <g stroke="#5ac8d8" stroke-width="1" opacity="0.7">
+              <line x1="0" y1="-30" x2="0" y2="-36"/>
+              <line x1="21" y1="-21" x2="25" y2="-26"/>
+              <line x1="30" y1="0" x2="36" y2="0"/>
+              <line x1="21" y1="21" x2="25" y2="26"/>
+              <line x1="0" y1="30" x2="0" y2="36"/>
+              <line x1="-21" y1="21" x2="-25" y2="26"/>
+              <line x1="-30" y1="0" x2="-36" y2="0"/>
+              <line x1="-21" y1="-21" x2="-25" y2="-26"/>
+            </g>
+
+            <!-- Tentacles (with stagger) -->
+            <g stroke="#9df0ff" stroke-width="2" fill="none" stroke-linecap="round">
+              <path d="M-30,0 Q-50,10 -60,30">
+                <animate attributeName="d"
+                  values="M-30,0 Q-50,10 -60,30; M-30,0 Q-55,0 -65,15; M-30,0 Q-50,10 -60,30"
+                  dur="2.5s" repeatCount="indefinite"/>
+              </path>
+              <path d="M-21,21 Q-40,32 -48,55">
+                <animate attributeName="d"
+                  values="M-21,21 Q-40,32 -48,55; M-21,21 Q-45,25 -55,42; M-21,21 Q-40,32 -48,55"
+                  dur="2.5s" begin="0.3s" repeatCount="indefinite"/>
+              </path>
+              <path d="M0,30 Q-10,50 -15,72">
+                <animate attributeName="d"
+                  values="M0,30 Q-10,50 -15,72; M0,30 Q-15,45 -22,62; M0,30 Q-10,50 -15,72"
+                  dur="2.5s" begin="0.6s" repeatCount="indefinite"/>
+              </path>
+            </g>
+          </g>
+        </g>
       </g>
     </g>
   </g>
 
-  <!-- ================= FOSSIL ANCHOR (center bottom) ================= -->
-  <g>
-    <rect x="360" y="360" width="120" height="30" fill="#4a4032"/>
-    <rect x="354" y="368" width="132" height="14" fill="#3d3428"/>
-    <g fill="#e8e0d5" opacity="0.7">
-      <rect x="370" y="372" width="4" height="4"/>
-      <rect x="386" y="374" width="4" height="4"/>
-      <rect x="402" y="372" width="4" height="4"/>
-      <rect x="418" y="374" width="4" height="4"/>
-      <rect x="434" y="372" width="4" height="4"/>
-      <rect x="450" y="374" width="4" height="4"/>
+  <!-- ═══════════════════════════════════════════════════════════
+       LAYER 3 — FOREGROUND ANCHOR (on top of both biomes)
+       ═══════════════════════════════════════════════════════════ -->
+
+    <!-- Grass / shrub strip uniting both sides -->
+    <g fill="#0e1f14">
+      <path d="M0,780 Q400,760 800,775 Q1200,790 1600,770 L1600,800 L0,800 Z"/>
     </g>
-    <g fill="#d4a373" opacity="0.4">
-      <rect x="378" y="380" width="2" height="2"/>
-      <rect x="410" y="382" width="2" height="2"/>
-      <rect x="440" y="380" width="2" height="2"/>
+    <g fill="#1a3a24" opacity="0.85">
+      <path d="M60,780 L64,758 L68,780 Z"/>
+      <path d="M120,778 L124,754 L128,778 Z"/>
+      <path d="M180,776 L184,752 L188,776 Z"/>
+      <path d="M240,780 L244,756 L248,780 Z"/>
+      <path d="M720,778 L724,754 L728,778 Z"/>
+      <path d="M780,776 L784,752 L788,776 Z"/>
+      <path d="M1500,772 L1504,748 L1508,772 Z"/>
+      <path d="M1560,770 L1564,746 L1568,770 Z"/>
     </g>
+
+    <!-- ── Fossil ammonite (static, center-left) ── -->
+    <g transform="translate(340,640)">
+      <ellipse cx="0" cy="30" rx="70" ry="10" fill="#0a1510" opacity="0.7"/>
+      <circle r="52" fill="#3a3226"/>
+      <circle r="52" fill="url(#dither)" opacity="0.8"/>
+      <path d="M0,0 m-46,0 a46,46 0 1,1 46,46 a36,36 0 1,1 -36,-36 a26,26 0 1,1 26,26 a16,16 0 1,1 -16,-16 a6,6 0 1,1 6,6"
+            fill="none" stroke="#5a5040" stroke-width="3"/>
+      <path d="M0,0 m-46,0 a46,46 0 1,1 46,46 a36,36 0 1,1 -36,-36 a26,26 0 1,1 26,26 a16,16 0 1,1 -16,-16 a6,6 0 1,1 6,6"
+            fill="none" stroke="#8a7a5a" stroke-width="1"/>
+      <!-- dust particles -->
+      <g fill="#c8b88a">
+        <circle cx="-60" cy="-40" r="1" opacity="0.6">
+          <animate attributeName="cy" values="-40;-55" dur="6s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;0.8;0" dur="6s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="58" cy="-30" r="1" opacity="0.5">
+          <animate attributeName="cy" values="-30;-48" dur="7s" begin="2s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;0.7;0" dur="7s" begin="2s" repeatCount="indefinite"/>
+        </circle>
+      </g>
+    </g>
+
+    <!-- ── Venus flytrap (static anchor, center-right) ── -->
+    <g transform="translate(1180,660)">
+      <ellipse cx="0" cy="90" rx="90" ry="12" fill="#0a1510" opacity="0.6"/>
+
+      <!-- Stem (sway 4s) -->
+      <g>
+        <animateTransform attributeName="transform" type="rotate"
+          values="-2 0 90; 2 0 90; -2 0 90" dur="4s" repeatCount="indefinite"/>
+        <path d="M0,90 Q-10,20 0,-40" stroke="#2a4a2a" stroke-width="8" fill="none" stroke-linecap="square"/>
+
+        <!-- Traps (breathing 3s + occasional snap) -->
+        <g transform="translate(0,-40)">
+          <animateTransform attributeName="transform" type="rotate"
+            values="0; -15; 0" keyTimes="0; 0.75; 1"
+            dur="8s" repeatCount="indefinite"/>
+
+          <!-- Left jaw -->
+          <g>
+            <animateTransform attributeName="transform" type="rotate"
+              values="0; -25; -25; 0; 0" keyTimes="0; 0.02; 0.06; 0.14; 1"
+              dur="3s" repeatCount="indefinite"/>
+            <path d="M0,0 Q-35,-20 -55,-10 Q-60,5 -40,18 Q-20,25 0,20 Z"
+                  fill="#3a1a2a" stroke="#6a2a3a" stroke-width="2"/>
+            <!-- teeth -->
+            <g fill="#e8d8b8">
+              <polygon points="-50,-8 -52,-22 -46,-10"/>
+              <polygon points="-38,-14 -38,-28 -32,-16"/>
+              <polygon points="-24,-18 -22,-30 -18,-18"/>
+            </g>
+            <!-- magenta inner glow -->
+            <path d="M-45,-5 Q-30,-12 -18,-8 Q-20,5 -35,10 Q-45,5 -45,-5 Z"
+                  fill="#8a1a3a" opacity="0.6" filter="url(#glowMagenta)"/>
+          </g>
+
+          <!-- Right jaw -->
+          <g>
+            <animateTransform attributeName="transform" type="rotate"
+              values="0; 25; 25; 0; 0" keyTimes="0; 0.02; 0.06; 0.14; 1"
+              dur="3s" repeatCount="indefinite"/>
+            <path d="M0,0 Q35,-20 55,-10 Q60,5 40,18 Q20,25 0,20 Z"
+                  fill="#3a1a2a" stroke="#6a2a3a" stroke-width="2"/>
+            <g fill="#e8d8b8">
+              <polygon points="50,-8 52,-22 46,-10"/>
+              <polygon points="38,-14 38,-28 32,-16"/>
+              <polygon points="24,-18 22,-30 18,-18"/>
+            </g>
+            <path d="M45,-5 Q30,-12 18,-8 Q20,5 35,10 Q45,5 45,-5 Z"
+                  fill="#8a1a3a" opacity="0.6" filter="url(#glowMagenta)"/>
+          </g>
+        </g>
+      </g>
+    </g>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       LAYER 4 — TYPOGRAPHY
+       ═══════════════════════════════════════════════════════════ -->
+  <g transform="translate(800,220)" text-anchor="middle"
+     font-family="Orbitron, Michroma, Rajdhani, ui-monospace, monospace"
+     font-weight="700" letter-spacing="6">
+
+    <!-- soft underglow -->
+    <text y="0" font-size="96" fill="#7fe9ff" opacity="0.35"
+          filter="url(#glowCyan)" style="user-select:none">VynJustHumant</text>
+
+    <!-- chromatic aberration main pass -->
+    <text y="0" font-size="96" fill="#eafcff" filter="url(#chroma)"
+          style="user-select:none">VynJustHumant</text>
+
+    <!-- scanline overlay on letters -->
+    <text y="0" font-size="96" fill="url(#scanlines)" opacity="0.35"
+          style="user-select:none">VynJustHumant</text>
+
+    <!-- flicker (subtil, 8s) -->
+    <text y="0" font-size="96" fill="#ffffff" opacity="0">
+      <animate attributeName="opacity"
+        values="0;0;0.08;0;0;0;0.05;0;0;0;0;0" dur="8s" repeatCount="indefinite"/>
+      VynJustHumant
+    </text>
   </g>
 
-  <!-- ================= NAME (top center, high contrast) ================= -->
-  <ellipse cx="400" cy="90" rx="240" ry="70" fill="url(#nameGlowGrad)"/>
-
-  <g class="crt-flick">
-    <text
-      class="name-glow"
-      x="400" y="100"
-      text-anchor="middle"
-      font-size="44"
-      font-weight="300"
-      fill="#e8f0f5"
-      letter-spacing="10"
-      font-family="'Courier New', monospace"
-    >VYNJUSTHUMANT</text>
+  <!-- Sub-tagline (monospace) -->
+  <g transform="translate(800,290)" text-anchor="middle"
+     font-family="ui-monospace, JetBrains Mono, monospace"
+     font-size="14" fill="#7fe9ff" letter-spacing="4" opacity="0.8">
+    <text>DISTORTION · LIBRARY</text>
+    <animate attributeName="opacity" values="0.6;0.9;0.6" dur="6s" repeatCount="indefinite"/>
   </g>
 
-  <!-- Chromatic aberration ghost (thin) -->
-  <text
-    x="401.5" y="100"
-    text-anchor="middle"
-    font-size="44"
-    font-weight="300"
-    fill="#e879f9"
-    letter-spacing="10"
-    font-family="'Courier New', monospace"
-    opacity="0.18"
-    pointer-events="none"
-  >VYNJUSTHUMANT</text>
-  <text
-    x="398.5" y="100"
-    text-anchor="middle"
-    font-size="44"
-    font-weight="300"
-    fill="#22d3ee"
-    letter-spacing="10"
-    font-family="'Courier New', monospace"
-    opacity="0.18"
-    pointer-events="none"
-  >VYNJUSTHUMANT</text>
-
-  <text
-    x="400" y="128"
-    text-anchor="middle"
-    font-size="12"
-    fill="#22d3ee"
-    letter-spacing="8"
-    font-family="'Courier New', monospace"
-    opacity="0.85"
-  >ML INFRASTRUCTURE · PYTORCH</text>
-
-  <rect x="330" y="142" width="140" height="1" fill="#d4a373" opacity="0.6"/>
-
-  <!-- ================= SCANLINES OVERLAY ================= -->
-  <g class="scanline" fill="#22d3ee">
-    <rect y="0" width="800" height="1"/>
-    <rect y="4" width="800" height="1"/>
-    <rect y="8" width="800" height="1"/>
-    <rect y="12" width="800" height="1"/>
-    <rect y="16" width="800" height="1"/>
-    <rect y="20" width="800" height="1"/>
-    <rect y="24" width="800" height="1"/>
-    <rect y="28" width="800" height="1"/>
-    <rect y="32" width="800" height="1"/>
-    <rect y="36" width="800" height="1"/>
-    <rect y="40" width="800" height="1"/>
-    <rect y="44" width="800" height="1"/>
-    <rect y="48" width="800" height="1"/>
-    <rect y="52" width="800" height="1"/>
-    <rect y="56" width="800" height="1"/>
-    <rect y="60" width="800" height="1"/>
-  </g>
-
-  <!-- Vignette -->
-  <rect width="800" height="8" fill="#000" opacity="0.5"/>
-  <rect y="392" width="800" height="8" fill="#000" opacity="0.5"/>
+  <!-- ═══════════════════════════════════════════════════════════
+       LAYER 5 — CRT OVERLAY
+       ═══════════════════════════════════════════════════════════ -->
+  <!-- global scanlines -->
+  <rect width="1600" height="800" fill="url(#scanlines)" opacity="0.08">
+    <animate attributeName="opacity" values="0.05;0.12;0.05" dur="3s" repeatCount="indefinite"/>
+  </rect>
+  <!-- global dither grain -->
+  <rect width="1600" height="800" fill="url(#dither)" opacity="0.5"/>
+  <!-- vignette -->
+  <radialGradient id="vig" cx="50%" cy="50%" r="75%">
+    <stop offset="0.6" stop-color="#000" stop-opacity="0"/>
+    <stop offset="1"   stop-color="#000" stop-opacity="0.7"/>
+  </radialGradient>
+  <rect width="1600" height="800" fill="url(#vig)" pointer-events="none"/>
 </svg>
