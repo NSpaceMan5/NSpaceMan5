@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 6" width="800" height="24" shape-rendering="crispEdges" preserveAspectRatio="none">
+  <rect y="2" width="200" height="1" fill="#2d4623"/>
+  <rect y="2" width="200" height="1" fill="#2d4623"/>
+  <!-- Pattern: small bone segments -->
+  <rect x="10" y="2" width="3" height="1" fill="#e8e0d5"/>
+  <rect x="30" y="2" width="3" height="1" fill="#e8e0d5"/>
+  <rect x="50" y="2" width="3" height="1" fill="#e8e0d5"/>
+  <rect x="70" y="2" width="3" height="1" fill="#e8e0d5"/>
+  <rect x="90" y="2" width="3" height="1" fill="#e8e0d5"/>
+  <rect x="110" y="2" width="3" height="1" fill="#e8e0d5"/>
+  <rect x="130" y="2" width="3" height="1" fill="#e8e0d5"/>
+  <rect x="150" y="2" width="3" height="1" fill="#e8e0d5"/>
+  <rect x="170" y="2" width="3" height="1" fill="#e8e0d5"/>
+  <rect x="190" y="2" width="3" height="1" fill="#e8e0d5"/>
+  <!-- Amber dots -->
+  <rect x="20" y="2" width="1" height="1" fill="#d4a373"/>
+  <rect x="40" y="2" width="1" height="1" fill="#d4a373"/>
+  <rect x="60" y="2" width="1" height="1" fill="#d4a373"/>
+  <rect x="80" y="2" width="1" height="1" fill="#d4a373"/>
+  <rect x="100" y="2" width="1" height="1" fill="#d4a373"/>
+  <rect x="120" y="2" width="1" height="1" fill="#d4a373"/>
+  <rect x="140" y="2" width="1" height="1" fill="#d4a373"/>
+  <rect x="160" y="2" width="1" height="1" fill="#d4a373"/>
+  <rect x="180" y="2" width="1" height="1" fill="#d4a373"/>
+</svg>
