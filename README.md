@@ -1,6 +1,10 @@
 <div align="center">
 
-<img src=".github/assets/banner.svg" width="100%" alt="Banner"/>
+<picture>
+  <source media="(prefers-reduced-motion: reduce)" srcset=".github/assets/banner-static.svg">
+  <img src=".github/assets/banner.svg" width="100%"
+       alt="Banner pixel art VynJustHumant bergaya retro-futuristik Y2K × prasejarah purba. Rawa purba berkabut hijau di kiri atas dan laut purba biru gelap di kanan bawah dipisahkan garis diagonal neon. Nama VynJustHumant menyala cyan-magenta di tengah atas. Ammonite bercahaya berenang di laut, tumbuhan karnivora purba berdiri di latar depan, gelembung dan plankton bergerak lambat, dengan overlay scanline CRT.">
+</picture>
 
 ### ML Infrastructure Engineer
 
