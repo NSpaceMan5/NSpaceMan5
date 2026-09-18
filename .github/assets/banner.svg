@@ -1,505 +1,568 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>VynJustHumant — Paleo//Signal</title>
-<meta name="description" content="Y2K retro-futurist paleo-world banner — VynJustHumant">
-<style>
-  :root{
-    --c-void:#050b0a; --c-charcoal:#0f1614; --c-darkgray:#232b28;
-    --c-stone:#8a8f96; --c-cream:#e8dcc0; --c-bone:#c9b48a; --c-coldwhite:#d8f4ff;
-    --c-swamp-deep:#0c1710; --c-swamp-mid:#16261c; --c-swamp-1:#1f3a26;
-    --c-moss:#35603a; --c-olive:#4a7c3f; --c-murky:#7a8f3a; --c-murkyY:#a8a05c;
-    --c-earth:#5c4a30; --c-earth-lt:#8a7a4a;
-    --c-navy-deep:#050d1a; --c-navy:#0a1830; --c-teal-dark:#0d2d3f;
-    --c-teal:#10495c; --c-cyan-deep:#1a7a8c; --c-cyan:#00e5ff; --c-cyan-lt:#7fe9ff;
-    --c-magenta:#ff2bd6; --c-neon:#00ff9d; --c-yellow:#ffd447;
-    --c-plant:#2b4a2a; --c-plant-lt:#4f7a3a; --c-plant-maw:#8c2f4a;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
-  body{
-    background:var(--c-void);
-    color:var(--c-coldwhite);
-    font-family:"Rajdhani","Orbitron","Michroma","Eurostile","Segoe UI",system-ui,sans-serif;
-    overflow-x:hidden;
-    -webkit-font-smoothing:antialiased;
-  }
-  .mono{font-family:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace}
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 800" width="100%" shape-rendering="crispEdges" font-family="'Courier New', monospace">
+  <defs>
+    <linearGradient id="swampGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0a1410"/>
+      <stop offset="0.6" stop-color="#0f2418"/>
+      <stop offset="1" stop-color="#07120c"/>
+    </linearGradient>
+    <linearGradient id="oceanGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0a1a2e"/>
+      <stop offset="0.5" stop-color="#0c2440"/>
+      <stop offset="1" stop-color="#040a14"/>
+    </linearGradient>
+    <radialGradient id="nameGlowGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#22d3ee" stop-opacity="0.45"/>
+      <stop offset="0.6" stop-color="#e879f9" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#22d3ee" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="portalGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#22d3ee"/>
+      <stop offset="0.5" stop-color="#e879f9"/>
+      <stop offset="1" stop-color="#22d3ee"/>
+    </linearGradient>
+  </defs>
 
-  /* ---------- HERO ---------- */
-  .hero{
-    position:relative; width:100%; aspect-ratio:2/1; max-height:100vh;
-    overflow:hidden; background:var(--c-void);
-    border-bottom:1px solid rgba(0,229,255,.18);
-  }
-  .hero img{display:block;width:100%;height:100%;object-fit:cover}
-  .hero-veil{
-    position:absolute;inset:0;pointer-events:none;
-    background:linear-gradient(180deg,transparent 55%,rgba(5,11,10,.85) 100%);
-  }
-
-  /* ---------- SCROLL PARALLAX STAGE ---------- */
-  .stage{
-    position:relative; height:260vh; overflow:hidden;
-    background:linear-gradient(180deg,#050b0a 0%,#0a1830 38%,#050d1a 72%,#050b0a 100%);
-  }
-  .layer{
-    position:absolute; left:-8%; width:116%; height:100%;
-    will-change:transform; pointer-events:none;
-  }
-  .layer svg{width:100%;height:100%;display:block}
-  .l-fog   {z-index:1}
-  .l-rays  {z-index:2}
-  .l-fern  {z-index:3}
-  .l-water {z-index:4}
-  .l-fossil{z-index:5}
-  .l-plant {z-index:6}
-  .l-amm   {z-index:7}
-  .l-part  {z-index:8}
-
-  .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s cubic-bezier(.2,.7,.3,1),transform .9s cubic-bezier(.2,.7,.3,1)}
-  .reveal.in{opacity:1;transform:none}
-
-  /* ---------- COPY BLOCKS ---------- */
-  .copy{
-    position:relative;z-index:20;max-width:760px;margin:0 auto;
-    padding:14vh 24px;text-align:center;
-  }
-  .kicker{
-    font-size:.78rem;letter-spacing:.42em;text-transform:uppercase;
-    color:var(--c-neon);opacity:.9;margin-bottom:1.1rem;
-  }
-  h1{
-    font-size:clamp(2.1rem,6vw,4rem);line-height:1.05;letter-spacing:.06em;
-    font-weight:800;text-transform:uppercase;
-    color:var(--c-coldwhite);
-    text-shadow:0 0 18px rgba(0,229,255,.45), 2px 0 0 rgba(255,43,214,.35), -2px 0 0 rgba(0,229,255,.35);
-  }
-  h2{
-    font-size:clamp(1.2rem,2.6vw,1.7rem);letter-spacing:.18em;
-    text-transform:uppercase;color:var(--c-cyan);margin-bottom:1rem;font-weight:700;
-  }
-  p{font-size:clamp(1rem,1.5vw,1.12rem);line-height:1.75;color:#b9cfd6;margin-bottom:1rem}
-  .rule{width:64px;height:2px;background:var(--c-cyan);margin:1.6rem auto;opacity:.7}
-
-  /* ---------- AUDIO TOGGLE ---------- */
-  .audio-btn{
-    position:fixed;right:18px;bottom:18px;z-index:99;
-    display:inline-flex;align-items:center;gap:.55rem;
-    padding:.6rem 1rem;border:1px solid rgba(0,229,255,.4);
-    background:rgba(5,11,10,.82);backdrop-filter:blur(6px);
-    color:var(--c-cyan);font:inherit;font-size:.72rem;letter-spacing:.2em;
-    text-transform:uppercase;cursor:pointer;border-radius:2px;
-    transition:background .25s,border-color .25s,color .25s;
-  }
-  .audio-btn:hover,.audio-btn:focus-visible{
-    background:rgba(0,229,255,.12);border-color:var(--c-cyan);outline:none;
-  }
-  .audio-btn[aria-pressed="true"]{color:var(--c-neon);border-color:rgba(0,255,157,.55)}
-  .dot{width:7px;height:7px;background:currentColor;border-radius:50%;box-shadow:0 0 8px currentColor}
-
-  /* ---------- FOOTER ---------- */
-  footer{
-    position:relative;z-index:20;padding:8vh 24px 12vh;text-align:center;
-    border-top:1px solid rgba(0,229,255,.12);
-  }
-  footer .mono{font-size:.72rem;letter-spacing:.24em;color:var(--c-stone);text-transform:uppercase}
-  footer a{color:var(--c-cyan);text-decoration:none;border-bottom:1px solid rgba(0,229,255,.3)}
-  footer a:hover{border-bottom-color:var(--c-cyan)}
-
-  @media (max-width:640px){
-    .stage{height:200vh}
-    .copy{padding:10vh 20px}
-  }
-
-  /* ---------- REDUCED MOTION ---------- */
-  @media (prefers-reduced-motion: reduce){
-    html{scroll-behavior:auto}
-    .layer{transform:none !important;transition:none !important}
-    .reveal{opacity:1 !important;transform:none !important;transition:opacity .35s ease}
-    .hero img{animation:none !important}
-  }
-</style>
-</head>
-<body>
-
-<!-- ================= HERO BANNER ================= -->
-<header class="hero">
-  <picture>
-    <source srcset="banner.webp" type="image/webp">
-    <img src="banner.svg"
-         alt="Pixel-art banner: a foggy prehistoric swamp on the upper left meets a bioluminescent prehistoric ocean on the lower right along a 30-degree diagonal. A carnivorous plant and a spiral ammonite fossil anchor the foreground; a glowing ammonite swims through the ocean. The name VynJustHumant glows in cyan-magenta neon at top centre.">
-  </picture>
-  <div class="hero-veil"></div>
-</header>
-
-<!-- ================= SCROLL PARALLAX STAGE ================= -->
-<section class="stage" id="stage" aria-hidden="true">
-
-  <!-- L1 · FOG -->
-  <div class="layer l-fog" data-depth="0.06">
-    <svg viewBox="0 0 1600 1400" preserveAspectRatio="xMidYMid slice" shape-rendering="crispEdges">
-      <g fill="#35603a" opacity=".30">
-        <path d="M-100 520 L-100 470 L340 470 L340 452 L780 452 L780 470 L1180 470 L1180 492 L1700 492 L1700 520 Z"/>
-      </g>
-      <g fill="#4a7c3f" opacity=".18">
-        <path d="M-100 640 L-100 600 L420 600 L420 584 L900 584 L900 604 L1420 604 L1420 640 Z"/>
-      </g>
-    </svg>
-  </div>
-
-  <!-- L2 · LIGHT RAYS -->
-  <div class="layer l-rays" data-depth="0.14">
-    <svg viewBox="0 0 1600 1400" preserveAspectRatio="xMidYMid slice" shape-rendering="crispEdges">
-      <defs>
-        <linearGradient id="dRay" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#7fe9ff" stop-opacity=".26"/>
-          <stop offset="1" stop-color="#7fe9ff" stop-opacity="0"/>
-        </linearGradient>
-      </defs>
-      <g>
-        <polygon points="900,0 980,0 700,1400 610,1400" fill="url(#dRay)"/>
-        <polygon points="1150,0 1218,0 980,1400 900,1400" fill="url(#dRay)" opacity=".7"/>
-        <polygon points="1380,0 1440,0 1260,1400 1190,1400" fill="url(#dRay)" opacity=".5"/>
-      </g>
-    </svg>
-  </div>
-
-  <!-- L3 · FERNS -->
-  <div class="layer l-fern" data-depth="0.22">
-    <svg viewBox="0 0 1600 1400" preserveAspectRatio="xMidYMid slice" shape-rendering="crispEdges">
-      <g fill="#35603a">
-        <g transform="translate(160,880)">
-          <rect x="-2" y="-150" width="4" height="150"/>
-          <rect x="-30" y="-128" width="30" height="5" fill="#4a7c3f"/>
-          <rect x="0" y="-128" width="30" height="5" fill="#4a7c3f"/>
-          <rect x="-38" y="-102" width="38" height="5"/>
-          <rect x="0" y="-102" width="38" height="5"/>
-          <rect x="-30" y="-76" width="30" height="5" fill="#4a7c3f"/>
-          <rect x="0" y="-76" width="30" height="5" fill="#4a7c3f"/>
-          <rect x="-20" y="-50" width="20" height="5"/>
-          <rect x="0" y="-50" width="20" height="5"/>
-        </g>
-        <g transform="translate(300,900)">
-          <rect x="-2" y="-190" width="4" height="190"/>
-          <rect x="-38" y="-162" width="38" height="5" fill="#4a7c3f"/>
-          <rect x="0" y="-162" width="38" height="5" fill="#4a7c3f"/>
-          <rect x="-46" y="-130" width="46" height="5"/>
-          <rect x="0" y="-130" width="46" height="5"/>
-          <rect x="-36" y="-98" width="36" height="5" fill="#4a7c3f"/>
-          <rect x="0" y="-98" width="36" height="5" fill="#4a7c3f"/>
-          <rect x="-24" y="-66" width="24" height="5"/>
-          <rect x="0" y="-66" width="24" height="5"/>
-        </g>
-        <g transform="translate(120,940)">
-          <rect x="-2" y="-220" width="4" height="220"/>
-          <rect x="-42" y="-188" width="42" height="5" fill="#4a7c3f"/>
-          <rect x="0" y="-188" width="42" height="5" fill="#4a7c3f"/>
-          <rect x="-52" y="-150" width="52" height="5"/>
-          <rect x="0" y="-150" width="52" height="5"/>
-          <rect x="-40" y="-112" width="40" height="5" fill="#4a7c3f"/>
-          <rect x="0" y="-112" width="40" height="5" fill="#4a7c3f"/>
-          <rect x="-26" y="-74" width="26" height="5"/>
-          <rect x="0" y="-74" width="26" height="5"/>
-        </g>
-      </g>
-    </svg>
-  </div>
-
-  <!-- L4 · WATER -->
-  <div class="layer l-water" data-depth="0.32">
-    <svg viewBox="0 0 1600 1400" preserveAspectRatio="xMidYMid slice" shape-rendering="crispEdges">
-      <rect x="-50" y="820" width="1700" height="600" fill="#0a1830" opacity=".55"/>
-      <g fill="#00e5ff" opacity=".22">
-        <rect x="120" y="880" width="260" height="3"/>
-        <rect x="520" y="930" width="340" height="3"/>
-        <rect x="980" y="900" width="300" height="3"/>
-        <rect x="260" y="1000" width="420" height="3"/>
-        <rect x="860" y="1050" width="380" height="3"/>
-      </g>
-    </svg>
-  </div>
-
-  <!-- L5 · FOSSIL (scroll-reveal) -->
-  <div class="layer l-fossil reveal" data-depth="0.44">
-    <svg viewBox="0 0 1600 1400" preserveAspectRatio="xMidYMid slice" shape-rendering="crispEdges">
-      <g transform="translate(1080,1000)">
-        <g fill="#c9b48a">
-          <rect x="-56" y="-56" width="112" height="8"/>
-          <rect x="-56" y="48" width="112" height="8"/>
-          <rect x="-54" y="-48" width="108" height="8"/>
-          <rect x="-54" y="40" width="108" height="8"/>
-          <rect x="-50" y="-40" width="100" height="8"/>
-          <rect x="-50" y="32" width="100" height="8"/>
-          <rect x="-46" y="-32" width="92" height="8"/>
-          <rect x="-46" y="24" width="92" height="8"/>
-          <rect x="-40" y="-24" width="80" height="8"/>
-          <rect x="-40" y="16" width="80" height="8"/>
-          <rect x="-28" y="-16" width="56" height="8"/>
-          <rect x="-28" y="8" width="56" height="8"/>
-          <rect x="-8" y="-8" width="16" height="16"/>
-        </g>
-        <path d="M0 0 L0 4 L-8 0 L0 -12 L16 0 L0 20 L-24 0 L0 -28 L32 0 L0 36 L-40 0"
-              fill="none" stroke="#5c4a30" stroke-width="6" shape-rendering="crispEdges"/>
-      </g>
-    </svg>
-  </div>
-
-  <!-- L6 · CARNIVOROUS PLANT (scroll-reveal) -->
-  <div class="layer l-plant reveal" data-depth="0.58">
-    <svg viewBox="0 0 1600 1400" preserveAspectRatio="xMidYMid slice" shape-rendering="crispEdges">
-      <g transform="translate(560,1180)">
-        <rect x="-6" y="-200" width="12" height="200" fill="#2b4a2a"/>
-        <rect x="-2" y="-200" width="4" height="200" fill="#4f7a3a"/>
-        <path d="M-16 -306 L16 -306 L28 -294 L28 -282 L40 -282 L40 -258 L48 -258 L48 -234 L40 -234 L40 -210 L28 -210 L28 -198 L-28 -198 L-28 -210 L-40 -210 L-40 -234 L-48 -234 L-48 -258 L-40 -258 L-40 -282 L-28 -282 L-28 -294 L-16 -306 Z" fill="#2b4a2a"/>
-        <path d="M-30 -310 L30 -310 L22 -326 L-22 -326 Z" fill="#8c2f4a"/>
-        <g fill="#e8dcc0">
-          <rect x="-28" y="-338" width="6" height="12"/>
-          <rect x="-18" y="-338" width="6" height="12"/>
-          <rect x="-8" y="-338" width="6" height="12"/>
-          <rect x="2" y="-338" width="6" height="12"/>
-          <rect x="12" y="-338" width="6" height="12"/>
-          <rect x="22" y="-338" width="6" height="12"/>
-        </g>
-        <path d="M-32 -310 L-38 -326 L-20 -342 L20 -342 L38 -326 L32 -310 Z" fill="#4f7a3a"/>
-      </g>
-    </svg>
-  </div>
-
-  <!-- L7 · AMMONITE -->
-  <div class="layer l-amm" data-depth="0.72">
-    <svg viewBox="0 0 1600 1400" preserveAspectRatio="xMidYMid slice" shape-rendering="crispEdges">
-      <g transform="translate(1180,760)">
-        <g fill="#0d2d3f">
-          <rect x="-14" y="-48" width="28" height="8"/>
-          <rect x="-14" y="40" width="28" height="8"/>
-          <rect x="-30" y="-40" width="60" height="8"/>
-          <rect x="-30" y="32" width="60" height="8"/>
-          <rect x="-38" y="-32" width="76" height="8"/>
-          <rect x="-38" y="24" width="76" height="8"/>
-          <rect x="-44" y="-24" width="88" height="8"/>
-          <rect x="-44" y="16" width="88" height="8"/>
-          <rect x="-47" y="-16" width="94" height="8"/>
-          <rect x="-47" y="8" width="94" height="8"/>
-          <rect x="-49" y="-8" width="98" height="8"/>
-          <rect x="-49" y="0" width="98" height="8"/>
-          <rect x="-50" y="-24" width="100" height="48"/>
-        </g>
-        <path d="M0 0 L0 3 L-6 0 L0 -9 L12 0 L0 15 L-18 0 L0 -21 L24 0 L0 27 L-30 0"
-              fill="none" stroke="#00e5ff" stroke-width="3" opacity=".85" shape-rendering="crispEdges"/>
-        <rect x="-6" y="-6" width="12" height="12" fill="#ff2bd6"/>
-        <g fill="#00e5ff" opacity=".8">
-          <rect x="-66" y="-30" width="16" height="3"/>
-          <rect x="-70" y="-18" width="20" height="3"/>
-          <rect x="-68" y="-6" width="18" height="3"/>
-          <rect x="-70" y="6" width="20" height="3"/>
-          <rect x="-66" y="18" width="16" height="3"/>
-        </g>
-      </g>
-    </svg>
-  </div>
-
-  <!-- L8 · PARTICLES -->
-  <div class="layer l-part" data-depth="0.86">
-    <svg viewBox="0 0 1600 1400" preserveAspectRatio="xMidYMid slice" shape-rendering="crispEdges">
-      <g fill="#00e5ff">
-        <rect x="220" y="300" width="4" height="4" opacity=".7"/>
-        <rect x="480" y="520" width="4" height="4" opacity=".5"/>
-        <rect x="700" y="260" width="4" height="4" opacity=".8"/>
-        <rect x="900" y="640" width="4" height="4" opacity=".6"/>
-        <rect x="1120" y="380" width="4" height="4" opacity=".7"/>
-        <rect x="1320" y="700" width="4" height="4" opacity=".5"/>
-        <rect x="360" y="880" width="4" height="4" opacity=".6"/>
-        <rect x="1420" y="220" width="4" height="4" opacity=".8"/>
-      </g>
-    </svg>
-  </div>
-
-</section>
-
-<!-- ================= COPY ================= -->
-<main class="copy">
-  <p class="kicker">Paleo // Signal</p>
-  <h1>VynJustHumant</h1>
-  <div class="rule"></div>
-  <p>
-    A Y2K retro-futurist diorama split along a 30-degree seam: a fog-drowned
-    Carboniferous swamp on one side, a bioluminescent abyssal ocean on the other.
-    A carnivorous plant and a spiral ammonite fossil hold the foreground while an
-    ammonite drifts through the light rays, trailing plankton like a signal.
-  </p>
-</main>
-
-<section class="copy reveal">
-  <h2>Layer Stack</h2>
-  <p class="mono" style="font-size:.8rem;letter-spacing:.16em;color:#8a8f96">
-    FOG · RAYS · FERNS · WATER · FOSSIL · PLANT · AMMONITE · PARTICLES
-  </p>
-  <p>
-    Eight independent depth planes, each offset by a small mouse-follow delta
-    and driven by an eased scroll value. Depth factors run 0.06 through 0.86;
-    the fossil and the plant reveal themselves as the stage enters the viewport.
-  </p>
-</section>
-
-<footer>
-  <p class="mono">
-    &copy; <span id="yr"></span> VynJustHumant &nbsp;·&nbsp;
-    <a href="https://github.com/VynJustHumant">github.com/VynJustHumant</a>
-  </p>
-  <p class="mono" style="margin-top:.8rem;opacity:.6">
-    Art &amp; code — MIT / CC-BY-4.0 · Placeholder licence
-  </p>
-</footer>
-
-<!-- ================= AUDIO TOGGLE ================= -->
-<button class="audio-btn" id="audioBtn" aria-pressed="false" aria-label="Toggle ambient sound (currently muted)">
-  <span class="dot"></span><span id="audioLabel">Ambient: Off</span>
-</button>
-
-<!-- ================= SCRIPT ================= -->
-<script>
-(function(){
-  'use strict';
-
-  document.getElementById('yr').textContent = new Date().getFullYear();
-
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
-
-  /* ---------- SCROLL PARALLAX + MOUSE PARALLAX ---------- */
-  var stage  = document.getElementById('stage');
-  var layers = [].slice.call(document.querySelectorAll('.layer'));
-
-  var scrollY = 0, targetScroll = 0;
-  var mx = 0, my = 0, tmx = 0, tmy = 0;
-
-  function readScroll(){
-    if(!stage) return;
-    var rect = stage.getBoundingClientRect();
-    // -1 .. 1 as the stage passes through the viewport
-    var p = 1 - (rect.top + rect.height) / (window.innerHeight + rect.height);
-    targetScroll = Math.max(-1, Math.min(1, p * 2 - 1));
-  }
-
-  window.addEventListener('scroll', readScroll, {passive:true});
-  window.addEventListener('resize', readScroll);
-
-  window.addEventListener('mousemove', function(e){
-    if(reduce.matches) return;
-    tmx = (e.clientX / window.innerWidth  - 0.5) * 2;
-    tmy = (e.clientY / window.innerHeight - 0.5) * 2;
-  }, {passive:true});
-
-  function tick(){
-    if(reduce.matches){
-      layers.forEach(function(l){ l.style.transform = ''; });
-      requestAnimationFrame(tick);
-      return;
+  <style>
+    .ammonite { animation: swim 8s cubic-bezier(0.5,0,0.5,1) infinite; transform-origin: 1220px 400px; }
+    @keyframes swim {
+      0%,100% { transform: translate(0,0) rotate(0deg); }
+      25%     { transform: translate(20px,-8px) rotate(5deg); }
+      50%     { transform: translate(38px,4px) rotate(-3deg); }
+      75%     { transform: translate(16px,10px) rotate(2deg); }
     }
-    // eased follow
-    scrollY += (targetScroll - scrollY) * 0.09;
-    mx += (tmx - mx) * 0.06;
-    my += (tmy - my) * 0.06;
-
-    layers.forEach(function(l){
-      var d = parseFloat(l.dataset.depth) || 0;
-      var yShift = -scrollY * d * 190;
-      var mxShift = mx * d * 5;      // 2-5px mouse offset budget
-      var myShift = my * d * 5;
-      l.style.transform = 'translate3d(' + mxShift.toFixed(2) + 'px,' +
-                           (yShift + myShift).toFixed(2) + 'px,0)';
-    });
-    requestAnimationFrame(tick);
-  }
-
-  readScroll();
-  requestAnimationFrame(tick);
-
-  /* ---------- SCROLL-TRIGGERED REVEAL ---------- */
-  var reveals = [].slice.call(document.querySelectorAll('.reveal'));
-
-  if(reduce.matches || !('IntersectionObserver' in window)){
-    reveals.forEach(function(el){ el.classList.add('in'); });
-  } else {
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(en){
-        if(en.isIntersecting){
-          en.target.classList.add('in');
-          io.unobserve(en.target);
-        }
-      });
-    }, {rootMargin:'0px 0px -18% 0px', threshold:0.12});
-    reveals.forEach(function(el){ io.observe(el); });
-  }
-
-  /* ---------- AMBIENT SOUND (default muted) ---------- */
-  var btn   = document.getElementById('audioBtn');
-  var label = document.getElementById('audioLabel');
-  var ctx = null, gain = null, nodes = [], playing = false;
-
-  function buildAmbient(){
-    var AC = window.AudioContext || window.webkitAudioContext;
-    if(!AC) return null;
-    var c = new AC();
-    var g = c.createGain();
-    g.gain.value = 0;
-    g.connect(c.destination);
-
-    // low swamp drone
-    var o1 = c.createOscillator(); o1.type = 'sine';     o1.frequency.value = 55;
-    var o2 = c.createOscillator(); o2.type = 'triangle'; o2.frequency.value = 82.5;
-    var og = c.createGain(); og.gain.value = 0.16;
-    o1.connect(og); o2.connect(og); og.connect(g);
-
-    // filtered noise bed
-    var len = c.sampleRate * 4;
-    var buf = c.createBuffer(1, len, c.sampleRate);
-    var data = buf.getChannelData(0);
-    for(var i=0;i<len;i++){ data[i] = (Math.random()*2-1) * 0.5; }
-    var src = c.createBufferSource();
-    src.buffer = buf; src.loop = true;
-    var lp = c.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value = 420;
-    var ng = c.createGain(); ng.gain.value = 0.05;
-    src.connect(lp); lp.connect(ng); ng.connect(g);
-
-    // slow LFO on the noise bed for "tide"
-    var lfo = c.createOscillator(); lfo.frequency.value = 0.08;
-    var lfoGain = c.createGain(); lfoGain.gain.value = 0.035;
-    lfo.connect(lfoGain); lfoGain.connect(ng.gain);
-
-    o1.start(); o2.start(); src.start(); lfo.start();
-    return {ctx:c, master:g, nodes:[o1,o2,src,lfo]};
-  }
-
-  btn.addEventListener('click', function(){
-    if(reduce.matches){ /* audio allowed regardless of motion pref */ }
-    if(!ctx){
-      var built = buildAmbient();
-      if(!built){ label.textContent = 'Ambient: N/A'; return; }
-      ctx = built.ctx; gain = built.master; nodes = built.nodes;
+    .tentacle { animation: wave 2s ease-in-out infinite; transform-origin: center top; }
+    .tentacle.t2 { animation-delay:-0.4s; }
+    .tentacle.t3 { animation-delay:-0.8s; }
+    .tentacle.t4 { animation-delay:-1.2s; }
+    @keyframes wave {
+      0%,100% { transform: scaleY(1) skewX(0deg); }
+      50%     { transform: scaleY(0.82) skewX(4deg); }
     }
-    if(ctx.state === 'suspended'){ ctx.resume(); }
+    .bubble { animation: rise 7s linear infinite; }
+    .bubble.b2 { animation-delay:-1.8s; }
+    .bubble.b3 { animation-delay:-3.6s; }
+    .bubble.b4 { animation-delay:-5.2s; }
+    @keyframes rise {
+      0%   { transform: translateY(0); opacity:0; }
+      12%  { opacity:0.85; }
+      88%  { opacity:0.85; }
+      100% { transform: translateY(-160px); opacity:0; }
+    }
+    .fog { animation: drift 14s ease-in-out infinite; }
+    @keyframes drift {
+      0%,100% { transform: translateX(-20px); opacity:0.1; }
+      50%     { transform: translateX(20px);  opacity:0.22; }
+    }
+    .plankton { animation: pdrift 10s ease-in-out infinite; }
+    .plankton.p2 { animation-delay:-3.3s; }
+    .plankton.p3 { animation-delay:-6.6s; }
+    @keyframes pdrift {
+      0%,100% { transform: translate(0,0);    opacity:0.5; }
+      50%     { transform: translate(14px,-10px); opacity:1; }
+    }
+    .firefly { animation: ffly 5s ease-in-out infinite; }
+    .firefly.f2 { animation-delay:-1.6s; }
+    .firefly.f3 { animation-delay:-3.2s; }
+    .firefly.f4 { animation-delay:-4.1s; }
+    @keyframes ffly {
+      0%,100% { opacity:0.25; transform: translate(0,0); }
+      35%     { opacity:1;    transform: translate(6px,-8px); }
+      70%     { opacity:0.6;  transform: translate(-4px,-3px); }
+    }
+    .name-glow { animation: npulse 4s ease-in-out infinite; }
+    @keyframes npulse {
+      0%,100% { filter: drop-shadow(0 0 3px #22d3ee); }
+      50%     { filter: drop-shadow(0 0 8px #22d3ee) drop-shadow(0 0 14px #e879f9); }
+    }
+    .scanline { animation: scanmove 9s linear infinite; }
+    @keyframes scanmove { 0% { transform: translateY(0); } 100% { transform: translateY(4px); } }
+    .crt-flick { animation: flick 6s steps(30) infinite; }
+    @keyframes flick {
+      0%,88%,100% { opacity:1; }
+      90%,94%     { opacity:0.86; }
+      96%         { opacity:0.94; }
+    }
+    .trap-open {
+      animation: trapbreathe 4s ease-in-out infinite;
+      transform-origin: 240px 560px;
+    }
+    @keyframes trapbreathe {
+      0%,100% { transform: rotate(0deg); }
+      50%     { transform: rotate(-3deg); }
+    }
+    .trap-tongue { animation: tongue 3s ease-in-out infinite; }
+    @keyframes tongue { 0%,100% { opacity:0.55; } 50% { opacity:0.85; } }
+    .portal-core { animation: pcrack 2.4s steps(2) infinite; }
+    @keyframes pcrack {
+      0%,100% { opacity:0.9; }
+      50%     { opacity:0.7; }
+    }
+    .glitch {
+      animation: gshift 0.32s steps(2) infinite;
+    }
+    @keyframes gshift {
+      0%,100% { transform: translate(0,0); }
+      40%     { transform: translate(-3px,0); }
+      70%     { transform: translate(3px,0); }
+    }
+    .glitch2 {
+      animation: gshift2 0.42s steps(3) infinite;
+    }
+    @keyframes gshift2 {
+      0%,100% { transform: translate(0,0); }
+      30%     { transform: translate(2px,-1px); }
+      60%     { transform: translate(-2px,1px); }
+    }
+    .char-breathe {
+      animation: cbreathe 5s ease-in-out infinite;
+      transform-origin: 520px 620px;
+    }
+    @keyframes cbreathe {
+      0%,100% { transform: translateY(0); }
+      50%     { transform: translateY(-1px); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; }
+    }
+  </style>
 
-    playing = !playing;
-    var now = ctx.currentTime;
-    gain.gain.cancelScheduledValues(now);
-    gain.gain.setValueAtTime(gain.gain.value, now);
-    gain.gain.linearRampToValueAtTime(playing ? 0.22 : 0, now + 1.1);
+  <!-- ================= BACKGROUND ================= -->
+  <rect width="1600" height="800" fill="#050a08"/>
+  <rect width="1600" height="800" fill="url(#swampGrad)"/>
+  <polygon points="820,0 1600,0 1600,800 620,800" fill="url(#oceanGrad)"/>
+  <line x1="820" y1="0" x2="620" y2="800" stroke="#22d3ee" stroke-width="1" opacity="0.28"/>
+  <line x1="822" y1="0" x2="622" y2="800" stroke="#e879f9" stroke-width="1" opacity="0.12"/>
 
-    btn.setAttribute('aria-pressed', String(playing));
-    btn.setAttribute('aria-label', 'Toggle ambient sound (currently ' + (playing ? 'on' : 'muted') + ')');
-    label.textContent = 'Ambient: ' + (playing ? 'On' : 'Off');
-  });
+  <!-- ================= SWAMP (left/top) ================= -->
+  <!-- Giant tree silhouette far left -->
+  <g fill="#0a1a10">
+    <rect x="60" y="80" width="26" height="500"/>
+    <rect x="40" y="140" width="20" height="24"/>
+    <rect x="80" y="180" width="24" height="20"/>
+    <rect x="42" y="100" width="90" height="8"/>
+    <rect x="20" y="160" width="100" height="6"/>
+    <rect x="30" y="240" width="80" height="5"/>
+  </g>
+  <!-- Ferns -->
+  <g fill="#12261a">
+    <rect x="260" y="360" width="4" height="220"/>
+    <rect x="248" y="380" width="14" height="3"/>
+    <rect x="262" y="405" width="18" height="3"/>
+    <rect x="246" y="430" width="14" height="3"/>
+    <rect x="262" y="455" width="18" height="3"/>
 
-  /* pause ambient when tab is hidden */
-  document.addEventListener('visibilitychange', function(){
-    if(!ctx || !playing) return;
-    if(document.hidden){ ctx.suspend(); } else { ctx.resume(); }
-  });
-})();
-</script>
-</body>
-</html>
-         
+    <rect x="340" y="410" width="3" height="170"/>
+    <rect x="332" y="425" width="12" height="3"/>
+    <rect x="342" y="448" width="14" height="3"/>
+    <rect x="330" y="472" width="12" height="3"/>
+  </g>
+  <!-- Swamp water surface -->
+  <rect x="0" y="640" width="720" height="160" fill="#0a1a12" opacity="0.9"/>
+  <rect x="0" y="640" width="720" height="2" fill="#2e5a3e" opacity="0.6"/>
+  <g fill="#22d3ee" opacity="0.14">
+    <rect x="60"  y="668" width="90" height="1"/>
+    <rect x="220" y="690" width="110" height="1"/>
+    <rect x="400" y="672" width="80" height="1"/>
+    <rect x="140" y="720" width="100" height="1"/>
+  </g>
+  <!-- Fog -->
+  <g class="fog" fill="#22d3ee">
+    <rect x="40"  y="470" width="260" height="60" opacity="0.14"/>
+    <rect x="300" y="520" width="220" height="50" opacity="0.1"/>
+  </g>
+  <!-- Fireflies -->
+  <g fill="#4ade80">
+    <rect class="firefly"    x="180" y="420" width="3" height="3"/>
+    <rect class="firefly f2" x="320" y="380" width="3" height="3"/>
+    <rect class="firefly f3" x="120" y="500" width="3" height="3"/>
+    <rect class="firefly f4" x="380" y="470" width="3" height="3"/>
+  </g>
+  <!-- Bubbles -->
+  <g fill="#4ade80">
+    <rect class="bubble"    x="120" y="700" width="5" height="5"/>
+    <rect class="bubble b2" x="240" y="710" width="4" height="4"/>
+    <rect class="bubble b3" x="420" y="698" width="6" height="6"/>
+    <rect class="bubble b4" x="540" y="720" width="4" height="4"/>
+  </g>
+
+  <!-- ================= OCEAN (right/bottom) ================= -->
+  <!-- Light rays -->
+  <g fill="#22d3ee" opacity="0.06">
+    <polygon points="980,0 1020,0 1080,800 1010,800"/>
+    <polygon points="1120,0 1150,0 1220,800 1160,800"/>
+    <polygon points="1300,0 1320,0 1380,800 1330,800"/>
+  </g>
+  <!-- Coral / sponges -->
+  <g fill="#166534" opacity="0.75">
+    <rect x="880"  y="640" width="4" height="120"/>
+    <rect x="872"  y="660" width="16" height="3"/>
+    <rect x="880"  y="690" width="14" height="3"/>
+    <rect x="880"  y="720" width="16" height="3"/>
+
+    <rect x="1480" y="600" width="4" height="160"/>
+    <rect x="1470" y="625" width="20" height="3"/>
+    <rect x="1480" y="660" width="18" height="3"/>
+    <rect x="1470" y="700" width="20" height="3"/>
+  </g>
+  <g fill="#0891b2" opacity="0.5">
+    <rect x="1020" y="720" width="3" height="60"/>
+    <rect x="1014" y="738" width="14" height="3"/>
+  </g>
+  <g fill="#a21caf" opacity="0.55">
+    <rect x="1400" y="700" width="3" height="80"/>
+    <rect x="1394" y="718" width="14" height="3"/>
+  </g>
+  <!-- Plankton -->
+  <g fill="#22d3ee">
+    <rect class="plankton"    x="980"  y="380" width="2" height="2"/>
+    <rect class="plankton p2" x="1120" y="440" width="2" height="2"/>
+    <rect class="plankton p3" x="1340" y="360" width="2" height="2"/>
+    <rect class="plankton"    x="1260" y="500" width="2" height="2"/>
+    <rect class="plankton p2" x="920"  y="520" width="2" height="2"/>
+  </g>
+  <!-- Ammonite -->
+  <g class="ammonite">
+    <g fill="#d4a373">
+      <rect class="tentacle"    x="1180" y="392" width="3" height="18"/>
+      <rect class="tentacle t2" x="1188" y="388" width="3" height="22"/>
+      <rect class="tentacle t3" x="1196" y="392" width="3" height="18"/>
+      <rect class="tentacle t4" x="1204" y="396" width="3" height="14"/>
+    </g>
+    <g fill="#4a4032">
+      <rect x="1216" y="374" width="60" height="60"/>
+      <rect x="1224" y="364" width="44" height="80"/>
+      <rect x="1206" y="388" width="82" height="32"/>
+    </g>
+    <g fill="#e8e0d5">
+      <rect x="1224" y="398" width="50" height="3"/>
+      <rect x="1232" y="384" width="32" height="3"/>
+      <rect x="1240" y="374" width="22" height="3"/>
+      <rect x="1248" y="414" width="24" height="3"/>
+      <rect x="1240" y="426" width="34" height="3"/>
+      <rect x="1230" y="410" width="5" height="5"/>
+      <rect x="1256" y="394" width="5" height="5"/>
+    </g>
+    <rect x="1256" y="404" width="8" height="8" fill="#d4a373"/>
+    <rect x="1259" y="407" width="3" height="3" fill="#fbbf24"/>
+  </g>
+
+  <!-- ================= PORTAL + CHARACTER (side, not center) ================= -->
+  <!-- Crack portal, positioned in swamp side but off-center -->
+  <g class="portal-core" transform="translate(470, 300)">
+    <!-- Outer glow -->
+    <ellipse cx="40" cy="220" rx="60" ry="240" fill="url(#portalGrad)" opacity="0.18"/>
+    <!-- Crack lines (jagged vertical) -->
+    <g fill="#e8f8ff">
+      <rect x="36" y="10"  width="8" height="20"/>
+      <rect x="34" y="32"  width="12" height="26"/>
+      <rect x="38" y="60"  width="6" height="18"/>
+      <rect x="36" y="80"  width="10" height="24"/>
+      <rect x="34" y="106" width="14" height="30"/>
+      <rect x="38" y="138" width="8" height="22"/>
+      <rect x="36" y="162" width="12" height="28"/>
+      <rect x="34" y="192" width="16" height="24"/>
+      <rect x="38" y="218" width="10" height="26"/>
+      <rect x="36" y="246" width="14" height="30"/>
+      <rect x="40" y="278" width="8" height="24"/>
+    </g>
+    <!-- Inner cyan core -->
+    <g fill="#22d3ee" opacity="0.85">
+      <rect x="38" y="20"  width="4" height="18"/>
+      <rect x="36" y="40"  width="8" height="22"/>
+      <rect x="40" y="64"  width="4" height="14"/>
+      <rect x="38" y="82"  width="6" height="20"/>
+      <rect x="36" y="108" width="10" height="26"/>
+      <rect x="40" y="140" width="6" height="18"/>
+      <rect x="38" y="164" width="8" height="24"/>
+      <rect x="36" y="194" width="12" height="20"/>
+      <rect x="40" y="220" width="6" height="22"/>
+      <rect x="38" y="248" width="10" height="26"/>
+      <rect x="42" y="280" width="4" height="20"/>
+    </g>
+    <!-- Magenta fringe -->
+    <g fill="#e879f9" opacity="0.7">
+      <rect x="34" y="14"  width="3" height="14"/>
+      <rect x="46" y="48"  width="3" height="18"/>
+      <rect x="34" y="90"  width="3" height="16"/>
+      <rect x="46" y="130" width="3" height="22"/>
+      <rect x="34" y="170" width="3" height="18"/>
+      <rect x="48" y="210" width="3" height="20"/>
+      <rect x="34" y="250" width="3" height="22"/>
+    </g>
+  </g>
+
+  <!-- Glitch band between portal and character -->
+  <g class="glitch" opacity="0.7">
+    <rect x="440" y="430" width="90" height="3" fill="#22d3ee"/>
+    <rect x="450" y="470" width="70" height="2" fill="#e879f9"/>
+    <rect x="460" y="510" width="60" height="3" fill="#22d3ee"/>
+    <rect x="445" y="550" width="80" height="2" fill="#e879f9"/>
+    <rect x="455" y="590" width="65" height="3" fill="#22d3ee"/>
+  </g>
+  <g class="glitch2" opacity="0.55">
+    <rect x="455" y="450" width="55" height="2" fill="#e879f9"/>
+    <rect x="465" y="490" width="45" height="2" fill="#22d3ee"/>
+    <rect x="445" y="530" width="70" height="2" fill="#e879f9"/>
+    <rect x="460" y="570" width="50" height="2" fill="#22d3ee"/>
+  </g>
+
+  <!-- Character: tall man, trench coat, curly hair, head down, hands in pockets -->
+  <g class="char-breathe" transform="translate(520, 620)">
+    <!-- Shadow -->
+    <ellipse cx="0" cy="2" rx="45" ry="6" fill="#000" opacity="0.5"/>
+
+    <!-- Coat hem (bottom) -->
+    <g fill="#1a1f2e">
+      <rect x="-30" y="-10" width="60" height="14"/>
+      <rect x="-34" y="-2"  width="68" height="6" fill="#141824"/>
+    </g>
+    <!-- Coat body (slightly turned) -->
+    <g fill="#232a3d">
+      <rect x="-28" y="-100" width="56" height="92"/>
+      <rect x="-24" y="-110" width="48" height="12"/>
+    </g>
+    <!-- Coat highlight (side, gives 3/4 view) -->
+    <g fill="#2e374d">
+      <rect x="-22" y="-100" width="6" height="88"/>
+      <rect x="-18" y="-108" width="4" height="96"/>
+    </g>
+    <!-- Coat lapels (open front) -->
+    <g fill="#0f1320">
+      <rect x="-8"  y="-100" width="6" height="60"/>
+      <rect x="10"  y="-100" width="6" height="60"/>
+      <rect x="-6"  y="-104" width="4" height="8"/>
+      <rect x="12"  y="-104" width="4" height="8"/>
+    </g>
+    <!-- Belt -->
+    <rect x="-28" y="-38" width="56" height="5" fill="#0a0d18"/>
+    <rect x="-3"  y="-38" width="6" height="5" fill="#4a4032"/>
+
+    <!-- Hands in pockets (subtle bulges) -->
+    <g fill="#1a1f2e">
+      <rect x="-30" y="-58" width="6" height="14"/>
+      <rect x="24"  y="-58" width="6" height="14"/>
+    </g>
+
+    <!-- Shoulders (slightly turned, right shoulder higher) -->
+    <g fill="#232a3d">
+      <rect x="-30" y="-116" width="60" height="14"/>
+      <rect x="-26" y="-122" width="52" height="8"/>
+    </g>
+
+    <!-- Neck -->
+    <rect x="-6" y="-130" width="12" height="10" fill="#c9a17a"/>
+    <!-- Collar high (mysterious) -->
+    <g fill="#0f1320">
+      <rect x="-14" y="-128" width="28" height="10"/>
+      <rect x="-18" y="-132" width="8"  height="14"/>
+      <rect x="10"  y="-132" width="8"  height="14"/>
+    </g>
+
+    <!-- Head — down, tilted forward -->
+    <g transform="translate(0, -128)">
+      <!-- Head base -->
+      <rect x="-11" y="-14" width="22" height="22" fill="#c9a17a"/>
+      <!-- Shadow on face (looking down) -->
+      <rect x="-11" y="-2"  width="22" height="10" fill="#8a6a4a"/>
+      <!-- Eyes (barely visible, looking down) -->
+      <rect x="-7" y="-2"   width="3" height="2" fill="#0a0d18"/>
+      <rect x="4"  y="-2"   width="3" height="2" fill="#0a0d18"/>
+      <!-- Nose shadow -->
+      <rect x="-1" y="2"    width="2" height="3" fill="#8a6a4a"/>
+      <!-- Curly hair — cluster of pixels -->
+      <g fill="#1a1410">
+        <rect x="-13" y="-18" width="26" height="10"/>
+        <rect x="-15" y="-14" width="4"  height="12"/>
+        <rect x="11"  y="-14" width="4"  height="12"/>
+        <rect x="-11" y="-22" width="6"  height="6"/>
+        <rect x="-3"  y="-24" width="6"  height="6"/>
+        <rect x="5"   y="-22" width="6"  height="6"/>
+        <rect x="-8"  y="-20" width="4"  height="4"/>
+        <rect x="2"   y="-20" width="4"  height="4"/>
+      </g>
+      <!-- Hair highlights -->
+      <g fill="#3a2a1e">
+        <rect x="-6" y="-20" width="2" height="2"/>
+        <rect x="4"  y="-20" width="2" height="2"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- ================= VENUS FLYTRAP (foreground left, upright, real design) ================= -->
+  <!-- Main trap: opens UPWARD, attached to ground with bush -->
+  <g class="trap-open" transform="translate(200, 480)">
+    <!-- Stem from ground -->
+    <rect x="-3" y="60" width="6" height="140" fill="#2d4623"/>
+    <rect x="-2" y="60" width="2" height="140" fill="#1a2d14"/>
+
+    <!-- Surrounding bush / low leaves at base -->
+    <g fill="#1f3d18">
+      <rect x="-70" y="180" width="140" height="40"/>
+      <rect x="-60" y="170" width="120" height="20"/>
+      <rect x="-45" y="165" width="90"  height="15"/>
+    </g>
+    <g fill="#2d5a24">
+      <rect x="-60" y="185" width="16" height="18"/>
+      <rect x="-38" y="180" width="18" height="20"/>
+      <rect x="-12" y="175" width="20" height="22"/>
+      <rect x="14"  y="182" width="18" height="18"/>
+      <rect x="36"  y="186" width="18" height="16"/>
+    </g>
+    <g fill="#4a7a2c">
+      <rect x="-56" y="182" width="3" height="14"/>
+      <rect x="-34" y="177" width="3" height="16"/>
+      <rect x="-8"  y="172" width="3" height="18"/>
+      <rect x="18"  y="179" width="3" height="16"/>
+      <rect x="40"  y="183" width="3" height="14"/>
+    </g>
+
+    <!-- Trap base (bulbous, red) -->
+    <g fill="#8a1030">
+      <rect x="-42" y="30" width="84" height="40"/>
+      <rect x="-36" y="20" width="72" height="14"/>
+    </g>
+    <g fill="#b81840">
+      <rect x="-38" y="30" width="76" height="34"/>
+      <rect x="-32" y="20" width="64" height="12"/>
+    </g>
+
+    <!-- Lower lobe — opening upward, red interior -->
+    <g fill="#166534">
+      <rect x="-52" y="-4" width="104" height="24"/>
+    </g>
+    <g fill="#2d8a3e">
+      <rect x="-48" y="-8" width="96" height="22"/>
+    </g>
+    <!-- Red interior (visible from above) -->
+    <rect class="trap-tongue" x="-40" y="-2" width="80" height="14" fill="#c81e4a"/>
+    <rect x="-32" y="0"  width="64" height="10" fill="#e83a68" opacity="0.7"/>
+    <!-- Purple veins -->
+    <g fill="#7a0e2e" opacity="0.8">
+      <rect x="-28" y="2"  width="2" height="10"/>
+      <rect x="-12" y="2"  width="2" height="10"/>
+      <rect x="6"   y="2"  width="2" height="10"/>
+      <rect x="22"  y="2"  width="2" height="10"/>
+    </g>
+    <!-- Lower teeth (cilia along rim, pointing up) -->
+    <g fill="#e8e0d5">
+      <rect x="-52" y="-14" width="4" height="10"/>
+      <rect x="-42" y="-14" width="4" height="10"/>
+      <rect x="-32" y="-14" width="4" height="10"/>
+      <rect x="-22" y="-14" width="4" height="10"/>
+      <rect x="-12" y="-14" width="4" height="10"/>
+      <rect x="-2"  y="-14" width="4" height="10"/>
+      <rect x="8"   y="-14" width="4" height="10"/>
+      <rect x="18"  y="-14" width="4" height="10"/>
+      <rect x="28"  y="-14" width="4" height="10"/>
+      <rect x="38"  y="-14" width="4" height="10"/>
+      <rect x="48"  y="-14" width="4" height="10"/>
+    </g>
+
+    <!-- Upper lobe — attached at hinge (behind), tips open forward/up -->
+    <g fill="#166534" opacity="0.95">
+      <rect x="-46" y="-46" width="92" height="30"/>
+    </g>
+    <g fill="#2d8a3e" opacity="0.95">
+      <rect x="-42" y="-50" width="84" height="28"/>
+    </g>
+    <!-- Upper interior red -->
+    <rect class="trap-tongue" x="-36" y="-44" width="72" height="18" fill="#c81e4a" opacity="0.9"/>
+    <rect x="-28" y="-42" width="56" height="12" fill="#e83a68" opacity="0.55"/>
+    <!-- Upper teeth (pointing down) -->
+    <g fill="#e8e0d5">
+      <rect x="-46" y="-20" width="4" height="10"/>
+      <rect x="-36" y="-20" width="4" height="10"/>
+      <rect x="-26" y="-20" width="4" height="10"/>
+      <rect x="-16" y="-20" width="4" height="10"/>
+      <rect x="-6"  y="-20" width="4" height="10"/>
+      <rect x="4"   y="-20" width="4" height="10"/>
+      <rect x="14"  y="-20" width="4" height="10"/>
+      <rect x="24"  y="-20" width="4" height="10"/>
+      <rect x="34"  y="-20" width="4" height="10"/>
+      <rect x="44"  y="-20" width="4" height="10"/>
+    </g>
+    <!-- Hinge shadow -->
+    <rect x="-46" y="-16" width="92" height="4" fill="#0a1f0d" opacity="0.6"/>
+  </g>
+
+  <!-- Second, smaller flytrap for depth (left side) -->
+  <g transform="translate(100, 520) scale(0.7)">
+    <rect x="-2" y="40" width="4" height="100" fill="#2d4623"/>
+    <g fill="#1f3d18">
+      <rect x="-46" y="120" width="92" height="26"/>
+      <rect x="-38" y="112" width="76" height="14"/>
+    </g>
+    <g fill="#166534">
+      <rect x="-34" y="-4" width="68" height="30"/>
+    </g>
+    <g fill="#2d8a3e">
+      <rect x="-30" y="-8" width="60" height="28"/>
+    </g>
+    <rect x="-24" y="0" width="48" height="12" fill="#c81e4a"/>
+    <g fill="#e8e0d5">
+      <rect x="-34" y="-12" width="3" height="8"/>
+      <rect x="-24" y="-12" width="3" height="8"/>
+      <rect x="-14" y="-12" width="3" height="8"/>
+      <rect x="-4"  y="-12" width="3" height="8"/>
+      <rect x="6"   y="-12" width="3" height="8"/>
+      <rect x="16"  y="-12" width="3" height="8"/>
+      <rect x="26"  y="-12" width="3" height="8"/>
+    </g>
+    <g fill="#166534" opacity="0.9">
+      <rect x="-30" y="-38" width="60" height="22"/>
+    </g>
+    <rect x="-22" y="-34" width="44" height="14" fill="#c81e4a" opacity="0.9"/>
+    <g fill="#e8e0d5">
+      <rect x="-30" y="-18" width="3" height="8"/>
+      <rect x="-20" y="-18" width="3" height="8"/>
+      <rect x="-10" y="-18" width="3" height="8"/>
+      <rect x="0"   y="-18" width="3" height="8"/>
+      <rect x="10"  y="-18" width="3" height="8"/>
+      <rect x="20"  y="-18" width="3" height="8"/>
+    </g>
+  </g>
+
+  <!-- ================= NAME (top center) ================= -->
+  <ellipse cx="800" cy="180" rx="420" ry="130" fill="url(#nameGlowGrad)"/>
+
+  <g class="crt-flick">
+    <text class="name-glow" x="800" y="200" text-anchor="middle"
+          font-size="86" font-weight="300" fill="#e8f0f5"
+          letter-spacing="14">VYNJUSTHUMANT</text>
+  </g>
+  <text x="803" y="200" text-anchor="middle" font-size="86" font-weight="300"
+        fill="#e879f9" opacity="0.18" letter-spacing="14" pointer-events="none">VYNJUSTHUMANT</text>
+  <text x="797" y="200" text-anchor="middle" font-size="86" font-weight="300"
+        fill="#22d3ee" opacity="0.18" letter-spacing="14" pointer-events="none">VYNJUSTHUMANT</text>
+
+  <text x="800" y="242" text-anchor="middle" font-size="14"
+        fill="#22d3ee" letter-spacing="10" opacity="0.9">ML INFRASTRUCTURE · PYTORCH</text>
+  <rect x="640" y="260" width="320" height="1" fill="#d4a373" opacity="0.6"/>
+
+  <!-- ================= CRT OVERLAYS ================= -->
+  <g class="scanline" fill="#22d3ee">
+    <rect y="0"  width="1600" height="1"/>
+    <rect y="4"  width="1600" height="1"/>
+    <rect y="8"  width="1600" height="1"/>
+    <rect y="12" width="1600" height="1"/>
+    <rect y="16" width="1600" height="1"/>
+    <rect y="20" width="1600" height="1"/>
+    <rect y="24" width="1600" height="1"/>
+    <rect y="28" width="1600" height="1"/>
+    <rect y="32" width="1600" height="1"/>
+    <rect y="36" width="1600" height="1"/>
+    <rect y="40" width="1600" height="1"/>
+    <rect y="44" width="1600" height="1"/>
+    <rect y="48" width="1600" height="1"/>
+    <rect y="52" width="1600" height="1"/>
+    <rect y="56" width="1600" height="1"/>
+    <rect y="60" width="1600" height="1"/>
+  </g>
+
+  <!-- Vignette -->
+  <rect width="1600" height="10" fill="#000" opacity="0.5"/>
+  <rect y="790" width="1600" height="10" fill="#000" opacity="0.5"/>
+  <rect width="10" height="800" fill="#000" opacity="0.35"/>
+  <rect x="1590" width="10" height="800" fill="#000" opacity="0.35"/>
+</svg>
+      
