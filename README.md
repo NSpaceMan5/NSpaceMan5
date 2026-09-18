@@ -1,9 +1,9 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-reduced-motion: reduce)" srcset=".github/assets/banner-static.svg">
-  <img src=".github/assets/banner.svg" width="100%"
-       alt="Banner pixel art VynJustHumant bergaya retro-futuristik Y2K × prasejarah purba. Rawa purba berkabut hijau di kiri atas dan laut purba biru gelap di kanan bawah dipisahkan garis diagonal neon. Nama VynJustHumant menyala cyan-magenta di tengah atas. Ammonite bercahaya berenang di laut, tumbuhan karnivora purba berdiri di latar depan, gelembung dan plankton bergerak lambat, dengan overlay scanline CRT.">
+  <source media="(prefers-reduced-motion: reduce)" srcset=".github/assets/banner-static.png">
+  <img src=".github/assets/banner.webp" width="100%"
+       alt="Pixel art banner VynJustHumant: split diagonal antara purba dan modern. Karakter pria trench coat dengan rambut ikal berdiri di antara rak bambu berisi tujuh tanaman purba (lumut, pakis, tree fern, psilotum, venus flytrap, nepenthes, darlingtonia). Split kiri hijau gelap dengan bulan purba, split kanan biru cerah dengan bukit modern, antena Y2K, panel surya, dan CRT. Glitch RGB split di sekitar karakter.">
 </picture>
 
 ### ML Infrastructure Engineer
