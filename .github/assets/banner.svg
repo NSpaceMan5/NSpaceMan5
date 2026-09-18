@@ -1,527 +1,505 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 800"
-     shape-rendering="crispEdges" preserveAspectRatio="xMidYMid meet"
-     width="1600" height="800" style="background:#04060a">
-<title>VynJustHumant — banner</title>
-<desc>Banner pixel art retro-futuristik Y2K × prasejarah purba: rawa purba kiri atas, laut purba kanan bawah, dipisahkan seam diagonal neon.</desc>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VynJustHumant — Paleo//Signal</title>
+<meta name="description" content="Y2K retro-futurist paleo-world banner — VynJustHumant">
+<style>
+  :root{
+    --c-void:#050b0a; --c-charcoal:#0f1614; --c-darkgray:#232b28;
+    --c-stone:#8a8f96; --c-cream:#e8dcc0; --c-bone:#c9b48a; --c-coldwhite:#d8f4ff;
+    --c-swamp-deep:#0c1710; --c-swamp-mid:#16261c; --c-swamp-1:#1f3a26;
+    --c-moss:#35603a; --c-olive:#4a7c3f; --c-murky:#7a8f3a; --c-murkyY:#a8a05c;
+    --c-earth:#5c4a30; --c-earth-lt:#8a7a4a;
+    --c-navy-deep:#050d1a; --c-navy:#0a1830; --c-teal-dark:#0d2d3f;
+    --c-teal:#10495c; --c-cyan-deep:#1a7a8c; --c-cyan:#00e5ff; --c-cyan-lt:#7fe9ff;
+    --c-magenta:#ff2bd6; --c-neon:#00ff9d; --c-yellow:#ffd447;
+    --c-plant:#2b4a2a; --c-plant-lt:#4f7a3a; --c-plant-maw:#8c2f4a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--c-void);
+    color:var(--c-coldwhite);
+    font-family:"Rajdhani","Orbitron","Michroma","Eurostile","Segoe UI",system-ui,sans-serif;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace}
 
-<defs>
-  <linearGradient id="swampSky" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0"    stop-color="#080f09"/>
-    <stop offset="0.55" stop-color="#101c12"/>
-    <stop offset="1"    stop-color="#1a2a15"/>
-  </linearGradient>
-  <linearGradient id="oceanDeep" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0"   stop-color="#0d2b46"/>
-    <stop offset="0.5" stop-color="#071a2c"/>
-    <stop offset="1"   stop-color="#01040a"/>
-  </linearGradient>
-  <linearGradient id="rayGrad" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0" stop-color="#00ffd5" stop-opacity="0.22"/>
-    <stop offset="1" stop-color="#00ffd5" stop-opacity="0"/>
-  </linearGradient>
-  <radialGradient id="glowCyan" cx="0.5" cy="0.5" r="0.5">
-    <stop offset="0" stop-color="#00ffd5" stop-opacity="0.55"/>
-    <stop offset="1" stop-color="#00ffd5" stop-opacity="0"/>
-  </radialGradient>
-  <radialGradient id="glowGrn" cx="0.5" cy="0.5" r="0.5">
-    <stop offset="0" stop-color="#39ff14" stop-opacity="0.75"/>
-    <stop offset="1" stop-color="#39ff14" stop-opacity="0"/>
-  </radialGradient>
-  <radialGradient id="vignette" cx="0.5" cy="0.5" r="0.75">
-    <stop offset="0.55" stop-color="#000" stop-opacity="0"/>
-    <stop offset="1"    stop-color="#000" stop-opacity="0.7"/>
-  </radialGradient>
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative; width:100%; aspect-ratio:2/1; max-height:100vh;
+    overflow:hidden; background:var(--c-void);
+    border-bottom:1px solid rgba(0,229,255,.18);
+  }
+  .hero img{display:block;width:100%;height:100%;object-fit:cover}
+  .hero-veil{
+    position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(180deg,transparent 55%,rgba(5,11,10,.85) 100%);
+  }
 
-  <filter id="nameGlow" x="-20%" y="-60%" width="140%" height="220%">
-    <feGaussianBlur stdDeviation="3.2" result="b"/>
-    <feMerge>
-      <feMergeNode in="b"/><feMergeNode in="b"/>
-      <feMergeNode in="SourceGraphic"/>
-    </feMerge>
-  </filter>
+  /* ---------- SCROLL PARALLAX STAGE ---------- */
+  .stage{
+    position:relative; height:260vh; overflow:hidden;
+    background:linear-gradient(180deg,#050b0a 0%,#0a1830 38%,#050d1a 72%,#050b0a 100%);
+  }
+  .layer{
+    position:absolute; left:-8%; width:116%; height:100%;
+    will-change:transform; pointer-events:none;
+  }
+  .layer svg{width:100%;height:100%;display:block}
+  .l-fog   {z-index:1}
+  .l-rays  {z-index:2}
+  .l-fern  {z-index:3}
+  .l-water {z-index:4}
+  .l-fossil{z-index:5}
+  .l-plant {z-index:6}
+  .l-amm   {z-index:7}
+  .l-part  {z-index:8}
 
-  <pattern id="scanlines" width="4" height="4" patternUnits="userSpaceOnUse">
-    <rect width="4" height="2" fill="#000" opacity="0.14"/>
-  </pattern>
-  <pattern id="dither" width="4" height="4" patternUnits="userSpaceOnUse">
-    <rect width="1" height="1" fill="#fff" opacity="0.05"/>
-    <rect x="2" y="2" width="1" height="1" fill="#fff" opacity="0.05"/>
-  </pattern>
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s cubic-bezier(.2,.7,.3,1),transform .9s cubic-bezier(.2,.7,.3,1)}
+  .reveal.in{opacity:1;transform:none}
 
-  <g id="firefly">
-    <circle r="7" fill="url(#glowGrn)"/>
-    <rect x="-1" y="-1" width="2" height="2" fill="#c8ffb0"/>
-  </g>
-  <g id="bubble">
-    <rect x="-3" y="-3" width="6" height="6" fill="none" stroke="#7fd0e0" stroke-width="1" opacity="0.7"/>
-    <rect x="-1" y="-2" width="2" height="2" fill="#c8f4ff" opacity="0.7"/>
-  </g>
-  <g id="plank">
-    <rect x="-1" y="-1" width="2" height="2" fill="#00ffd5" opacity="0.85"/>
-  </g>
+  /* ---------- COPY BLOCKS ---------- */
+  .copy{
+    position:relative;z-index:20;max-width:760px;margin:0 auto;
+    padding:14vh 24px;text-align:center;
+  }
+  .kicker{
+    font-size:.78rem;letter-spacing:.42em;text-transform:uppercase;
+    color:var(--c-neon);opacity:.9;margin-bottom:1.1rem;
+  }
+  h1{
+    font-size:clamp(2.1rem,6vw,4rem);line-height:1.05;letter-spacing:.06em;
+    font-weight:800;text-transform:uppercase;
+    color:var(--c-coldwhite);
+    text-shadow:0 0 18px rgba(0,229,255,.45), 2px 0 0 rgba(255,43,214,.35), -2px 0 0 rgba(0,229,255,.35);
+  }
+  h2{
+    font-size:clamp(1.2rem,2.6vw,1.7rem);letter-spacing:.18em;
+    text-transform:uppercase;color:var(--c-cyan);margin-bottom:1rem;font-weight:700;
+  }
+  p{font-size:clamp(1rem,1.5vw,1.12rem);line-height:1.75;color:#b9cfd6;margin-bottom:1rem}
+  .rule{width:64px;height:2px;background:var(--c-cyan);margin:1.6rem auto;opacity:.7}
 
-  <!-- Clip: hanya area rawa (kiri-atas dari diagonal) -->
-  <clipPath id="swampClip">
-    <polygon points="0,0 1600,0 1600,80 0,720"/>
-  </clipPath>
-</defs>
+  /* ---------- AUDIO TOGGLE ---------- */
+  .audio-btn{
+    position:fixed;right:18px;bottom:18px;z-index:99;
+    display:inline-flex;align-items:center;gap:.55rem;
+    padding:.6rem 1rem;border:1px solid rgba(0,229,255,.4);
+    background:rgba(5,11,10,.82);backdrop-filter:blur(6px);
+    color:var(--c-cyan);font:inherit;font-size:.72rem;letter-spacing:.2em;
+    text-transform:uppercase;cursor:pointer;border-radius:2px;
+    transition:background .25s,border-color .25s,color .25s;
+  }
+  .audio-btn:hover,.audio-btn:focus-visible{
+    background:rgba(0,229,255,.12);border-color:var(--c-cyan);outline:none;
+  }
+  .audio-btn[aria-pressed="true"]{color:var(--c-neon);border-color:rgba(0,255,157,.55)}
+  .dot{width:7px;height:7px;background:currentColor;border-radius:50%;box-shadow:0 0 8px currentColor}
 
-<!-- ===================== BASE ===================== -->
-<rect width="1600" height="800" fill="#04060a"/>
-<polygon points="0,0 1600,0 1600,80 0,720" fill="url(#swampSky)"/>
-<polygon points="0,720 1600,80 1600,800 0,800" fill="url(#oceanDeep)"/>
+  /* ---------- FOOTER ---------- */
+  footer{
+    position:relative;z-index:20;padding:8vh 24px 12vh;text-align:center;
+    border-top:1px solid rgba(0,229,255,.12);
+  }
+  footer .mono{font-size:.72rem;letter-spacing:.24em;color:var(--c-stone);text-transform:uppercase}
+  footer a{color:var(--c-cyan);text-decoration:none;border-bottom:1px solid rgba(0,229,255,.3)}
+  footer a:hover{border-bottom-color:var(--c-cyan)}
 
-<!-- Neon seam -->
-<line x1="0" y1="720" x2="1600" y2="80" stroke="#00ffd5" stroke-width="1.5" opacity="0.55"/>
-<line x1="0" y1="723" x2="1600" y2="83" stroke="#ff00aa" stroke-width="0.8" opacity="0.35"/>
+  @media (max-width:640px){
+    .stage{height:200vh}
+    .copy{padding:10vh 20px}
+  }
 
-<!-- ===================== SWAMP (CLIPPED) ===================== -->
-<g clip-path="url(#swampClip)">
+  /* ---------- REDUCED MOTION ---------- */
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto}
+    .layer{transform:none !important;transition:none !important}
+    .reveal{opacity:1 !important;transform:none !important;transition:opacity .35s ease}
+    .hero img{animation:none !important}
+  }
+</style>
+</head>
+<body>
 
-  <!-- Fog -->
-  <g opacity="0.6">
-    <rect y="180" width="1600" height="60" fill="#1a2a15" opacity="0.35">
-      <animate attributeName="x" values="0;120;0" dur="24s" repeatCount="indefinite"/>
-    </rect>
-    <rect y="300" width="1600" height="50" fill="#243a1c" opacity="0.25">
-      <animate attributeName="x" values="60;0;60" dur="18s" repeatCount="indefinite"/>
-    </rect>
-    <rect y="420" width="1600" height="45" fill="#2a4222" opacity="0.22">
-      <animate attributeName="x" values="0;80;0" dur="30s" repeatCount="indefinite"/>
-    </rect>
-  </g>
+<!-- ================= HERO BANNER ================= -->
+<header class="hero">
+  <picture>
+    <source srcset="banner.webp" type="image/webp">
+    <img src="banner.svg"
+         alt="Pixel-art banner: a foggy prehistoric swamp on the upper left meets a bioluminescent prehistoric ocean on the lower right along a 30-degree diagonal. A carnivorous plant and a spiral ammonite fossil anchor the foreground; a glowing ammonite swims through the ocean. The name VynJustHumant glows in cyan-magenta neon at top centre.">
+  </picture>
+  <div class="hero-veil"></div>
+</header>
 
-  <!-- Giant trees -->
-  <g opacity="0.85">
-    <rect x="96" y="140" width="34" height="380" fill="#1b140c"/>
-    <rect x="100" y="150" width="4" height="360" fill="#2a1f12"/>
-    <rect x="118" y="150" width="6" height="360" fill="#0e0905"/>
-    <rect x="96" y="200" width="12" height="8" fill="#3d5a24"/>
-    <rect x="112" y="260" width="10" height="6" fill="#4a6a2a"/>
-    <rect x="100" y="320" width="14" height="8" fill="#375020"/>
-    <rect x="118" y="400" width="10" height="6" fill="#4a6a2a"/>
-    <rect x="60" y="180" width="40" height="6" fill="#1b140c"/>
-    <rect x="128" y="220" width="46" height="6" fill="#1b140c"/>
-    <rect x="60" y="186" width="3" height="60" fill="#2a1f12"/>
-    <rect x="150" y="226" width="3" height="80" fill="#2a1f12"/>
-  </g>
-  <g>
-    <rect x="286" y="200" width="40" height="320" fill="#221810"/>
-    <rect x="290" y="210" width="6" height="300" fill="#33240f"/>
-    <rect x="318" y="210" width="4" height="300" fill="#0e0905"/>
-    <rect x="286" y="280" width="12" height="8" fill="#3d5a24"/>
-    <rect x="300" y="340" width="14" height="8" fill="#4a6a2a"/>
-    <rect x="286" y="440" width="12" height="10" fill="#375020"/>
-    <rect x="326" y="240" width="60" height="6" fill="#221810"/>
-    <rect x="240" y="300" width="46" height="6" fill="#221810"/>
-    <rect x="384" y="246" width="3" height="70" fill="#33240f"/>
-    <rect x="240" y="306" width="3" height="90" fill="#33240f"/>
-  </g>
-  <g opacity="0.55">
-    <rect x="470" y="240" width="26" height="300" fill="#161009"/>
-    <rect x="476" y="260" width="4" height="280" fill="#241a0d"/>
-  </g>
+<!-- ================= SCROLL PARALLAX STAGE ================= -->
+<section class="stage" id="stage" aria-hidden="true">
 
-  <!-- Ferns & horsetails -->
-  <g stroke="#2f4d1c" stroke-width="2" fill="none">
-    <path d="M40,620 Q70,560 60,500"/>
-    <path d="M50,600 Q80,570 90,540"/>
-    <path d="M55,580 Q92,556 108,530"/>
-    <path d="M58,560 Q100,540 116,516"/>
-    <path d="M60,540 Q104,522 122,500"/>
-  </g>
-  <g stroke="#3f6a26" stroke-width="2" fill="none">
-    <path d="M180,600 Q206,540 200,480"/>
-    <path d="M188,576 Q222,552 236,520"/>
-    <path d="M194,554 Q232,532 250,504"/>
-  </g>
-  <g fill="#4a7a2c">
-    <rect x="90" y="500" width="6" height="4"/>
-    <rect x="108" y="528" width="6" height="4"/>
-    <rect x="116" y="514" width="6" height="4"/>
-    <rect x="236" y="518" width="6" height="4"/>
-    <rect x="250" y="502" width="6" height="4"/>
-  </g>
-  <g fill="#375c20">
-    <rect x="150" y="440" width="4" height="180"/>
-    <rect x="144" y="452" width="16" height="3"/>
-    <rect x="144" y="492" width="16" height="3"/>
-    <rect x="144" y="532" width="16" height="3"/>
-    <rect x="144" y="572" width="16" height="3"/>
-    <rect x="200" y="470" width="4" height="160"/>
-    <rect x="194" y="482" width="16" height="3"/>
-    <rect x="194" y="522" width="16" height="3"/>
-    <rect x="194" y="562" width="16" height="3"/>
-  </g>
-
-  <!-- Swamp water surface -->
-  <rect x="0" y="580" width="800" height="160" fill="#0f1e14"/>
-  <rect x="0" y="580" width="800" height="3" fill="#2e5a3e"/>
-
-  <!-- Reflections -->
-  <rect x="30" y="610" width="80" height="2" fill="#39ff14" opacity="0.25">
-    <animate attributeName="opacity" values="0.15;0.35;0.15" dur="6s" repeatCount="indefinite"/>
-  </rect>
-  <rect x="100" y="640" width="60" height="2" fill="#39ff14" opacity="0.2">
-    <animate attributeName="opacity" values="0.35;0.15;0.35" dur="7s" repeatCount="indefinite"/>
-  </rect>
-  <rect x="20" y="670" width="70" height="2" fill="#00ffd5" opacity="0.2">
-    <animate attributeName="opacity" values="0.1;0.3;0.1" dur="5.5s" repeatCount="indefinite"/>
-  </rect>
-
-  <!-- Bubbles (muncul dari seam) -->
-  <use href="#bubble" x="120" y="650">
-    <animate attributeName="y" values="650;480" dur="6s" repeatCount="indefinite"/>
-    <animate attributeName="x" values="120;126;120" dur="6s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0;1;1;0" dur="6s" repeatCount="indefinite"/>
-  </use>
-  <use href="#bubble" x="280" y="590">
-    <animate attributeName="y" values="590;440" dur="7s" begin="1s" repeatCount="indefinite"/>
-    <animate attributeName="x" values="280;274;280" dur="7s" begin="1s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0;1;1;0" dur="7s" begin="1s" repeatCount="indefinite"/>
-  </use>
-  <use href="#bubble" x="180" y="630">
-    <animate attributeName="y" values="630;450" dur="5s" begin="2s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0;1;1;0" dur="5s" begin="2s" repeatCount="indefinite"/>
-  </use>
-
-  <!-- Fireflies -->
-  <g>
-    <use href="#firefly" x="180" y="380">
-      <animate attributeName="x" values="180;220;180" dur="9s" repeatCount="indefinite"/>
-      <animate attributeName="y" values="380;360;380" dur="7s" repeatCount="indefinite"/>
-      <animate attributeName="opacity" values="0.3;1;0.3" dur="3s" repeatCount="indefinite"/>
-    </use>
-    <use href="#firefly" x="360" y="320">
-      <animate attributeName="x" values="360;330;360" dur="11s" repeatCount="indefinite"/>
-      <animate attributeName="y" values="320;300;320" dur="6s" repeatCount="indefinite"/>
-      <animate attributeName="opacity" values="1;0.2;1" dur="2.7s" repeatCount="indefinite"/>
-    </use>
-    <use href="#firefly" x="520" y="420">
-      <animate attributeName="x" values="520;560;520" dur="10s" repeatCount="indefinite"/>
-      <animate attributeName="y" values="420;396;420" dur="8s" repeatCount="indefinite"/>
-      <animate attributeName="opacity" values="0.4;1;0.4" dur="3.2s" repeatCount="indefinite"/>
-    </use>
-    <use href="#firefly" x="640" y="360">
-      <animate attributeName="x" values="640;610;640" dur="13s" repeatCount="indefinite"/>
-      <animate attributeName="y" values="360;336;360" dur="7.5s" repeatCount="indefinite"/>
-      <animate attributeName="opacity" values="1;0.3;1" dur="3.6s" repeatCount="indefinite"/>
-    </use>
-    <use href="#firefly" x="260" y="500">
-      <animate attributeName="x" values="260;300;260" dur="12s" repeatCount="indefinite"/>
-      <animate attributeName="y" values="500;478;500" dur="9s" repeatCount="indefinite"/>
-      <animate attributeName="opacity" values="0.2;1;0.2" dur="4s" repeatCount="indefinite"/>
-    </use>
-    <use href="#firefly" x="400" y="500">
-      <animate attributeName="x" values="400;370;400" dur="8s" repeatCount="indefinite"/>
-      <animate attributeName="y" values="500;480;500" dur="7s" repeatCount="indefinite"/>
-      <animate attributeName="opacity" values="0.5;1;0.5" dur="3.8s" repeatCount="indefinite"/>
-    </use>
-  </g>
-</g>
-
-<!-- ===================== OCEAN ===================== -->
-<!-- Light rays -->
-<g opacity="0.5">
-  <polygon points="1000,80 1040,80 1180,800 1100,800" fill="url(#rayGrad)">
-    <animate attributeName="opacity" values="0.35;0.65;0.35" dur="9s" repeatCount="indefinite"/>
-  </polygon>
-  <polygon points="1200,80 1230,80 1400,800 1330,800" fill="url(#rayGrad)">
-    <animate attributeName="opacity" values="0.55;0.35;0.55" dur="11s" repeatCount="indefinite"/>
-  </polygon>
-  <polygon points="1400,80 1420,80 1560,800 1500,800" fill="url(#rayGrad)">
-    <animate attributeName="opacity" values="0.3;0.7;0.3" dur="13s" repeatCount="indefinite"/>
-  </polygon>
-</g>
-
-<!-- Coral & sponges -->
-<g>
-  <rect x="1300" y="700" width="8" height="60" fill="#3a1f3d"/>
-  <rect x="1296" y="720" width="6" height="40" fill="#5a2f5d"/>
-  <rect x="1314" y="710" width="6" height="50" fill="#5a2f5d"/>
-  <rect x="1320" y="740" width="8" height="24" fill="#ff00aa" opacity="0.6"/>
-  <rect x="1288" y="750" width="8" height="18" fill="#ff00aa" opacity="0.5"/>
-  <rect x="1296" y="700" width="4" height="8" fill="#ff66cc" opacity="0.7"/>
-  <rect x="1420" y="720" width="10" height="50" fill="#1d3a4c"/>
-  <rect x="1414" y="740" width="8" height="34" fill="#2a5a72"/>
-  <rect x="1438" y="736" width="8" height="40" fill="#2a5a72"/>
-  <rect x="1408" y="770" width="10" height="14" fill="#00ffd5" opacity="0.5"/>
-  <rect x="1444" y="766" width="10" height="18" fill="#00ffd5" opacity="0.5"/>
-  <rect x="1520" y="740" width="30" height="40" fill="#3a2b4e"/>
-  <rect x="1524" y="744" width="4" height="4" fill="#0a0a12"/>
-  <rect x="1536" y="752" width="4" height="4" fill="#0a0a12"/>
-  <rect x="1530" y="764" width="4" height="4" fill="#0a0a12"/>
-</g>
-
-<!-- Ammonite swimming -->
-<g>
-  <animateTransform attributeName="transform" type="translate"
-    values="0,0; 8,-12; -6,4; 0,0"
-    dur="8s" repeatCount="indefinite" additive="sum"/>
-  <g transform="translate(1180,500)">
-    <circle r="60" fill="url(#glowCyan)" opacity="0.5"/>
-    <g fill="#d4c9a8">
-      <rect x="-8" y="-24" width="16" height="6"/>
-      <rect x="-16" y="-18" width="6" height="6"/>
-      <rect x="10" y="-18" width="6" height="6"/>
-      <rect x="-22" y="-12" width="6" height="12"/>
-      <rect x="16" y="-12" width="6" height="12"/>
-      <rect x="-24" y="0" width="6" height="6"/>
-      <rect x="18" y="0" width="6" height="6"/>
-      <rect x="-22" y="6" width="6" height="6"/>
-      <rect x="16" y="6" width="6" height="6"/>
-      <rect x="-16" y="12" width="6" height="6"/>
-      <rect x="10" y="12" width="6" height="6"/>
-      <rect x="-8" y="18" width="16" height="6"/>
-    </g>
-    <g fill="#8a7a5c">
-      <rect x="-14" y="-20" width="4" height="4"/>
-      <rect x="4" y="-20" width="4" height="4"/>
-      <rect x="-18" y="-8" width="4" height="4"/>
-      <rect x="14" y="-4" width="4" height="4"/>
-      <rect x="-8" y="14" width="4" height="4"/>
-    </g>
-    <g fill="#b5a482">
-      <rect x="-26" y="18" width="10" height="3">
-        <animate attributeName="x" values="-26;-32;-26" dur="3s" repeatCount="indefinite"/>
-      </rect>
-      <rect x="-18" y="22" width="12" height="3">
-        <animate attributeName="x" values="-18;-22;-18" dur="3s" begin="0.15s" repeatCount="indefinite"/>
-      </rect>
-      <rect x="-8" y="24" width="12" height="3">
-        <animate attributeName="x" values="-8;-12;-8" dur="3s" begin="0.3s" repeatCount="indefinite"/>
-      </rect>
-      <rect x="4" y="24" width="12" height="3">
-        <animate attributeName="x" values="4;0;4" dur="3s" begin="0.45s" repeatCount="indefinite"/>
-      </rect>
-      <rect x="14" y="22" width="10" height="3">
-        <animate attributeName="x" values="14;10;14" dur="3s" begin="0.6s" repeatCount="indefinite"/>
-      </rect>
-    </g>
-    <rect x="-6" y="-6" width="4" height="4" fill="#00ffd5"/>
-    <rect x="-4" y="-4" width="2" height="2" fill="#04060a"/>
-  </g>
-</g>
-
-<!-- Trail -->
-<g>
-  <circle cx="1100" cy="480" r="3" fill="#00ffd5" opacity="0.6">
-    <animate attributeName="opacity" values="0.7;0;0.7" dur="4s" repeatCount="indefinite"/>
-    <animate attributeName="cx" values="1100;1080;1100" dur="4s" repeatCount="indefinite"/>
-  </circle>
-  <circle cx="1070" cy="500" r="2" fill="#00ffd5" opacity="0.5">
-    <animate attributeName="opacity" values="0;0.6;0" dur="3.5s" repeatCount="indefinite"/>
-  </circle>
-  <circle cx="1050" cy="466" r="2" fill="#39ff14" opacity="0.5">
-    <animate attributeName="opacity" values="0.5;0;0.5" dur="5s" repeatCount="indefinite"/>
-  </circle>
-</g>
-
-<!-- Plankton -->
-<g>
-  <use href="#plank" x="960"  y="300"><animate attributeName="opacity" values="0.2;0.9;0.2" dur="3s" repeatCount="indefinite"/></use>
-  <use href="#plank" x="1020" y="380"><animate attributeName="opacity" values="0.9;0.2;0.9" dur="4s" repeatCount="indefinite"/></use>
-  <use href="#plank" x="1080" y="250"><animate attributeName="opacity" values="0.3;1;0.3" dur="3.5s" repeatCount="indefinite"/></use>
-  <use href="#plank" x="1140" y="620"><animate attributeName="opacity" values="1;0.3;1" dur="4.5s" repeatCount="indefinite"/></use>
-  <use href="#plank" x="1200" y="340"><animate attributeName="opacity" values="0.5;1;0.5" dur="5s" repeatCount="indefinite"/></use>
-  <use href="#plank" x="1260" y="440"><animate attributeName="opacity" values="0.8;0.2;0.8" dur="3.2s" repeatCount="indefinite"/></use>
-  <use href="#plank" x="1320" y="280"><animate attributeName="opacity" values="0.2;0.8;0.2" dur="4.1s" repeatCount="indefinite"/></use>
-  <use href="#plank" x="1380" y="560"><animate attributeName="opacity" values="0.6;1;0.6" dur="3.8s" repeatCount="indefinite"/></use>
-  <use href="#plank" x="1440" y="380"><animate attributeName="opacity" values="1;0.4;1" dur="4.7s" repeatCount="indefinite"/></use>
-  <use href="#plank" x="1500" y="480"><animate attributeName="opacity" values="0.3;0.9;0.3" dur="5.2s" repeatCount="indefinite"/></use>
-  <use href="#plank" x="980"  y="500"><animate attributeName="opacity" values="0.7;0.2;0.7" dur="3.3s" repeatCount="indefinite"/></use>
-  <use href="#plank" x="1120" y="200"><animate attributeName="opacity" values="0.4;1;0.4" dur="4.4s" repeatCount="indefinite"/></use>
-  <use href="#plank" x="1240" y="700"><animate attributeName="opacity" values="1;0.5;1" dur="3.7s" repeatCount="indefinite"/></use>
-  <use href="#plank" x="1400" y="180"><animate attributeName="opacity" values="0.2;0.7;0.2" dur="5.6s" repeatCount="indefinite"/></use>
-  <use href="#plank" x="1540" y="300"><animate attributeName="opacity" values="0.5;1;0.5" dur="4.2s" repeatCount="indefinite"/></use>
-</g>
-
-<!-- Fossils on seabed -->
-<g transform="translate(1080,740)" fill="#8a7a5c">
-  <rect x="-20" y="-3" width="40" height="6"/>
-  <rect x="-24" y="-6" width="4" height="4"/>
-  <rect x="-24" y="2" width="4" height="4"/>
-  <rect x="20" y="-6" width="4" height="4"/>
-  <rect x="20" y="2" width="4" height="4"/>
-  <rect x="-8" y="-8" width="16" height="2" fill="#6a5b3e"/>
-  <rect x="-8" y="6" width="16" height="2" fill="#6a5b3e"/>
-</g>
-<g transform="translate(1460,760)" fill="#b5a482">
-  <rect x="-30" y="-3" width="60" height="6"/>
-  <rect x="-34" y="-2" width="6" height="4"/>
-  <rect x="-40" y="-1" width="6" height="2" fill="#8a7a5c"/>
-</g>
-
-<!-- ===================== CENTER FOREGROUND ===================== -->
-
-<!-- Data particles -->
-<g fill="#00ffd5">
-  <rect x="200" y="100" width="2" height="2" opacity="0.7">
-    <animate attributeName="y" values="100;200;100" dur="12s" repeatCount="indefinite"/>
-  </rect>
-  <rect x="500" y="150" width="2" height="2" opacity="0.6">
-    <animate attributeName="x" values="500;560;500" dur="14s" repeatCount="indefinite"/>
-  </rect>
-  <rect x="820" y="120" width="2" height="2" opacity="0.5">
-    <animate attributeName="y" values="120;180;120" dur="10s" repeatCount="indefinite"/>
-  </rect>
-  <rect x="1100" y="140" width="2" height="2" opacity="0.7">
-    <animate attributeName="x" values="1100;1040;1100" dur="13s" repeatCount="indefinite"/>
-  </rect>
-  <rect x="1360" y="110" width="2" height="2" opacity="0.6">
-    <animate attributeName="y" values="110;170;110" dur="11s" repeatCount="indefinite"/>
-  </rect>
-</g>
-<g fill="#ff00aa">
-  <rect x="300" y="200" width="2" height="2" opacity="0.5">
-    <animate attributeName="y" values="200;240;200" dur="9s" repeatCount="indefinite"/>
-  </rect>
-  <rect x="700" y="180" width="2" height="2" opacity="0.4">
-    <animate attributeName="x" values="700;760;700" dur="12s" repeatCount="indefinite"/>
-  </rect>
-  <rect x="1250" y="200" width="2" height="2" opacity="0.5">
-    <animate attributeName="y" values="200;250;200" dur="10s" repeatCount="indefinite"/>
-  </rect>
-</g>
-
-<!-- Static ammonite fossil -->
-<g transform="translate(940,700)">
-  <g fill="#b5a482">
-    <rect x="-6" y="-34" width="12" height="6"/>
-    <rect x="-14" y="-28" width="6" height="6"/>
-    <rect x="8"  y="-28" width="6" height="6"/>
-    <rect x="-20" y="-22" width="6" height="6"/>
-    <rect x="14" y="-22" width="6" height="6"/>
-    <rect x="-24" y="-16" width="6" height="6"/>
-    <rect x="18" y="-16" width="6" height="6"/>
-    <rect x="-26" y="-10" width="6" height="8"/>
-    <rect x="20" y="-10" width="6" height="8"/>
-    <rect x="-26" y="-2" width="6" height="6"/>
-    <rect x="20" y="-2" width="6" height="6"/>
-    <rect x="-24" y="4" width="6" height="6"/>
-    <rect x="18" y="4" width="6" height="6"/>
-    <rect x="-20" y="10" width="6" height="6"/>
-    <rect x="14" y="10" width="6" height="6"/>
-    <rect x="-14" y="16" width="6" height="6"/>
-    <rect x="8" y="16" width="6" height="6"/>
-    <rect x="-6" y="22" width="12" height="6"/>
-  </g>
-  <g fill="#e8d8a8">
-    <rect x="-40" y="-30" width="2" height="2" opacity="0.6">
-      <animate attributeName="y" values="-30;-40;-30" dur="6s" repeatCount="indefinite"/>
-    </rect>
-    <rect x="40" y="-10" width="2" height="2" opacity="0.5">
-      <animate attributeName="x" values="40;50;40" dur="7s" repeatCount="indefinite"/>
-    </rect>
-    <rect x="-30" y="20" width="2" height="2" opacity="0.4">
-      <animate attributeName="y" values="20;12;20" dur="5s" repeatCount="indefinite"/>
-    </rect>
-  </g>
-</g>
-
-<!-- Carnivorous plant: batang & daun STATIS, hanya kepala yang sway -->
-<g transform="translate(240, 600)">
-
-  <!-- Batang (statis, menancap di air/tanah) -->
-  <g fill="#3f6a26">
-    <rect x="-3" y="-110" width="6" height="110"/>
-  </g>
-  <g fill="#2a4a1a">
-    <rect x="-3" y="-110" width="2" height="110"/>
-  </g>
-
-  <!-- Daun (statis) -->
-  <g fill="#4a7a2c">
-    <rect x="3" y="-80" width="20" height="4"/>
-    <rect x="23" y="-84" width="4" height="8"/>
-    <rect x="-23" y="-60" width="20" height="4"/>
-    <rect x="-27" y="-64" width="4" height="8"/>
-    <rect x="3" y="-30" width="16" height="4"/>
-    <rect x="19" y="-34" width="4" height="8"/>
-  </g>
-
-  <!-- Kepala (hanya ini yang bergerak, pivot di puncak batang) -->
-  <g>
-    <animateTransform attributeName="transform" type="rotate"
-      values="-2 0 -110; 2 0 -110; -2 0 -110"
-      dur="4s" repeatCount="indefinite"/>
-    <g transform="translate(0, -110)">
-
-      <!-- Upper jaw -->
-      <g fill="#5a8a34">
-        <rect x="-32" y="-14" width="64" height="14"/>
-        <rect x="-28" y="-18" width="56" height="4"/>
-        <rect x="-24" y="-22" width="48" height="4"/>
+  <!-- L1 · FOG -->
+  <div class="layer l-fog" data-depth="0.06">
+    <svg viewBox="0 0 1600 1400" preserveAspectRatio="xMidYMid slice" shape-rendering="crispEdges">
+      <g fill="#35603a" opacity=".30">
+        <path d="M-100 520 L-100 470 L340 470 L340 452 L780 452 L780 470 L1180 470 L1180 492 L1700 492 L1700 520 Z"/>
       </g>
-      <g fill="#c8e8a0">
-        <rect x="-28" y="-2" width="3" height="8"/>
-        <rect x="-20" y="-2" width="3" height="8"/>
-        <rect x="-12" y="-2" width="3" height="8"/>
-        <rect x="-4"  y="-2" width="3" height="8"/>
-        <rect x="4"   y="-2" width="3" height="8"/>
-        <rect x="12"  y="-2" width="3" height="8"/>
-        <rect x="20"  y="-2" width="3" height="8"/>
+      <g fill="#4a7c3f" opacity=".18">
+        <path d="M-100 640 L-100 600 L420 600 L420 584 L900 584 L900 604 L1420 604 L1420 640 Z"/>
       </g>
-      <rect x="-2" y="-14" width="4" height="14" fill="#2a4a1a"/>
+    </svg>
+  </div>
 
-      <!-- Lower jaw (membuka-menutup pelan) -->
+  <!-- L2 · LIGHT RAYS -->
+  <div class="layer l-rays" data-depth="0.14">
+    <svg viewBox="0 0 1600 1400" preserveAspectRatio="xMidYMid slice" shape-rendering="crispEdges">
+      <defs>
+        <linearGradient id="dRay" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#7fe9ff" stop-opacity=".26"/>
+          <stop offset="1" stop-color="#7fe9ff" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
       <g>
-        <animateTransform attributeName="transform" type="rotate"
-          values="0 -32 0; -8 -32 0; 0 -32 0"
-          dur="3s" repeatCount="indefinite"/>
-        <g transform="translate(-32,0)" fill="#4a7a2c">
-          <rect x="0" y="0" width="64" height="14"/>
-          <rect x="4" y="14" width="56" height="4"/>
-          <rect x="8" y="18" width="48" height="4"/>
-        </g>
-        <g transform="translate(-32,0)" fill="#c8e8a0">
-          <rect x="4"  y="-6" width="3" height="8"/>
-          <rect x="12" y="-6" width="3" height="8"/>
-          <rect x="20" y="-6" width="3" height="8"/>
-          <rect x="28" y="-6" width="3" height="8"/>
-          <rect x="36" y="-6" width="3" height="8"/>
-          <rect x="44" y="-6" width="3" height="8"/>
-          <rect x="52" y="-6" width="3" height="8"/>
-        </g>
-        <rect x="-24" y="4" width="48" height="6" fill="#3a0a1a" opacity="0.9"/>
-        <rect x="-16" y="6" width="32" height="4" fill="#ff00aa" opacity="0.35">
-          <animate attributeName="opacity" values="0.15;0.5;0.15" dur="3s" repeatCount="indefinite"/>
-        </rect>
+        <polygon points="900,0 980,0 700,1400 610,1400" fill="url(#dRay)"/>
+        <polygon points="1150,0 1218,0 980,1400 900,1400" fill="url(#dRay)" opacity=".7"/>
+        <polygon points="1380,0 1440,0 1260,1400 1190,1400" fill="url(#dRay)" opacity=".5"/>
       </g>
-    </g>
-  </g>
-</g>
+    </svg>
+  </div>
 
-<!-- ===================== NAME ===================== -->
-<g font-family="'Courier New', Consolas, monospace" font-weight="bold"
-   text-anchor="middle" letter-spacing="12">
-  <text x="800" y="170" font-size="86" fill="#ff00aa" opacity="0.55"
-        transform="translate(-3,0)" style="filter:blur(0.4px)">VYNJUSTHUMANT</text>
-  <text x="800" y="170" font-size="86" fill="#00ffd5" opacity="0.55"
-        transform="translate(3,0)" style="filter:blur(0.4px)">VYNJUSTHUMANT</text>
-  <text x="800" y="170" font-size="86" fill="#e8f8ff"
-        filter="url(#nameGlow)">VYNJUSTHUMANT</text>
-  <text x="800" y="212" font-size="15" fill="#7fd0e0" letter-spacing="9" opacity="0.9">
-    ⟢ DIFFERENTIABLE // PALEO ⟣
-  </text>
-  <text x="800" y="236" font-size="11" fill="#39ff14" letter-spacing="6" opacity="0.8">
-    [ PHYSICS × PYTORCH · SECTOR 16-BIT ]
-  </text>
-</g>
+  <!-- L3 · FERNS -->
+  <div class="layer l-fern" data-depth="0.22">
+    <svg viewBox="0 0 1600 1400" preserveAspectRatio="xMidYMid slice" shape-rendering="crispEdges">
+      <g fill="#35603a">
+        <g transform="translate(160,880)">
+          <rect x="-2" y="-150" width="4" height="150"/>
+          <rect x="-30" y="-128" width="30" height="5" fill="#4a7c3f"/>
+          <rect x="0" y="-128" width="30" height="5" fill="#4a7c3f"/>
+          <rect x="-38" y="-102" width="38" height="5"/>
+          <rect x="0" y="-102" width="38" height="5"/>
+          <rect x="-30" y="-76" width="30" height="5" fill="#4a7c3f"/>
+          <rect x="0" y="-76" width="30" height="5" fill="#4a7c3f"/>
+          <rect x="-20" y="-50" width="20" height="5"/>
+          <rect x="0" y="-50" width="20" height="5"/>
+        </g>
+        <g transform="translate(300,900)">
+          <rect x="-2" y="-190" width="4" height="190"/>
+          <rect x="-38" y="-162" width="38" height="5" fill="#4a7c3f"/>
+          <rect x="0" y="-162" width="38" height="5" fill="#4a7c3f"/>
+          <rect x="-46" y="-130" width="46" height="5"/>
+          <rect x="0" y="-130" width="46" height="5"/>
+          <rect x="-36" y="-98" width="36" height="5" fill="#4a7c3f"/>
+          <rect x="0" y="-98" width="36" height="5" fill="#4a7c3f"/>
+          <rect x="-24" y="-66" width="24" height="5"/>
+          <rect x="0" y="-66" width="24" height="5"/>
+        </g>
+        <g transform="translate(120,940)">
+          <rect x="-2" y="-220" width="4" height="220"/>
+          <rect x="-42" y="-188" width="42" height="5" fill="#4a7c3f"/>
+          <rect x="0" y="-188" width="42" height="5" fill="#4a7c3f"/>
+          <rect x="-52" y="-150" width="52" height="5"/>
+          <rect x="0" y="-150" width="52" height="5"/>
+          <rect x="-40" y="-112" width="40" height="5" fill="#4a7c3f"/>
+          <rect x="0" y="-112" width="40" height="5" fill="#4a7c3f"/>
+          <rect x="-26" y="-74" width="26" height="5"/>
+          <rect x="0" y="-74" width="26" height="5"/>
+        </g>
+      </g>
+    </svg>
+  </div>
 
-<!-- ===================== CRT OVERLAYS ===================== -->
-<rect width="1600" height="800" fill="url(#scanlines)" opacity="0.55">
-  <animate attributeName="opacity" values="0.45;0.62;0.45" dur="7s" repeatCount="indefinite"/>
-</rect>
-<rect width="1600" height="800" fill="url(#dither)" opacity="0.5"/>
-<rect width="1600" height="800" fill="#e8f8ff" opacity="0">
-  <animate attributeName="opacity"
-    values="0;0;0;0;0.05;0;0;0;0;0;0;0;0;0.03;0;0;0;0;0;0;0;0.04;0;0"
-    dur="8s" repeatCount="indefinite"/>
-</rect>
-<rect width="1600" height="800" fill="url(#vignette)"/>
-<rect x="0" y="0" width="1600" height="2" fill="#00ffd5" opacity="0.35"/>
-<rect x="0" y="798" width="1600" height="2" fill="#ff00aa" opacity="0.28"/>
+  <!-- L4 · WATER -->
+  <div class="layer l-water" data-depth="0.32">
+    <svg viewBox="0 0 1600 1400" preserveAspectRatio="xMidYMid slice" shape-rendering="crispEdges">
+      <rect x="-50" y="820" width="1700" height="600" fill="#0a1830" opacity=".55"/>
+      <g fill="#00e5ff" opacity=".22">
+        <rect x="120" y="880" width="260" height="3"/>
+        <rect x="520" y="930" width="340" height="3"/>
+        <rect x="980" y="900" width="300" height="3"/>
+        <rect x="260" y="1000" width="420" height="3"/>
+        <rect x="860" y="1050" width="380" height="3"/>
+      </g>
+    </svg>
+  </div>
 
-</svg>
-       
+  <!-- L5 · FOSSIL (scroll-reveal) -->
+  <div class="layer l-fossil reveal" data-depth="0.44">
+    <svg viewBox="0 0 1600 1400" preserveAspectRatio="xMidYMid slice" shape-rendering="crispEdges">
+      <g transform="translate(1080,1000)">
+        <g fill="#c9b48a">
+          <rect x="-56" y="-56" width="112" height="8"/>
+          <rect x="-56" y="48" width="112" height="8"/>
+          <rect x="-54" y="-48" width="108" height="8"/>
+          <rect x="-54" y="40" width="108" height="8"/>
+          <rect x="-50" y="-40" width="100" height="8"/>
+          <rect x="-50" y="32" width="100" height="8"/>
+          <rect x="-46" y="-32" width="92" height="8"/>
+          <rect x="-46" y="24" width="92" height="8"/>
+          <rect x="-40" y="-24" width="80" height="8"/>
+          <rect x="-40" y="16" width="80" height="8"/>
+          <rect x="-28" y="-16" width="56" height="8"/>
+          <rect x="-28" y="8" width="56" height="8"/>
+          <rect x="-8" y="-8" width="16" height="16"/>
+        </g>
+        <path d="M0 0 L0 4 L-8 0 L0 -12 L16 0 L0 20 L-24 0 L0 -28 L32 0 L0 36 L-40 0"
+              fill="none" stroke="#5c4a30" stroke-width="6" shape-rendering="crispEdges"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- L6 · CARNIVOROUS PLANT (scroll-reveal) -->
+  <div class="layer l-plant reveal" data-depth="0.58">
+    <svg viewBox="0 0 1600 1400" preserveAspectRatio="xMidYMid slice" shape-rendering="crispEdges">
+      <g transform="translate(560,1180)">
+        <rect x="-6" y="-200" width="12" height="200" fill="#2b4a2a"/>
+        <rect x="-2" y="-200" width="4" height="200" fill="#4f7a3a"/>
+        <path d="M-16 -306 L16 -306 L28 -294 L28 -282 L40 -282 L40 -258 L48 -258 L48 -234 L40 -234 L40 -210 L28 -210 L28 -198 L-28 -198 L-28 -210 L-40 -210 L-40 -234 L-48 -234 L-48 -258 L-40 -258 L-40 -282 L-28 -282 L-28 -294 L-16 -306 Z" fill="#2b4a2a"/>
+        <path d="M-30 -310 L30 -310 L22 -326 L-22 -326 Z" fill="#8c2f4a"/>
+        <g fill="#e8dcc0">
+          <rect x="-28" y="-338" width="6" height="12"/>
+          <rect x="-18" y="-338" width="6" height="12"/>
+          <rect x="-8" y="-338" width="6" height="12"/>
+          <rect x="2" y="-338" width="6" height="12"/>
+          <rect x="12" y="-338" width="6" height="12"/>
+          <rect x="22" y="-338" width="6" height="12"/>
+        </g>
+        <path d="M-32 -310 L-38 -326 L-20 -342 L20 -342 L38 -326 L32 -310 Z" fill="#4f7a3a"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- L7 · AMMONITE -->
+  <div class="layer l-amm" data-depth="0.72">
+    <svg viewBox="0 0 1600 1400" preserveAspectRatio="xMidYMid slice" shape-rendering="crispEdges">
+      <g transform="translate(1180,760)">
+        <g fill="#0d2d3f">
+          <rect x="-14" y="-48" width="28" height="8"/>
+          <rect x="-14" y="40" width="28" height="8"/>
+          <rect x="-30" y="-40" width="60" height="8"/>
+          <rect x="-30" y="32" width="60" height="8"/>
+          <rect x="-38" y="-32" width="76" height="8"/>
+          <rect x="-38" y="24" width="76" height="8"/>
+          <rect x="-44" y="-24" width="88" height="8"/>
+          <rect x="-44" y="16" width="88" height="8"/>
+          <rect x="-47" y="-16" width="94" height="8"/>
+          <rect x="-47" y="8" width="94" height="8"/>
+          <rect x="-49" y="-8" width="98" height="8"/>
+          <rect x="-49" y="0" width="98" height="8"/>
+          <rect x="-50" y="-24" width="100" height="48"/>
+        </g>
+        <path d="M0 0 L0 3 L-6 0 L0 -9 L12 0 L0 15 L-18 0 L0 -21 L24 0 L0 27 L-30 0"
+              fill="none" stroke="#00e5ff" stroke-width="3" opacity=".85" shape-rendering="crispEdges"/>
+        <rect x="-6" y="-6" width="12" height="12" fill="#ff2bd6"/>
+        <g fill="#00e5ff" opacity=".8">
+          <rect x="-66" y="-30" width="16" height="3"/>
+          <rect x="-70" y="-18" width="20" height="3"/>
+          <rect x="-68" y="-6" width="18" height="3"/>
+          <rect x="-70" y="6" width="20" height="3"/>
+          <rect x="-66" y="18" width="16" height="3"/>
+        </g>
+      </g>
+    </svg>
+  </div>
+
+  <!-- L8 · PARTICLES -->
+  <div class="layer l-part" data-depth="0.86">
+    <svg viewBox="0 0 1600 1400" preserveAspectRatio="xMidYMid slice" shape-rendering="crispEdges">
+      <g fill="#00e5ff">
+        <rect x="220" y="300" width="4" height="4" opacity=".7"/>
+        <rect x="480" y="520" width="4" height="4" opacity=".5"/>
+        <rect x="700" y="260" width="4" height="4" opacity=".8"/>
+        <rect x="900" y="640" width="4" height="4" opacity=".6"/>
+        <rect x="1120" y="380" width="4" height="4" opacity=".7"/>
+        <rect x="1320" y="700" width="4" height="4" opacity=".5"/>
+        <rect x="360" y="880" width="4" height="4" opacity=".6"/>
+        <rect x="1420" y="220" width="4" height="4" opacity=".8"/>
+      </g>
+    </svg>
+  </div>
+
+</section>
+
+<!-- ================= COPY ================= -->
+<main class="copy">
+  <p class="kicker">Paleo // Signal</p>
+  <h1>VynJustHumant</h1>
+  <div class="rule"></div>
+  <p>
+    A Y2K retro-futurist diorama split along a 30-degree seam: a fog-drowned
+    Carboniferous swamp on one side, a bioluminescent abyssal ocean on the other.
+    A carnivorous plant and a spiral ammonite fossil hold the foreground while an
+    ammonite drifts through the light rays, trailing plankton like a signal.
+  </p>
+</main>
+
+<section class="copy reveal">
+  <h2>Layer Stack</h2>
+  <p class="mono" style="font-size:.8rem;letter-spacing:.16em;color:#8a8f96">
+    FOG · RAYS · FERNS · WATER · FOSSIL · PLANT · AMMONITE · PARTICLES
+  </p>
+  <p>
+    Eight independent depth planes, each offset by a small mouse-follow delta
+    and driven by an eased scroll value. Depth factors run 0.06 through 0.86;
+    the fossil and the plant reveal themselves as the stage enters the viewport.
+  </p>
+</section>
+
+<footer>
+  <p class="mono">
+    &copy; <span id="yr"></span> VynJustHumant &nbsp;·&nbsp;
+    <a href="https://github.com/VynJustHumant">github.com/VynJustHumant</a>
+  </p>
+  <p class="mono" style="margin-top:.8rem;opacity:.6">
+    Art &amp; code — MIT / CC-BY-4.0 · Placeholder licence
+  </p>
+</footer>
+
+<!-- ================= AUDIO TOGGLE ================= -->
+<button class="audio-btn" id="audioBtn" aria-pressed="false" aria-label="Toggle ambient sound (currently muted)">
+  <span class="dot"></span><span id="audioLabel">Ambient: Off</span>
+</button>
+
+<!-- ================= SCRIPT ================= -->
+<script>
+(function(){
+  'use strict';
+
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  /* ---------- SCROLL PARALLAX + MOUSE PARALLAX ---------- */
+  var stage  = document.getElementById('stage');
+  var layers = [].slice.call(document.querySelectorAll('.layer'));
+
+  var scrollY = 0, targetScroll = 0;
+  var mx = 0, my = 0, tmx = 0, tmy = 0;
+
+  function readScroll(){
+    if(!stage) return;
+    var rect = stage.getBoundingClientRect();
+    // -1 .. 1 as the stage passes through the viewport
+    var p = 1 - (rect.top + rect.height) / (window.innerHeight + rect.height);
+    targetScroll = Math.max(-1, Math.min(1, p * 2 - 1));
+  }
+
+  window.addEventListener('scroll', readScroll, {passive:true});
+  window.addEventListener('resize', readScroll);
+
+  window.addEventListener('mousemove', function(e){
+    if(reduce.matches) return;
+    tmx = (e.clientX / window.innerWidth  - 0.5) * 2;
+    tmy = (e.clientY / window.innerHeight - 0.5) * 2;
+  }, {passive:true});
+
+  function tick(){
+    if(reduce.matches){
+      layers.forEach(function(l){ l.style.transform = ''; });
+      requestAnimationFrame(tick);
+      return;
+    }
+    // eased follow
+    scrollY += (targetScroll - scrollY) * 0.09;
+    mx += (tmx - mx) * 0.06;
+    my += (tmy - my) * 0.06;
+
+    layers.forEach(function(l){
+      var d = parseFloat(l.dataset.depth) || 0;
+      var yShift = -scrollY * d * 190;
+      var mxShift = mx * d * 5;      // 2-5px mouse offset budget
+      var myShift = my * d * 5;
+      l.style.transform = 'translate3d(' + mxShift.toFixed(2) + 'px,' +
+                           (yShift + myShift).toFixed(2) + 'px,0)';
+    });
+    requestAnimationFrame(tick);
+  }
+
+  readScroll();
+  requestAnimationFrame(tick);
+
+  /* ---------- SCROLL-TRIGGERED REVEAL ---------- */
+  var reveals = [].slice.call(document.querySelectorAll('.reveal'));
+
+  if(reduce.matches || !('IntersectionObserver' in window)){
+    reveals.forEach(function(el){ el.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          en.target.classList.add('in');
+          io.unobserve(en.target);
+        }
+      });
+    }, {rootMargin:'0px 0px -18% 0px', threshold:0.12});
+    reveals.forEach(function(el){ io.observe(el); });
+  }
+
+  /* ---------- AMBIENT SOUND (default muted) ---------- */
+  var btn   = document.getElementById('audioBtn');
+  var label = document.getElementById('audioLabel');
+  var ctx = null, gain = null, nodes = [], playing = false;
+
+  function buildAmbient(){
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if(!AC) return null;
+    var c = new AC();
+    var g = c.createGain();
+    g.gain.value = 0;
+    g.connect(c.destination);
+
+    // low swamp drone
+    var o1 = c.createOscillator(); o1.type = 'sine';     o1.frequency.value = 55;
+    var o2 = c.createOscillator(); o2.type = 'triangle'; o2.frequency.value = 82.5;
+    var og = c.createGain(); og.gain.value = 0.16;
+    o1.connect(og); o2.connect(og); og.connect(g);
+
+    // filtered noise bed
+    var len = c.sampleRate * 4;
+    var buf = c.createBuffer(1, len, c.sampleRate);
+    var data = buf.getChannelData(0);
+    for(var i=0;i<len;i++){ data[i] = (Math.random()*2-1) * 0.5; }
+    var src = c.createBufferSource();
+    src.buffer = buf; src.loop = true;
+    var lp = c.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value = 420;
+    var ng = c.createGain(); ng.gain.value = 0.05;
+    src.connect(lp); lp.connect(ng); ng.connect(g);
+
+    // slow LFO on the noise bed for "tide"
+    var lfo = c.createOscillator(); lfo.frequency.value = 0.08;
+    var lfoGain = c.createGain(); lfoGain.gain.value = 0.035;
+    lfo.connect(lfoGain); lfoGain.connect(ng.gain);
+
+    o1.start(); o2.start(); src.start(); lfo.start();
+    return {ctx:c, master:g, nodes:[o1,o2,src,lfo]};
+  }
+
+  btn.addEventListener('click', function(){
+    if(reduce.matches){ /* audio allowed regardless of motion pref */ }
+    if(!ctx){
+      var built = buildAmbient();
+      if(!built){ label.textContent = 'Ambient: N/A'; return; }
+      ctx = built.ctx; gain = built.master; nodes = built.nodes;
+    }
+    if(ctx.state === 'suspended'){ ctx.resume(); }
+
+    playing = !playing;
+    var now = ctx.currentTime;
+    gain.gain.cancelScheduledValues(now);
+    gain.gain.setValueAtTime(gain.gain.value, now);
+    gain.gain.linearRampToValueAtTime(playing ? 0.22 : 0, now + 1.1);
+
+    btn.setAttribute('aria-pressed', String(playing));
+    btn.setAttribute('aria-label', 'Toggle ambient sound (currently ' + (playing ? 'on' : 'muted') + ')');
+    label.textContent = 'Ambient: ' + (playing ? 'On' : 'Off');
+  });
+
+  /* pause ambient when tab is hidden */
+  document.addEventListener('visibilitychange', function(){
+    if(!ctx || !playing) return;
+    if(document.hidden){ ctx.suspend(); } else { ctx.resume(); }
+  });
+})();
+</script>
+</body>
+</html>
+         
