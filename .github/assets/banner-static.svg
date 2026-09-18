@@ -1,4 +1,0 @@
-# Strip animasi pakai xmlstarlet
-xmlstarlet ed -N x="http://www.w3.org/2000/svg" \
-  -d '//x:animate' -d '//x:animateTransform' \
-  assets/banner-animated.svg > assets/banner-static.svg
