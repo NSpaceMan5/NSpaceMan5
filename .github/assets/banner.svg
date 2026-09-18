@@ -11,7 +11,7 @@
       <stop offset="1" stop-color="#040a14"/>
     </linearGradient>
     <radialGradient id="nameGlowGrad" cx="50%" cy="50%" r="50%">
-      <stop offset="0" stop-color="#22d3ee" stop-opacity="0.45"/>
+      <stop offset="0" stop-color="#22d3ee" stop-opacity="0.42"/>
       <stop offset="0.6" stop-color="#e879f9" stop-opacity="0.12"/>
       <stop offset="1" stop-color="#22d3ee" stop-opacity="0"/>
     </radialGradient>
@@ -20,15 +20,20 @@
       <stop offset="0.5" stop-color="#e879f9"/>
       <stop offset="1" stop-color="#22d3ee"/>
     </linearGradient>
+    <radialGradient id="portalHalo" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#22d3ee" stop-opacity="0.35"/>
+      <stop offset="0.5" stop-color="#e879f9" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#22d3ee" stop-opacity="0"/>
+    </radialGradient>
   </defs>
 
   <style>
-    .ammonite { animation: swim 8s cubic-bezier(0.5,0,0.5,1) infinite; transform-origin: 1220px 400px; }
+    .ammonite { animation: swim 8s cubic-bezier(0.5,0,0.5,1) infinite; transform-origin: 1200px 400px; }
     @keyframes swim {
       0%,100% { transform: translate(0,0) rotate(0deg); }
-      25%     { transform: translate(20px,-8px) rotate(5deg); }
-      50%     { transform: translate(38px,4px) rotate(-3deg); }
-      75%     { transform: translate(16px,10px) rotate(2deg); }
+      25%     { transform: translate(18px,-8px) rotate(5deg); }
+      50%     { transform: translate(34px,4px) rotate(-3deg); }
+      75%     { transform: translate(14px,10px) rotate(2deg); }
     }
     .tentacle { animation: wave 2s ease-in-out infinite; transform-origin: center top; }
     .tentacle.t2 { animation-delay:-0.4s; }
@@ -50,7 +55,7 @@
     }
     .fog { animation: drift 14s ease-in-out infinite; }
     @keyframes drift {
-      0%,100% { transform: translateX(-20px); opacity:0.1; }
+      0%,100% { transform: translateX(-20px); opacity:0.10; }
       50%     { transform: translateX(20px);  opacity:0.22; }
     }
     .plankton { animation: pdrift 10s ease-in-out infinite; }
@@ -82,32 +87,25 @@
       90%,94%     { opacity:0.86; }
       96%         { opacity:0.94; }
     }
-    .trap-open {
-      animation: trapbreathe 4s ease-in-out infinite;
-      transform-origin: 240px 560px;
-    }
+    .trap-open { animation: trapbreathe 4.5s ease-in-out infinite; transform-origin: center bottom; }
     @keyframes trapbreathe {
-      0%,100% { transform: rotate(0deg); }
-      50%     { transform: rotate(-3deg); }
+      0%,100% { transform: rotate(-1.2deg); }
+      50%     { transform: rotate(1.2deg); }
     }
     .trap-tongue { animation: tongue 3s ease-in-out infinite; }
-    @keyframes tongue { 0%,100% { opacity:0.55; } 50% { opacity:0.85; } }
+    @keyframes tongue { 0%,100% { opacity:0.6; } 50% { opacity:0.92; } }
     .portal-core { animation: pcrack 2.4s steps(2) infinite; }
     @keyframes pcrack {
-      0%,100% { opacity:0.9; }
+      0%,100% { opacity:0.92; }
       50%     { opacity:0.7; }
     }
-    .glitch {
-      animation: gshift 0.32s steps(2) infinite;
-    }
+    .glitch { animation: gshift 0.32s steps(2) infinite; }
     @keyframes gshift {
       0%,100% { transform: translate(0,0); }
       40%     { transform: translate(-3px,0); }
       70%     { transform: translate(3px,0); }
     }
-    .glitch2 {
-      animation: gshift2 0.42s steps(3) infinite;
-    }
+    .glitch2 { animation: gshift2 0.42s steps(3) infinite; }
     @keyframes gshift2 {
       0%,100% { transform: translate(0,0); }
       30%     { transform: translate(2px,-1px); }
@@ -115,11 +113,18 @@
     }
     .char-breathe {
       animation: cbreathe 5s ease-in-out infinite;
-      transform-origin: 520px 620px;
+      transform-origin: center bottom;
     }
     @keyframes cbreathe {
       0%,100% { transform: translateY(0); }
       50%     { transform: translateY(-1px); }
+    }
+    .spore { animation: sdrift 12s ease-in-out infinite; }
+    .spore.s2 { animation-delay:-4s; }
+    .spore.s3 { animation-delay:-8s; }
+    @keyframes sdrift {
+      0%,100% { transform: translate(0,0); opacity:0.3; }
+      50%     { transform: translate(-10px,-14px); opacity:0.9; }
     }
     @media (prefers-reduced-motion: reduce) {
       * { animation: none !important; }
@@ -129,397 +134,593 @@
   <!-- ================= BACKGROUND ================= -->
   <rect width="1600" height="800" fill="#050a08"/>
   <rect width="1600" height="800" fill="url(#swampGrad)"/>
-  <polygon points="820,0 1600,0 1600,800 620,800" fill="url(#oceanGrad)"/>
-  <line x1="820" y1="0" x2="620" y2="800" stroke="#22d3ee" stroke-width="1" opacity="0.28"/>
-  <line x1="822" y1="0" x2="622" y2="800" stroke="#e879f9" stroke-width="1" opacity="0.12"/>
+  <!-- Ocean region: diagonal split, midpoint at x=800 (balanced) -->
+  <polygon points="880,0 1600,0 1600,800 720,800" fill="url(#oceanGrad)"/>
+  <line x1="880" y1="0" x2="720" y2="800" stroke="#22d3ee" stroke-width="1" opacity="0.30"/>
+  <line x1="882" y1="0" x2="722" y2="800" stroke="#e879f9" stroke-width="1" opacity="0.12"/>
 
-  <!-- ================= SWAMP (left/top) ================= -->
+  <!-- ================= SWAMP (left) ================= -->
   <!-- Giant tree silhouette far left -->
   <g fill="#0a1a10">
-    <rect x="60" y="80" width="26" height="500"/>
-    <rect x="40" y="140" width="20" height="24"/>
-    <rect x="80" y="180" width="24" height="20"/>
-    <rect x="42" y="100" width="90" height="8"/>
-    <rect x="20" y="160" width="100" height="6"/>
-    <rect x="30" y="240" width="80" height="5"/>
+    <rect x="50" y="60" width="28" height="520"/>
+    <rect x="30" y="120" width="20" height="24"/>
+    <rect x="72" y="160" width="24" height="20"/>
+    <rect x="32" y="80" width="100" height="8"/>
+    <rect x="10" y="140" width="110" height="6"/>
+    <rect x="20" y="220" width="90" height="5"/>
+    <rect x="40" y="300" width="70" height="5"/>
+  </g>
+  <!-- Dead branches -->
+  <g fill="#0a1a10">
+    <rect x="78" y="70" width="3" height="60" transform="rotate(20 79 100)"/>
+    <rect x="52" y="180" width="60" height="3"/>
   </g>
   <!-- Ferns -->
   <g fill="#12261a">
-    <rect x="260" y="360" width="4" height="220"/>
-    <rect x="248" y="380" width="14" height="3"/>
-    <rect x="262" y="405" width="18" height="3"/>
-    <rect x="246" y="430" width="14" height="3"/>
-    <rect x="262" y="455" width="18" height="3"/>
+    <rect x="270" y="360" width="4" height="220"/>
+    <rect x="258" y="380" width="14" height="3"/>
+    <rect x="272" y="405" width="18" height="3"/>
+    <rect x="256" y="430" width="14" height="3"/>
+    <rect x="272" y="455" width="18" height="3"/>
 
-    <rect x="340" y="410" width="3" height="170"/>
-    <rect x="332" y="425" width="12" height="3"/>
-    <rect x="342" y="448" width="14" height="3"/>
-    <rect x="330" y="472" width="12" height="3"/>
+    <rect x="360" y="410" width="3" height="170"/>
+    <rect x="352" y="425" width="12" height="3"/>
+    <rect x="362" y="448" width="14" height="3"/>
+    <rect x="350" y="472" width="12" height="3"/>
   </g>
   <!-- Swamp water surface -->
-  <rect x="0" y="640" width="720" height="160" fill="#0a1a12" opacity="0.9"/>
-  <rect x="0" y="640" width="720" height="2" fill="#2e5a3e" opacity="0.6"/>
-  <g fill="#22d3ee" opacity="0.14">
+  <rect x="0" y="640" width="760" height="160" fill="#0a1a12" opacity="0.9"/>
+  <rect x="0" y="640" width="760" height="2" fill="#2e5a3e" opacity="0.6"/>
+  <g fill="#22d3ee" opacity="0.12">
     <rect x="60"  y="668" width="90" height="1"/>
     <rect x="220" y="690" width="110" height="1"/>
     <rect x="400" y="672" width="80" height="1"/>
     <rect x="140" y="720" width="100" height="1"/>
+    <rect x="520" y="700" width="90" height="1"/>
   </g>
   <!-- Fog -->
   <g class="fog" fill="#22d3ee">
     <rect x="40"  y="470" width="260" height="60" opacity="0.14"/>
-    <rect x="300" y="520" width="220" height="50" opacity="0.1"/>
+    <rect x="300" y="520" width="220" height="50" opacity="0.10"/>
   </g>
   <!-- Fireflies -->
   <g fill="#4ade80">
     <rect class="firefly"    x="180" y="420" width="3" height="3"/>
-    <rect class="firefly f2" x="320" y="380" width="3" height="3"/>
+    <rect class="firefly f2" x="330" y="380" width="3" height="3"/>
     <rect class="firefly f3" x="120" y="500" width="3" height="3"/>
-    <rect class="firefly f4" x="380" y="470" width="3" height="3"/>
+    <rect class="firefly f4" x="400" y="470" width="3" height="3"/>
+    <rect class="firefly f2" x="440" y="380" width="3" height="3"/>
   </g>
   <!-- Bubbles -->
   <g fill="#4ade80">
     <rect class="bubble"    x="120" y="700" width="5" height="5"/>
-    <rect class="bubble b2" x="240" y="710" width="4" height="4"/>
-    <rect class="bubble b3" x="420" y="698" width="6" height="6"/>
-    <rect class="bubble b4" x="540" y="720" width="4" height="4"/>
+    <rect class="bubble b2" x="260" y="710" width="4" height="4"/>
+    <rect class="bubble b3" x="440" y="698" width="6" height="6"/>
+    <rect class="bubble b4" x="560" y="720" width="4" height="4"/>
+  </g>
+  <!-- Absurd spores floating -->
+  <g fill="#e879f9">
+    <rect class="spore"    x="300" y="300" width="3" height="3"/>
+    <rect class="spore s2" x="420" y="260" width="2" height="2"/>
+    <rect class="spore s3" x="220" y="340" width="2" height="2"/>
   </g>
 
-  <!-- ================= OCEAN (right/bottom) ================= -->
-  <!-- Light rays -->
-  <g fill="#22d3ee" opacity="0.06">
-    <polygon points="980,0 1020,0 1080,800 1010,800"/>
-    <polygon points="1120,0 1150,0 1220,800 1160,800"/>
-    <polygon points="1300,0 1320,0 1380,800 1330,800"/>
-  </g>
-  <!-- Coral / sponges -->
-  <g fill="#166534" opacity="0.75">
-    <rect x="880"  y="640" width="4" height="120"/>
-    <rect x="872"  y="660" width="16" height="3"/>
-    <rect x="880"  y="690" width="14" height="3"/>
-    <rect x="880"  y="720" width="16" height="3"/>
+  <!-- ================= VENUS FLYTRAPS (foreground swamp, upright, realistic) ================= -->
 
-    <rect x="1480" y="600" width="4" height="160"/>
-    <rect x="1470" y="625" width="20" height="3"/>
-    <rect x="1480" y="660" width="18" height="3"/>
-    <rect x="1470" y="700" width="20" height="3"/>
-  </g>
-  <g fill="#0891b2" opacity="0.5">
-    <rect x="1020" y="720" width="3" height="60"/>
-    <rect x="1014" y="738" width="14" height="3"/>
-  </g>
-  <g fill="#a21caf" opacity="0.55">
-    <rect x="1400" y="700" width="3" height="80"/>
-    <rect x="1394" y="718" width="14" height="3"/>
-  </g>
-  <!-- Plankton -->
-  <g fill="#22d3ee">
-    <rect class="plankton"    x="980"  y="380" width="2" height="2"/>
-    <rect class="plankton p2" x="1120" y="440" width="2" height="2"/>
-    <rect class="plankton p3" x="1340" y="360" width="2" height="2"/>
-    <rect class="plankton"    x="1260" y="500" width="2" height="2"/>
-    <rect class="plankton p2" x="920"  y="520" width="2" height="2"/>
-  </g>
-  <!-- Ammonite -->
-  <g class="ammonite">
-    <g fill="#d4a373">
-      <rect class="tentacle"    x="1180" y="392" width="3" height="18"/>
-      <rect class="tentacle t2" x="1188" y="388" width="3" height="22"/>
-      <rect class="tentacle t3" x="1196" y="392" width="3" height="18"/>
-      <rect class="tentacle t4" x="1204" y="396" width="3" height="14"/>
+  <!-- Small far flytrap -->
+  <g transform="translate(90, 560) scale(0.65)">
+    <rect x="-3" y="50" width="6" height="120" fill="#2d4623"/>
+    <rect x="-2" y="50" width="2" height="120" fill="#1a2d14"/>
+    <g fill="#1f3d18">
+      <rect x="-55" y="160" width="110" height="30"/>
+      <rect x="-45" y="150" width="90"  height="16"/>
     </g>
-    <g fill="#4a4032">
-      <rect x="1216" y="374" width="60" height="60"/>
-      <rect x="1224" y="364" width="44" height="80"/>
-      <rect x="1206" y="388" width="82" height="32"/>
+    <g fill="#2d5a24">
+      <rect x="-46" y="164" width="16" height="20"/>
+      <rect x="-26" y="158" width="18" height="22"/>
+      <rect x="-4"  y="154" width="18" height="24"/>
+      <rect x="18"  y="162" width="16" height="20"/>
+    </g>
+    <g fill="#8a1030">
+      <rect x="-36" y="18" width="72" height="34"/>
+      <rect x="-30" y="10" width="60" height="12"/>
+    </g>
+    <g fill="#b81840">
+      <rect x="-32" y="20" width="64" height="28"/>
+      <rect x="-26" y="12" width="52" height="10"/>
+    </g>
+    <!-- lower lobe -->
+    <g fill="#166534">
+      <rect x="-40" y="-6" width="80" height="22"/>
+    </g>
+    <g fill="#2d8a3e">
+      <rect x="-36" y="-10" width="72" height="20"/>
+    </g>
+    <rect class="trap-tongue" x="-30" y="-2" width="60" height="14" fill="#c81e4a"/>
+    <rect x="-24" y="0"  width="48" height="9" fill="#e83a68" opacity="0.7"/>
+    <g fill="#7a0e2e" opacity="0.85">
+      <rect x="-20" y="2" width="2" height="9"/>
+      <rect x="-6"  y="2" width="2" height="9"/>
+      <rect x="8"   y="2" width="2" height="9"/>
+      <rect x="20"  y="2" width="2" height="9"/>
     </g>
     <g fill="#e8e0d5">
-      <rect x="1224" y="398" width="50" height="3"/>
-      <rect x="1232" y="384" width="32" height="3"/>
-      <rect x="1240" y="374" width="22" height="3"/>
-      <rect x="1248" y="414" width="24" height="3"/>
-      <rect x="1240" y="426" width="34" height="3"/>
-      <rect x="1230" y="410" width="5" height="5"/>
-      <rect x="1256" y="394" width="5" height="5"/>
+      <rect x="-40" y="-18" width="3" height="10"/>
+      <rect x="-31" y="-18" width="3" height="10"/>
+      <rect x="-22" y="-18" width="3" height="10"/>
+      <rect x="-13" y="-18" width="3" height="10"/>
+      <rect x="-4"  y="-18" width="3" height="10"/>
+      <rect x="5"   y="-18" width="3" height="10"/>
+      <rect x="14"  y="-18" width="3" height="10"/>
+      <rect x="23"  y="-18" width="3" height="10"/>
+      <rect x="32"  y="-18" width="3" height="10"/>
     </g>
-    <rect x="1256" y="404" width="8" height="8" fill="#d4a373"/>
-    <rect x="1259" y="407" width="3" height="3" fill="#fbbf24"/>
+    <!-- upper lobe -->
+    <g fill="#166534">
+      <rect x="-36" y="-48" width="72" height="26"/>
+    </g>
+    <g fill="#2d8a3e">
+      <rect x="-32" y="-54" width="64" height="24"/>
+    </g>
+    <rect class="trap-tongue" x="-28" y="-44" width="56" height="18" fill="#c81e4a" opacity="0.9"/>
+    <rect x="-22" y="-40" width="44" height="12" fill="#e83a68" opacity="0.55"/>
+    <g fill="#e8e0d5">
+      <rect x="-36" y="-30" width="3" height="10"/>
+      <rect x="-27" y="-30" width="3" height="10"/>
+      <rect x="-18" y="-30" width="3" height="10"/>
+      <rect x="-9"  y="-30" width="3" height="10"/>
+      <rect x="0"   y="-30" width="3" height="10"/>
+      <rect x="9"   y="-30" width="3" height="10"/>
+      <rect x="18"  y="-30" width="3" height="10"/>
+      <rect x="27"  y="-30" width="3" height="10"/>
+    </g>
+    <rect x="-36" y="-24" width="72" height="4" fill="#0a1f0d" opacity="0.5"/>
   </g>
 
-  <!-- ================= PORTAL + CHARACTER (side, not center) ================= -->
-  <!-- Crack portal, positioned in swamp side but off-center -->
-  <g class="portal-core" transform="translate(470, 300)">
-    <!-- Outer glow -->
-    <ellipse cx="40" cy="220" rx="60" ry="240" fill="url(#portalGrad)" opacity="0.18"/>
-    <!-- Crack lines (jagged vertical) -->
-    <g fill="#e8f8ff">
-      <rect x="36" y="10"  width="8" height="20"/>
-      <rect x="34" y="32"  width="12" height="26"/>
-      <rect x="38" y="60"  width="6" height="18"/>
-      <rect x="36" y="80"  width="10" height="24"/>
-      <rect x="34" y="106" width="14" height="30"/>
-      <rect x="38" y="138" width="8" height="22"/>
-      <rect x="36" y="162" width="12" height="28"/>
-      <rect x="34" y="192" width="16" height="24"/>
-      <rect x="38" y="218" width="10" height="26"/>
-      <rect x="36" y="246" width="14" height="30"/>
-      <rect x="40" y="278" width="8" height="24"/>
-    </g>
-    <!-- Inner cyan core -->
-    <g fill="#22d3ee" opacity="0.85">
-      <rect x="38" y="20"  width="4" height="18"/>
-      <rect x="36" y="40"  width="8" height="22"/>
-      <rect x="40" y="64"  width="4" height="14"/>
-      <rect x="38" y="82"  width="6" height="20"/>
-      <rect x="36" y="108" width="10" height="26"/>
-      <rect x="40" y="140" width="6" height="18"/>
-      <rect x="38" y="164" width="8" height="24"/>
-      <rect x="36" y="194" width="12" height="20"/>
-      <rect x="40" y="220" width="6" height="22"/>
-      <rect x="38" y="248" width="10" height="26"/>
-      <rect x="42" y="280" width="4" height="20"/>
-    </g>
-    <!-- Magenta fringe -->
-    <g fill="#e879f9" opacity="0.7">
-      <rect x="34" y="14"  width="3" height="14"/>
-      <rect x="46" y="48"  width="3" height="18"/>
-      <rect x="34" y="90"  width="3" height="16"/>
-      <rect x="46" y="130" width="3" height="22"/>
-      <rect x="34" y="170" width="3" height="18"/>
-      <rect x="48" y="210" width="3" height="20"/>
-      <rect x="34" y="250" width="3" height="22"/>
-    </g>
-  </g>
-
-  <!-- Glitch band between portal and character -->
-  <g class="glitch" opacity="0.7">
-    <rect x="440" y="430" width="90" height="3" fill="#22d3ee"/>
-    <rect x="450" y="470" width="70" height="2" fill="#e879f9"/>
-    <rect x="460" y="510" width="60" height="3" fill="#22d3ee"/>
-    <rect x="445" y="550" width="80" height="2" fill="#e879f9"/>
-    <rect x="455" y="590" width="65" height="3" fill="#22d3ee"/>
-  </g>
-  <g class="glitch2" opacity="0.55">
-    <rect x="455" y="450" width="55" height="2" fill="#e879f9"/>
-    <rect x="465" y="490" width="45" height="2" fill="#22d3ee"/>
-    <rect x="445" y="530" width="70" height="2" fill="#e879f9"/>
-    <rect x="460" y="570" width="50" height="2" fill="#22d3ee"/>
-  </g>
-
-  <!-- Character: tall man, trench coat, curly hair, head down, hands in pockets -->
-  <g class="char-breathe" transform="translate(520, 620)">
-    <!-- Shadow -->
-    <ellipse cx="0" cy="2" rx="45" ry="6" fill="#000" opacity="0.5"/>
-
-    <!-- Coat hem (bottom) -->
-    <g fill="#1a1f2e">
-      <rect x="-30" y="-10" width="60" height="14"/>
-      <rect x="-34" y="-2"  width="68" height="6" fill="#141824"/>
-    </g>
-    <!-- Coat body (slightly turned) -->
-    <g fill="#232a3d">
-      <rect x="-28" y="-100" width="56" height="92"/>
-      <rect x="-24" y="-110" width="48" height="12"/>
-    </g>
-    <!-- Coat highlight (side, gives 3/4 view) -->
-    <g fill="#2e374d">
-      <rect x="-22" y="-100" width="6" height="88"/>
-      <rect x="-18" y="-108" width="4" height="96"/>
-    </g>
-    <!-- Coat lapels (open front) -->
-    <g fill="#0f1320">
-      <rect x="-8"  y="-100" width="6" height="60"/>
-      <rect x="10"  y="-100" width="6" height="60"/>
-      <rect x="-6"  y="-104" width="4" height="8"/>
-      <rect x="12"  y="-104" width="4" height="8"/>
-    </g>
-    <!-- Belt -->
-    <rect x="-28" y="-38" width="56" height="5" fill="#0a0d18"/>
-    <rect x="-3"  y="-38" width="6" height="5" fill="#4a4032"/>
-
-    <!-- Hands in pockets (subtle bulges) -->
-    <g fill="#1a1f2e">
-      <rect x="-30" y="-58" width="6" height="14"/>
-      <rect x="24"  y="-58" width="6" height="14"/>
-    </g>
-
-    <!-- Shoulders (slightly turned, right shoulder higher) -->
-    <g fill="#232a3d">
-      <rect x="-30" y="-116" width="60" height="14"/>
-      <rect x="-26" y="-122" width="52" height="8"/>
-    </g>
-
-    <!-- Neck -->
-    <rect x="-6" y="-130" width="12" height="10" fill="#c9a17a"/>
-    <!-- Collar high (mysterious) -->
-    <g fill="#0f1320">
-      <rect x="-14" y="-128" width="28" height="10"/>
-      <rect x="-18" y="-132" width="8"  height="14"/>
-      <rect x="10"  y="-132" width="8"  height="14"/>
-    </g>
-
-    <!-- Head — down, tilted forward -->
-    <g transform="translate(0, -128)">
-      <!-- Head base -->
-      <rect x="-11" y="-14" width="22" height="22" fill="#c9a17a"/>
-      <!-- Shadow on face (looking down) -->
-      <rect x="-11" y="-2"  width="22" height="10" fill="#8a6a4a"/>
-      <!-- Eyes (barely visible, looking down) -->
-      <rect x="-7" y="-2"   width="3" height="2" fill="#0a0d18"/>
-      <rect x="4"  y="-2"   width="3" height="2" fill="#0a0d18"/>
-      <!-- Nose shadow -->
-      <rect x="-1" y="2"    width="2" height="3" fill="#8a6a4a"/>
-      <!-- Curly hair — cluster of pixels -->
-      <g fill="#1a1410">
-        <rect x="-13" y="-18" width="26" height="10"/>
-        <rect x="-15" y="-14" width="4"  height="12"/>
-        <rect x="11"  y="-14" width="4"  height="12"/>
-        <rect x="-11" y="-22" width="6"  height="6"/>
-        <rect x="-3"  y="-24" width="6"  height="6"/>
-        <rect x="5"   y="-22" width="6"  height="6"/>
-        <rect x="-8"  y="-20" width="4"  height="4"/>
-        <rect x="2"   y="-20" width="4"  height="4"/>
-      </g>
-      <!-- Hair highlights -->
-      <g fill="#3a2a1e">
-        <rect x="-6" y="-20" width="2" height="2"/>
-        <rect x="4"  y="-20" width="2" height="2"/>
-      </g>
-    </g>
-  </g>
-
-  <!-- ================= VENUS FLYTRAP (foreground left, upright, real design) ================= -->
-  <!-- Main trap: opens UPWARD, attached to ground with bush -->
-  <g class="trap-open" transform="translate(200, 480)">
+  <!-- Main flytrap (foreground, upright, red/purple dominant) -->
+  <g class="trap-open" transform="translate(230, 470)">
     <!-- Stem from ground -->
-    <rect x="-3" y="60" width="6" height="140" fill="#2d4623"/>
-    <rect x="-2" y="60" width="2" height="140" fill="#1a2d14"/>
+    <rect x="-5" y="90" width="10" height="200" fill="#2d4623"/>
+    <rect x="-3" y="90" width="3" height="200" fill="#1a2d14"/>
 
     <!-- Surrounding bush / low leaves at base -->
     <g fill="#1f3d18">
-      <rect x="-70" y="180" width="140" height="40"/>
-      <rect x="-60" y="170" width="120" height="20"/>
-      <rect x="-45" y="165" width="90"  height="15"/>
+      <rect x="-95" y="240" width="190" height="50"/>
+      <rect x="-82" y="228" width="164" height="20"/>
+      <rect x="-62" y="218" width="124" height="14"/>
     </g>
     <g fill="#2d5a24">
-      <rect x="-60" y="185" width="16" height="18"/>
-      <rect x="-38" y="180" width="18" height="20"/>
-      <rect x="-12" y="175" width="20" height="22"/>
-      <rect x="14"  y="182" width="18" height="18"/>
-      <rect x="36"  y="186" width="18" height="16"/>
+      <rect x="-82" y="246" width="20" height="24"/>
+      <rect x="-52" y="240" width="22" height="26"/>
+      <rect x="-16" y="234" width="24" height="28"/>
+      <rect x="18"  y="242" width="22" height="24"/>
+      <rect x="48"  y="246" width="22" height="22"/>
     </g>
     <g fill="#4a7a2c">
-      <rect x="-56" y="182" width="3" height="14"/>
-      <rect x="-34" y="177" width="3" height="16"/>
-      <rect x="-8"  y="172" width="3" height="18"/>
-      <rect x="18"  y="179" width="3" height="16"/>
-      <rect x="40"  y="183" width="3" height="14"/>
+      <rect x="-78" y="242" width="3" height="20"/>
+      <rect x="-48" y="236" width="3" height="22"/>
+      <rect x="-12" y="230" width="3" height="24"/>
+      <rect x="22"  y="238" width="3" height="22"/>
+      <rect x="52"  y="242" width="3" height="20"/>
     </g>
 
     <!-- Trap base (bulbous, red) -->
     <g fill="#8a1030">
-      <rect x="-42" y="30" width="84" height="40"/>
-      <rect x="-36" y="20" width="72" height="14"/>
+      <rect x="-58" y="52" width="116" height="44"/>
+      <rect x="-50" y="40" width="100" height="16"/>
     </g>
     <g fill="#b81840">
-      <rect x="-38" y="30" width="76" height="34"/>
-      <rect x="-32" y="20" width="64" height="12"/>
+      <rect x="-54" y="54" width="108" height="38"/>
+      <rect x="-46" y="42" width="92" height="14"/>
     </g>
 
-    <!-- Lower lobe — opening upward, red interior -->
+    <!-- Lower lobe (bowl opening UP) -->
     <g fill="#166534">
-      <rect x="-52" y="-4" width="104" height="24"/>
+      <rect x="-68" y="12" width="136" height="34"/>
     </g>
     <g fill="#2d8a3e">
-      <rect x="-48" y="-8" width="96" height="22"/>
+      <rect x="-64" y="6" width="128" height="30"/>
     </g>
-    <!-- Red interior (visible from above) -->
-    <rect class="trap-tongue" x="-40" y="-2" width="80" height="14" fill="#c81e4a"/>
-    <rect x="-32" y="0"  width="64" height="10" fill="#e83a68" opacity="0.7"/>
+    <!-- Red interior visible from above -->
+    <rect class="trap-tongue" x="-56" y="12" width="112" height="22" fill="#c81e4a"/>
+    <rect x="-46" y="16" width="92" height="14" fill="#e83a68" opacity="0.7"/>
     <!-- Purple veins -->
-    <g fill="#7a0e2e" opacity="0.8">
-      <rect x="-28" y="2"  width="2" height="10"/>
-      <rect x="-12" y="2"  width="2" height="10"/>
-      <rect x="6"   y="2"  width="2" height="10"/>
-      <rect x="22"  y="2"  width="2" height="10"/>
+    <g fill="#7a0e2e" opacity="0.9">
+      <rect x="-40" y="16" width="3" height="14"/>
+      <rect x="-20" y="16" width="3" height="14"/>
+      <rect x="0"   y="16" width="3" height="14"/>
+      <rect x="20"  y="16" width="3" height="14"/>
+      <rect x="38"  y="16" width="3" height="14"/>
     </g>
-    <!-- Lower teeth (cilia along rim, pointing up) -->
+    <!-- Lower teeth (cilia pointing UP) -->
     <g fill="#e8e0d5">
-      <rect x="-52" y="-14" width="4" height="10"/>
-      <rect x="-42" y="-14" width="4" height="10"/>
-      <rect x="-32" y="-14" width="4" height="10"/>
-      <rect x="-22" y="-14" width="4" height="10"/>
-      <rect x="-12" y="-14" width="4" height="10"/>
-      <rect x="-2"  y="-14" width="4" height="10"/>
-      <rect x="8"   y="-14" width="4" height="10"/>
-      <rect x="18"  y="-14" width="4" height="10"/>
-      <rect x="28"  y="-14" width="4" height="10"/>
-      <rect x="38"  y="-14" width="4" height="10"/>
-      <rect x="48"  y="-14" width="4" height="10"/>
+      <rect x="-68" y="-6" width="4" height="14"/>
+      <rect x="-56" y="-6" width="4" height="14"/>
+      <rect x="-44" y="-6" width="4" height="14"/>
+      <rect x="-32" y="-6" width="4" height="14"/>
+      <rect x="-20" y="-6" width="4" height="14"/>
+      <rect x="-8"  y="-6" width="4" height="14"/>
+      <rect x="4"   y="-6" width="4" height="14"/>
+      <rect x="16"  y="-6" width="4" height="14"/>
+      <rect x="28"  y="-6" width="4" height="14"/>
+      <rect x="40"  y="-6" width="4" height="14"/>
+      <rect x="52"  y="-6" width="4" height="14"/>
+      <rect x="64"  y="-6" width="4" height="14"/>
     </g>
 
-    <!-- Upper lobe — attached at hinge (behind), tips open forward/up -->
-    <g fill="#166534" opacity="0.95">
-      <rect x="-46" y="-46" width="92" height="30"/>
+    <!-- Upper lobe (dome, hinged at BACK, lifted up like a lid) -->
+    <g fill="#166534">
+      <rect x="-62" y="-72" width="124" height="34"/>
     </g>
-    <g fill="#2d8a3e" opacity="0.95">
-      <rect x="-42" y="-50" width="84" height="28"/>
+    <g fill="#2d8a3e">
+      <rect x="-58" y="-80" width="116" height="32"/>
     </g>
-    <!-- Upper interior red -->
-    <rect class="trap-tongue" x="-36" y="-44" width="72" height="18" fill="#c81e4a" opacity="0.9"/>
-    <rect x="-28" y="-42" width="56" height="12" fill="#e83a68" opacity="0.55"/>
-    <!-- Upper teeth (pointing down) -->
+    <!-- Upper interior red (visible from below/front) -->
+    <rect class="trap-tongue" x="-52" y="-66" width="104" height="24" fill="#c81e4a" opacity="0.95"/>
+    <rect x="-42" y="-62" width="84" height="16" fill="#e83a68" opacity="0.55"/>
+    <!-- Upper veins -->
+    <g fill="#7a0e2e" opacity="0.8">
+      <rect x="-38" y="-62" width="2" height="16"/>
+      <rect x="-18" y="-62" width="2" height="16"/>
+      <rect x="2"   y="-62" width="2" height="16"/>
+      <rect x="22"  y="-62" width="2" height="16"/>
+      <rect x="38"  y="-62" width="2" height="16"/>
+    </g>
+    <!-- Upper teeth (pointing DOWN) -->
     <g fill="#e8e0d5">
-      <rect x="-46" y="-20" width="4" height="10"/>
-      <rect x="-36" y="-20" width="4" height="10"/>
-      <rect x="-26" y="-20" width="4" height="10"/>
-      <rect x="-16" y="-20" width="4" height="10"/>
-      <rect x="-6"  y="-20" width="4" height="10"/>
-      <rect x="4"   y="-20" width="4" height="10"/>
-      <rect x="14"  y="-20" width="4" height="10"/>
-      <rect x="24"  y="-20" width="4" height="10"/>
-      <rect x="34"  y="-20" width="4" height="10"/>
-      <rect x="44"  y="-20" width="4" height="10"/>
+      <rect x="-62" y="-50" width="4" height="14"/>
+      <rect x="-50" y="-50" width="4" height="14"/>
+      <rect x="-38" y="-50" width="4" height="14"/>
+      <rect x="-26" y="-50" width="4" height="14"/>
+      <rect x="-14" y="-50" width="4" height="14"/>
+      <rect x="-2"  y="-50" width="4" height="14"/>
+      <rect x="10"  y="-50" width="4" height="14"/>
+      <rect x="22"  y="-50" width="4" height="14"/>
+      <rect x="34"  y="-50" width="4" height="14"/>
+      <rect x="46"  y="-50" width="4" height="14"/>
+      <rect x="58"  y="-50" width="4" height="14"/>
     </g>
     <!-- Hinge shadow -->
-    <rect x="-46" y="-16" width="92" height="4" fill="#0a1f0d" opacity="0.6"/>
+    <rect x="-62" y="-42" width="124" height="5" fill="#0a1f0d" opacity="0.55"/>
   </g>
 
-  <!-- Second, smaller flytrap for depth (left side) -->
-  <g transform="translate(100, 520) scale(0.7)">
-    <rect x="-2" y="40" width="4" height="100" fill="#2d4623"/>
+  <!-- Second smaller flytrap for depth -->
+  <g transform="translate(370, 540) scale(0.78)">
+    <rect x="-3" y="50" width="6" height="140" fill="#2d4623"/>
+    <rect x="-2" y="50" width="2" height="140" fill="#1a2d14"/>
     <g fill="#1f3d18">
-      <rect x="-46" y="120" width="92" height="26"/>
-      <rect x="-38" y="112" width="76" height="14"/>
+      <rect x="-70" y="170" width="140" height="36"/>
+      <rect x="-58" y="160" width="116" height="18"/>
+    </g>
+    <g fill="#2d5a24">
+      <rect x="-58" y="174" width="18" height="22"/>
+      <rect x="-34" y="168" width="20" height="24"/>
+      <rect x="-8"  y="164" width="22" height="26"/>
+      <rect x="20"  y="172" width="18" height="22"/>
+    </g>
+    <g fill="#4a7a2c">
+      <rect x="-54" y="172" width="3" height="18"/>
+      <rect x="-30" y="166" width="3" height="20"/>
+      <rect x="-4"  y="162" width="3" height="22"/>
+      <rect x="24"  y="170" width="3" height="18"/>
+    </g>
+    <g fill="#8a1030">
+      <rect x="-46" y="30" width="92" height="38"/>
+      <rect x="-40" y="20" width="80" height="14"/>
+    </g>
+    <g fill="#b81840">
+      <rect x="-42" y="32" width="84" height="32"/>
+      <rect x="-36" y="22" width="72" height="12"/>
     </g>
     <g fill="#166534">
-      <rect x="-34" y="-4" width="68" height="30"/>
+      <rect x="-52" y="-4" width="104" height="26"/>
     </g>
     <g fill="#2d8a3e">
-      <rect x="-30" y="-8" width="60" height="28"/>
+      <rect x="-48" y="-10" width="96" height="24"/>
     </g>
-    <rect x="-24" y="0" width="48" height="12" fill="#c81e4a"/>
+    <rect class="trap-tongue" x="-42" y="0" width="84" height="16" fill="#c81e4a"/>
+    <rect x="-34" y="2" width="68" height="10" fill="#e83a68" opacity="0.7"/>
     <g fill="#e8e0d5">
-      <rect x="-34" y="-12" width="3" height="8"/>
-      <rect x="-24" y="-12" width="3" height="8"/>
-      <rect x="-14" y="-12" width="3" height="8"/>
-      <rect x="-4"  y="-12" width="3" height="8"/>
-      <rect x="6"   y="-12" width="3" height="8"/>
-      <rect x="16"  y="-12" width="3" height="8"/>
-      <rect x="26"  y="-12" width="3" height="8"/>
+      <rect x="-52" y="-18" width="3" height="10"/>
+      <rect x="-42" y="-18" width="3" height="10"/>
+      <rect x="-32" y="-18" width="3" height="10"/>
+      <rect x="-22" y="-18" width="3" height="10"/>
+      <rect x="-12" y="-18" width="3" height="10"/>
+      <rect x="-2"  y="-18" width="3" height="10"/>
+      <rect x="8"   y="-18" width="3" height="10"/>
+      <rect x="18"  y="-18" width="3" height="10"/>
+      <rect x="28"  y="-18" width="3" height="10"/>
+      <rect x="38"  y="-18" width="3" height="10"/>
+      <rect x="48"  y="-18" width="3" height="10"/>
     </g>
-    <g fill="#166534" opacity="0.9">
-      <rect x="-30" y="-38" width="60" height="22"/>
+    <g fill="#166534">
+      <rect x="-48" y="-58" width="96" height="28"/>
     </g>
-    <rect x="-22" y="-34" width="44" height="14" fill="#c81e4a" opacity="0.9"/>
+    <g fill="#2d8a3e">
+      <rect x="-44" y="-64" width="88" height="26"/>
+    </g>
+    <rect class="trap-tongue" x="-38" y="-52" width="76" height="18" fill="#c81e4a" opacity="0.95"/>
+    <rect x="-30" y="-48" width="60" height="12" fill="#e83a68" opacity="0.55"/>
     <g fill="#e8e0d5">
-      <rect x="-30" y="-18" width="3" height="8"/>
-      <rect x="-20" y="-18" width="3" height="8"/>
-      <rect x="-10" y="-18" width="3" height="8"/>
-      <rect x="0"   y="-18" width="3" height="8"/>
-      <rect x="10"  y="-18" width="3" height="8"/>
-      <rect x="20"  y="-18" width="3" height="8"/>
+      <rect x="-48" y="-38" width="3" height="10"/>
+      <rect x="-38" y="-38" width="3" height="10"/>
+      <rect x="-28" y="-38" width="3" height="10"/>
+      <rect x="-18" y="-38" width="3" height="10"/>
+      <rect x="-8"  y="-38" width="3" height="10"/>
+      <rect x="2"   y="-38" width="3" height="10"/>
+      <rect x="12"  y="-38" width="3" height="10"/>
+      <rect x="22"  y="-38" width="3" height="10"/>
+      <rect x="32"  y="-38" width="3" height="10"/>
+      <rect x="42"  y="-38" width="3" height="10"/>
     </g>
+    <rect x="-48" y="-32" width="96" height="4" fill="#0a1f0d" opacity="0.5"/>
+  </g>
+
+  <!-- ================= PORTAL (crack form, off-center in swamp) ================= -->
+  <g class="portal-core" transform="translate(540, 280)">
+    <!-- Halo glow -->
+    <ellipse cx="20" cy="180" rx="90" ry="260" fill="url(#portalHalo)"/>
+    <!-- Outer jagged crack (white/cyan fracture) -->
+    <g fill="#e8f8ff">
+      <rect x="16" y="0"   width="10" height="22"/>
+      <rect x="12" y="24"  width="16" height="28"/>
+      <rect x="18" y="54"  width="8"  height="20"/>
+      <rect x="14" y="76"  width="14" height="26"/>
+      <rect x="10" y="104" width="18" height="32"/>
+      <rect x="16" y="138" width="10" height="24"/>
+      <rect x="12" y="164" width="16" height="30"/>
+      <rect x="8"  y="196" width="22" height="26"/>
+      <rect x="14" y="224" width="14" height="28"/>
+      <rect x="10" y="254" width="18" height="32"/>
+      <rect x="16" y="288" width="12" height="26"/>
+      <rect x="12" y="316" width="16" height="28"/>
+      <rect x="18" y="346" width="10" height="24"/>
+      <!-- branch cracks -->
+      <rect x="26" y="40"  width="20" height="6"/>
+      <rect x="0"  y="90"  width="14" height="6"/>
+      <rect x="26" y="150" width="24" height="6"/>
+      <rect x="-8" y="200" width="20" height="6"/>
+      <rect x="28" y="260" width="18" height="6"/>
+      <rect x="-4" y="300" width="18" height="6"/>
+    </g>
+    <!-- Inner cyan core -->
+    <g fill="#22d3ee" opacity="0.9">
+      <rect x="18" y="8"   width="6" height="18"/>
+      <rect x="16" y="28"  width="10" height="24"/>
+      <rect x="20" y="56"  width="4" height="16"/>
+      <rect x="18" y="78"  width="8" height="22"/>
+      <rect x="14" y="106" width="12" height="28"/>
+      <rect x="20" y="140" width="6" height="20"/>
+      <rect x="18" y="166" width="8" height="26"/>
+      <rect x="14" y="198" width="14" height="22"/>
+      <rect x="20" y="226" width="6" height="24"/>
+      <rect x="18" y="256" width="10" height="28"/>
+      <rect x="20" y="290" width="6" height="22"/>
+      <rect x="18" y="318" width="10" height="24"/>
+      <rect x="22" y="348" width="6" height="20"/>
+      <!-- branches -->
+      <rect x="30" y="42"  width="14" height="4"/>
+      <rect x="4"  y="92"  width="10" height="4"/>
+      <rect x="30" y="152" width="18" height="4"/>
+      <rect x="-2" y="202" width="14" height="4"/>
+    </g>
+    <!-- Magenta fringe (glitch artifact) -->
+    <g fill="#e879f9" opacity="0.75">
+      <rect x="12" y="4"   width="4" height="16"/>
+      <rect x="30" y="38"  width="4" height="20"/>
+      <rect x="8"  y="82"  width="4" height="18"/>
+      <rect x="30" y="130" width="4" height="22"/>
+      <rect x="8"  y="170" width="4" height="20"/>
+      <rect x="32" y="210" width="4" height="22"/>
+      <rect x="8"  y="250" width="4" height="24"/>
+      <rect x="30" y="290" width="4" height="22"/>
+      <rect x="10" y="330" width="4" height="20"/>
+    </g>
+    <!-- Bright spark at top -->
+    <rect x="20" y="4" width="4" height="8" fill="#ffffff"/>
+    <rect x="20" y="16" width="4" height="6" fill="#e879f9"/>
+  </g>
+
+  <!-- ================= GLITCH (between portal and character) ================= -->
+  <g class="glitch" opacity="0.75">
+    <rect x="600" y="420" width="80" height="3" fill="#22d3ee"/>
+    <rect x="612" y="460" width="60" height="2" fill="#e879f9"/>
+    <rect x="604" y="500" width="76" height="3" fill="#22d3ee"/>
+    <rect x="616" y="540" width="56" height="2" fill="#e879f9"/>
+    <rect x="606" y="580" width="72" height="3" fill="#22d3ee"/>
+    <rect x="618" y="620" width="58" height="2" fill="#e879f9"/>
+  </g>
+  <g class="glitch2" opacity="0.55">
+    <rect x="614" y="440" width="52" height="2" fill="#e879f9"/>
+    <rect x="622" y="480" width="44" height="2" fill="#22d3ee"/>
+    <rect x="608" y="520" width="66" height="2" fill="#e879f9"/>
+    <rect x="620" y="560" width="48" height="2" fill="#22d3ee"/>
+    <rect x="610" y="600" width="60" height="2" fill="#e879f9"/>
+  </g>
+  <!-- Digital fragments between them -->
+  <g class="glitch" opacity="0.4">
+    <rect x="596" y="450" width="10" height="20" fill="#22d3ee"/>
+    <rect x="660" y="500" width="8" height="16" fill="#e879f9"/>
+    <rect x="600" y="560" width="12" height="18" fill="#22d3ee"/>
+  </g>
+
+  <!-- ================= CHARACTER (tall man, trench coat, curly hair, 3/4 view, head down, hands in pockets) ================= -->
+  <g class="char-breathe" transform="translate(700, 630)">
+    <!-- Ground shadow -->
+    <ellipse cx="0" cy="4" rx="52" ry="7" fill="#000" opacity="0.55"/>
+
+    <!-- Coat hem (bottom, slightly flared) -->
+    <g fill="#1a1f2e">
+      <rect x="-36" y="-16" width="72" height="20"/>
+      <rect x="-40" y="-6"  width="80" height="10" fill="#141824"/>
+    </g>
+
+    <!-- Coat body (3/4 turn, wider on viewer's right) -->
+    <g fill="#232a3d">
+      <rect x="-32" y="-118" width="66" height="104"/>
+      <rect x="-28" y="-130" width="58" height="16"/>
+    </g>
+    <!-- Coat highlight (near side) -->
+    <g fill="#2e374d">
+      <rect x="22" y="-118" width="12" height="102"/>
+      <rect x="18" y="-126" width="8" height="10"/>
+    </g>
+    <!-- Coat shadow (far side) -->
+    <g fill="#1a1f2e">
+      <rect x="-34" y="-118" width="6" height="100"/>
+    </g>
+
+    <!-- Coat lapels (front opening) -->
+    <g fill="#0f1320">
+      <rect x="-8"  y="-118" width="6" height="76"/>
+      <rect x="8"   y="-118" width="6" height="76"/>
+      <rect x="-6"  y="-124" width="4" height="10"/>
+      <rect x="10"  y="-124" width="4" height="10"/>
+    </g>
+
+    <!-- Belt -->
+    <rect x="-32" y="-46" width="66" height="6" fill="#0a0d18"/>
+    <rect x="-2"  y="-46" width="7" height="6" fill="#4a4032"/>
+
+    <!-- Hands in pockets (bulges at coat sides) -->
+    <g fill="#1a1f2e">
+      <rect x="-36" y="-68" width="8" height="18"/>
+      <rect x="26"  y="-66" width="8" height="16"/>
+    </g>
+    <!-- Subtle pocket fold lines -->
+    <g fill="#0f1320">
+      <rect x="-30" y="-60" width="10" height="2"/>
+      <rect x="22"  y="-58" width="10" height="2"/>
+    </g>
+
+    <!-- Shoulders (slightly turned, near shoulder higher) -->
+    <g fill="#232a3d">
+      <rect x="-36" y="-136" width="72" height="18"/>
+      <rect x="-32" y="-142" width="64" height="8"/>
+    </g>
+    <!-- Near shoulder highlight -->
+    <g fill="#2e374d">
+      <rect x="20" y="-136" width="14" height="12"/>
+    </g>
+
+    <!-- Neck -->
+    <rect x="-6" y="-152" width="14" height="12" fill="#c9a17a"/>
+    <!-- Neck shadow (from head tilt) -->
+    <rect x="-6" y="-152" width="14" height="5" fill="#8a6a4a" opacity="0.7"/>
+
+    <!-- High collar (mysterious) -->
+    <g fill="#0f1320">
+      <rect x="-18" y="-152" width="36" height="14"/>
+      <rect x="-22" y="-158" width="10" height="22"/>
+      <rect x="14"  y="-158" width="10" height="22"/>
+    </g>
+
+    <!-- Head — tilted down + slightly to the side (mysterious) -->
+    <g transform="translate(1, -152) rotate(9)">
+      <!-- Head base -->
+      <rect x="-12" y="-16" width="24" height="24" fill="#c9a17a"/>
+      <!-- Face shadow (looking down = shadow covers lower face) -->
+      <rect x="-12" y="-2"  width="24" height="12" fill="#8a6a4a"/>
+      <!-- Eyes (barely visible, looking down) -->
+      <rect x="-7" y="-3"   width="3" height="2" fill="#0a0d18"/>
+      <rect x="4"  y="-3"   width="3" height="2" fill="#0a0d18"/>
+      <!-- Nose shadow -->
+      <rect x="-1" y="2"    width="2" height="4" fill="#8a6a4a"/>
+      <!-- Jaw shadow -->
+      <rect x="-10" y="10"  width="20" height="4" fill="#6a4f38" opacity="0.6"/>
+      <!-- Curly hair — pixel clusters -->
+      <g fill="#1a1410">
+        <rect x="-14" y="-20" width="28" height="10"/>
+        <rect x="-16" y="-16" width="4"  height="14"/>
+        <rect x="12"  y="-16" width="4"  height="14"/>
+        <rect x="-12" y="-24" width="6"  height="6"/>
+        <rect x="-4"  y="-26" width="6"  height="6"/>
+        <rect x="4"   y="-24" width="8"  height="6"/>
+        <rect x="-9"  y="-22" width="4"  height="4"/>
+        <rect x="2"   y="-22" width="4"  height="4"/>
+        <rect x="-16" y="-22" width="4"  height="6"/>
+        <rect x="12"  y="-22" width="4"  height="6"/>
+      </g>
+      <!-- Hair highlights -->
+      <g fill="#3a2a1e">
+        <rect x="-6" y="-22" width="2" height="2"/>
+        <rect x="4"  y="-22" width="2" height="2"/>
+        <rect x="-10" y="-20" width="2" height="2"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- ================= OCEAN (right) ================= -->
+  <!-- Light rays from surface -->
+  <g fill="#22d3ee" opacity="0.06">
+    <polygon points="1000,0 1040,0 1100,800 1030,800"/>
+    <polygon points="1140,0 1170,0 1240,800 1180,800"/>
+    <polygon points="1320,0 1340,0 1400,800 1350,800"/>
+  </g>
+
+  <!-- Coral / sponges at ocean floor -->
+  <g fill="#166534" opacity="0.78">
+    <rect x="920"  y="640" width="4" height="120"/>
+    <rect x="912"  y="660" width="16" height="3"/>
+    <rect x="920"  y="690" width="14" height="3"/>
+    <rect x="920"  y="720" width="16" height="3"/>
+
+    <rect x="1500" y="600" width="4" height="160"/>
+    <rect x="1490" y="625" width="20" height="3"/>
+    <rect x="1500" y="660" width="18" height="3"/>
+    <rect x="1490" y="700" width="20" height="3"/>
+  </g>
+  <g fill="#0891b2" opacity="0.55">
+    <rect x="1050" y="720" width="3" height="60"/>
+    <rect x="1044" y="738" width="14" height="3"/>
+    <rect x="1050" y="762" width="12" height="3"/>
+  </g>
+  <g fill="#a21caf" opacity="0.6">
+    <rect x="1420" y="700" width="3" height="80"/>
+    <rect x="1414" y="718" width="14" height="3"/>
+    <rect x="1420" y="750" width="12" height="3"/>
+  </g>
+  <!-- Purple coral cluster -->
+  <g fill="#7e22ce" opacity="0.55">
+    <rect x="1300" y="710" width="3" height="70"/>
+    <rect x="1294" y="728" width="12" height="3"/>
+    <rect x="1296" y="752" width="10" height="3"/>
+  </g>
+
+  <!-- Plankton -->
+  <g fill="#22d3ee">
+    <rect class="plankton"    x="1000" y="380" width="2" height="2"/>
+    <rect class="plankton p2" x="1140" y="440" width="2" height="2"/>
+    <rect class="plankton p3" x="1360" y="360" width="2" height="2"/>
+    <rect class="plankton"    x="1280" y="500" width="2" height="2"/>
+    <rect class="plankton p2" x="940"  y="520" width="2" height="2"/>
+    <rect class="plankton p3" x="1460" y="420" width="2" height="2"/>
+  </g>
+
+  <!-- Ammonite (prehistoric focal point, right side) -->
+  <g class="ammonite">
+    <g fill="#d4a373">
+      <rect class="tentacle"    x="1158" y="392" width="3" height="20"/>
+      <rect class="tentacle t2" x="1167" y="388" width="3" height="24"/>
+      <rect class="tentacle t3" x="1176" y="392" width="3" height="20"/>
+      <rect class="tentacle t4" x="1185" y="396" width="3" height="16"/>
+    </g>
+    <g fill="#4a4032">
+      <rect x="1196" y="374" width="60" height="60"/>
+      <rect x="1204" y="364" width="44" height="80"/>
+      <rect x="1186" y="388" width="82" height="32"/>
+    </g>
+    <g fill="#e8e0d5">
+      <rect x="1204" y="398" width="50" height="3"/>
+      <rect x="1212" y="384" width="32" height="3"/>
+      <rect x="1220" y="374" width="22" height="3"/>
+      <rect x="1228" y="414" width="24" height="3"/>
+      <rect x="1220" y="426" width="34" height="3"/>
+      <rect x="1210" y="410" width="5" height="5"/>
+      <rect x="1236" y="394" width="5" height="5"/>
+    </g>
+    <rect x="1236" y="404" width="8" height="8" fill="#d4a373"/>
+    <rect x="1239" y="407" width="3" height="3" fill="#fbbf24"/>
   </g>
 
   <!-- ================= NAME (top center) ================= -->
