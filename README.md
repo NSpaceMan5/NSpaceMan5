@@ -8,13 +8,16 @@
 
 ### ML Infrastructure Engineer
 
-Building differentiable image augmentation pipelines.<br>
-Physics-based distortion simulation · PyTorch · Reproducible ML
+Building differentiable pipelines for **procedural data augmentation**.<br>
+Mathematical transforms · Physics-based distortion · PyTorch · Reproducible ML
 
 <br>
 
 <a href="https://github.com/VynJustHumant/distortion-library">
   <img src="https://img.shields.io/badge/🦴_distortion--library-0a1410?style=for-the-badge&logo=github&logoColor=e8e0d5" alt="Distortion Library"/>
+</a>
+<a href="https://github.com/VynJustHumant/math-aug">
+  <img src="https://img.shields.io/badge/🌿_math--aug-0a1410?style=for-the-badge&logo=github&logoColor=e8e0d5" alt="Math Aug"/>
 </a>
 <a href="https://www.upwork.com/freelancers/YOUR_ID">
   <img src="https://img.shields.io/badge/Upwork-14a800?style=for-the-badge&logo=upwork&logoColor=white" alt="Upwork"/>
@@ -26,10 +29,14 @@ Physics-based distortion simulation · PyTorch · Reproducible ML
 
 ## 🌿 What I Build
 
+**Production-grade PyTorch libraries for computer vision.**<br>
+Physics-based distortion · Procedural augmentation · Tested.
+
 | Project | Description | Tech |
 |---|---|---|
 | [distortion-library](https://github.com/VynJustHumant/distortion-library) | Physics-based image degradation for CV robustness | PyTorch |
-| [math-aug](https://github.com/VynJustHumant/math-art) | Mathematical transforms for data augmentation (elastic, swirl, ripple) | NumPy, PyTorch |
+| [math-aug](https://github.com/VynJustHumant/math-aug) | Procedural transforms for data augmentation (elastic, swirl, ripple) | NumPy, PyTorch |
+
 ## 🦴 Tech Stack
 
 <div align="center">
