@@ -26,13 +26,10 @@ Physics-based distortion simulation · PyTorch · Reproducible ML
 
 ## 🌿 What I Build
 
-**Production-grade PyTorch libraries for computer vision.**<br>
-Physics-based, differentiable, tested.
-
 | Project | Description | Tech |
 |---|---|---|
 | [distortion-library](https://github.com/VynJustHumant/distortion-library) | Physics-based image degradation for CV robustness | PyTorch |
-
+| [math-aug](https://github.com/VynJustHumant/math-art) | Mathematical transforms for data augmentation (elastic, swirl, ripple) | NumPy, PyTorch |
 ## 🦴 Tech Stack
 
 <div align="center">
