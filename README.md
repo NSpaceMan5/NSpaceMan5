@@ -35,7 +35,7 @@ Physics-based distortion · Procedural augmentation · Tested.
 | Project | Description | Tech |
 |---|---|---|
 | [distortion-library](https://github.com/VynJustHumant/distortion-library) | Physics-based image degradation for CV robustness | PyTorch |
-| [math-aug](https://github.com/VynJustHumant/math-aug) | Procedural transforms for data augmentation (elastic, swirl, ripple) | NumPy, PyTorch |
+| [math-aug](https://github.com/VynJustHumant/math-aug) | Deterministic mathematical art from algebraic formulas (vortices, particles, fractals) | NumPy, PyTorch |
 
 ## 🦴 Tech Stack
 
