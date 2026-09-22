@@ -1,11 +1,3 @@
-<div align="center">
-
-<picture>
-  <source media="(prefers-reduced-motion: reduce)" srcset=".github/assets/banner-static.png">
-  <img src=".github/assets/banner.webp" width="100%"
-       alt="Pixel art banner VynJustHumant: split diagonal antara purba dan modern. Karakter pria trench coat dengan rambut ikal berdiri di antara rak bambu berisi tujuh tanaman purba (lumut, pakis, tree fern, psilotum, venus flytrap, nepenthes, darlingtonia). Split kiri hijau gelap dengan bulan purba, split kanan biru cerah dengan bukit modern, antena Y2K, panel surya, dan CRT. Glitch RGB split di sekitar karakter.">
-</picture>
-
 ### ML Infrastructure Engineer
 
 Building differentiable pipelines for **procedural data augmentation**.<br>
