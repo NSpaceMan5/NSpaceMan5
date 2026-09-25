@@ -1,11 +1,11 @@
 ### ML Infrastructure & Data Engineering
 
 Building differentiable pipelines for **procedural data augmentation**.<br>
-Mathematical transforms · Physics-based distortion · Deterministic ETL · PyTorch · Reproducible ML
+Mathematical transforms · Physics-based distortion · Deterministic ETL · Streaming · PyTorch · Reproducible ML
 
 <br>
 
-<a href="https://github.com/NSpaceMan5/math-render-pipeline">
+<a href="https://github.com/WoodinGlass/math-render-pipeline">
   <img src="https://img.shields.io/badge/🧮_math--render--pipeline-0a1410?style=for-the-badge&logo=github&logoColor=e8e0d5" alt="Math Render Pipeline"/>
 </a>
 <a href="https://github.com/VynJustHumant/distortion-library">
@@ -25,11 +25,11 @@ Mathematical transforms · Physics-based distortion · Deterministic ETL · PyTo
 ## 🧮 What I Build
 
 **Production-grade pipelines where math, ML, and data engineering meet.**<br>
-Deterministic rendering · Physics-based distortion · Streaming + batch ETL · Tested.
+Deterministic rendering · Physics-based distortion · Batch + streaming ETL · Observability · Tested.
 
 | Project | Description | Stack |
 |---|---|---|
-| [math-render-pipeline](https://github.com/NSpaceMan5/math-render-pipeline) | Deterministic math → PNG + structured metadata. Batch + Kafka streaming, Airflow, dbt, Grafana. Live demo on Streamlit. | NumPy, Airflow, dbt, Kafka, Postgres, Streamlit |
+| [math-render-pipeline](https://github.com/WoodinGlass/math-render-pipeline) | Deterministic math → PNG + structured metadata. Batch + streaming, observability, multi-cloud IaC, benchmarks. Live demo. | NumPy, Airflow, dbt, Kafka, Postgres, Grafana, Terraform, Streamlit |
 | [distortion-library](https://github.com/VynJustHumant/distortion-library) | Physics-based image degradation for CV robustness. Differentiable, reproducible. | PyTorch |
 | [math-aug](https://github.com/VynJustHumant/math-aug) | Deterministic mathematical art from algebraic formulas (vortices, particles, fractals). | NumPy, PyTorch |
 
@@ -49,12 +49,25 @@ Deterministic rendering · Physics-based distortion · Streaming + batch ETL · 
 ![dbt](https://img.shields.io/badge/dbt-FF694B?style=flat-square&logo=dbt&logoColor=white)
 ![Kafka](https://img.shields.io/badge/Kafka-231F20?style=flat-square&logo=apachekafka&logoColor=white)
 ![Postgres](https://img.shields.io/badge/Postgres-4169E1?style=flat-square&logo=postgresql&logoColor=white)
+![Parquet](https://img.shields.io/badge/Parquet-50ABF1?style=flat-square&logo=apacheparquet&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
+
+**Observability**
+
 ![Grafana](https://img.shields.io/badge/Grafana-F46800?style=flat-square&logo=grafana&logoColor=white)
+![Prometheus](https://img.shields.io/badge/Prometheus-E6522C?style=flat-square&logo=prometheus&logoColor=white)
+![OpenTelemetry](https://img.shields.io/badge/OpenTelemetry-425CC7?style=flat-square&logo=opentelemetry&logoColor=white)
+
+**Infrastructure**
+
+![Terraform](https://img.shields.io/badge/Terraform-7B42BC?style=flat-square&logo=terraform&logoColor=white)
+![AWS](https://img.shields.io/badge/AWS-232F3E?style=flat-square&logo=amazonaws&logoColor=white)
+![GCP](https://img.shields.io/badge/GCP-4285F4?style=flat-square&logo=googlecloud&logoColor=white)
 
 **Quality**
 
 ![pytest](https://img.shields.io/badge/pytest-0A9EDC?style=flat-square&logo=pytest&logoColor=white)
+![Hypothesis](https://img.shields.io/badge/Hypothesis-BD1C2B?style=flat-square&logo=python&logoColor=white)
 ![GitHub Actions](https://img.shields.io/badge/Actions-2088FF?style=flat-square&logo=githubactions&logoColor=white)
 
 </div>
@@ -64,10 +77,15 @@ Deterministic rendering · Physics-based distortion · Streaming + batch ETL · 
 > Not "math art". A **pipeline** whose payload happens to be math art.
 
 - **Deterministic** — `formula_hash = sha256(spec)` ⇒ byte-identical PNGs
-- **Two backends** — SQLite/Postgres metadata, filesystem/S3 artifacts
-- **Batch + streaming** — Airflow DAG + Kafka/Redpanda consumer (idempotent on `render_id`)
-- **Analytics** — dbt models → Grafana dashboards (CPU-min, renders/day, storage)
-- **Live demo** — [math-render-pipeline.streamlit.app](https://math-render-pipeline.streamlit.app)
+- **Four formulas** — polar harmonics · Cartesian harmonics · moiré interference · damped Lissajous
+- **Batch + streaming** — Airflow DAG + Kafka/Redpanda consumer, idempotent on `render_id` with DLQ
+- **Data quality** — schema + freshness + volume + integrity tiers; GE-style suite
+- **Observability** — JSON logs with `correlation_id`, Prometheus `/metrics`, OpenTelemetry spans, Grafana alerts, 5 runbooks
+- **Lineage** — OpenLineage events viewable in Marquez (best-effort, no-op when unset)
+- **Benchmarked** — batch/streaming/scale/backfill + cost model ($ per 1000 renders)
+- **Multi-cloud IaC** — Terraform for AWS (S3 + RDS) and GCP (GCS + Cloud SQL)
+- **Spot batch** — AWS Batch SPOT compute env, ~70% cheaper than on-demand
+- **Live demo** — [math-render-pipeline.streamlit.app](https://math-render-pipeline-3kvjtr8gsh8rtpxsg4fwtc.streamlit.app)
 
 <div align="center">
 
